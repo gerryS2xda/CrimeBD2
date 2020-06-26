@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/library/neo4j-java-driver-4.0.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/library/reactive-streams-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/gson-2.8.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
