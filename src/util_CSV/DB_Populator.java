@@ -33,6 +33,7 @@ public class DB_Populator implements AutoCloseable {
             valuesCrime.put("lat", crime.getLat());
             valuesCrime.put("long", crime.getLong());
             valuesCrime.put("location", crime.getLocation());
+            valuesCrime.put("shooting", crime.getShooting());
 
             HashMap<String,Object> valuesDistrict= new HashMap<String,Object>();
             valuesDistrict.put("district_name", crime.getDistrict());
@@ -41,7 +42,7 @@ public class DB_Populator implements AutoCloseable {
             valuesOffense.put("offense_code", crime.getOffenseCode());
             valuesOffense.put("offense_code_group", crime.getOffenseCodeGroup());
             valuesOffense.put("offense_description", crime.getOffenseDescription());
-            valuesOffense.put("shooting", crime.getShooting());
+
 
             HashMap<String,Object> valuesStreet= new HashMap<String,Object>();
             valuesStreet.put("street_name", crime.getStreet());
@@ -75,7 +76,8 @@ public class DB_Populator implements AutoCloseable {
                     "reporting_area: $reporting_area," +
                     "lat: $lat," +
                     "long: $long," +
-                    "location: $location });",valuesCrime));
+                    "location: $location," +
+                    "shooting: $shooting});",valuesCrime));
 
             //inserisco il nodo district
             session.writeTransaction(tx -> tx.run("MERGE (d:district {district_name: $district_name});", valuesDistrict));
@@ -83,8 +85,7 @@ public class DB_Populator implements AutoCloseable {
             //inserisco il nodo offense
             session.writeTransaction(tx -> tx.run("MERGE (o:offense {offense_code: $offense_code," +
                     "offense_code_group: $offense_code_group," +
-                    "offense_description: $offense_description," +
-                    "shooting: $shooting});", valuesOffense));
+                    "offense_description: $offense_description});", valuesOffense));
 
             //inserisco il nodo street
             session.writeTransaction(tx -> tx.run("MERGE (s:street {street_name: $street_name});", valuesStreet));
