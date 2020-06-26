@@ -48,6 +48,53 @@
     <div id="result_content_page">
       <p class="result_page_name"> Query selezionata </p>
       <!-- table -->
+      <div id="tb_prod" class="table_scroll">
+        <table class="table_data">
+          <thead>
+            <tr>
+              <th> Attr1 </th>
+              <th> Attr2 </th>
+              <th> Attr3 </th>
+              <th> Attr4 </th>
+              <th> Attr5 </th>
+              <th> Attr6 </th>
+              <th> Attr7 </th>
+              <th> Attr8 </th>
+              <th> Attr9 </th>
+              <th> Attr10 </th>
+              <th> Attr11 </th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 5 </td>
+            <td> 6 </td>
+            <td> 7 </td>
+            <td> 8 </td>
+            <td> 9 </td>
+            <td> 10 </td>
+            <td> 11 </td>
+          </tr>
+          <tr>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 5 </td>
+            <td> 6 </td>
+            <td> 7 </td>
+            <td> 8 </td>
+            <td> 9 </td>
+            <td> 10 </td>
+            <td> 11 </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- grafico -->
       <div class="btn_container">
         <button type="button" id="reset_btn" class="btn_style">Reset</button>
