@@ -105,7 +105,7 @@ public class DB_Populator implements AutoCloseable {
             //inserisco arco crime street
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
                     "(s:street {street_name: $street_name})" +
-                    "MERGE (c)-[:occurred_district]->(s);", valuesOccured_street));
+                    "MERGE (c)-[:occurred_street]->(s);", valuesOccured_street));
 
             //inserisco arco crime ucr_part
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
