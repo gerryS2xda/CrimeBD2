@@ -12,10 +12,9 @@ public class Fix_CSV {
     static Logger logger=Logger.getLogger("global");
 
     public static void main(String[] args) {
-
         logger.info("INIZIO IL FIXING DEI DATI");
-        String pathORIG = "C:\\Users\\Gennaro Teodoro\\Desktop\\dataset_TXT.txt";
-        String pathDEST="C:\\Users\\Gennaro Teodoro\\Desktop\\dataset_completo.txt";
+        String pathORIG = "dataset/dataset_TXT.txt";
+        String pathDEST="dataset/dataset_completo.txt";
         Fix_CSV.fixCSV(pathORIG, pathDEST);
         logger.info("FIXING DEI DATI COMPLETATO");
     }
