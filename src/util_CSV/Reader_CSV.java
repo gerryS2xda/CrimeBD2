@@ -15,7 +15,7 @@ public class Reader_CSV {
     public static void main(String[] args) {
 
         logger.info("INIZIO LETTURA DATI");
-        ArrayList<Crime> crimini = Reader_CSV.readCSV("C:\\Users\\Gennaro Teodoro\\Desktop\\dataset_completo.txt");
+        ArrayList<Crime> crimini = Reader_CSV.readCSV("dataset/dataset_completo.txt");
 
         for(Crime temp : crimini) {
             System.out.println(temp);
