@@ -3,7 +3,16 @@
 <html>
 <head>
   <title>BPD Report</title>
+ <!--=================================================================================================-->
+  <link rel="stylesheet" type="text/css" href="css/table_bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/table_bootstrap/animate.css">
+  <link rel="stylesheet" type="text/css" href="css/table_bootstrap/select2.min.css">
+  <link rel="stylesheet" type="text/css" href="css/table_bootstrap/perfect-scrollbar.css">
+  <link rel="stylesheet" type="text/css" href="./css/table_bootstrap/util.css">
+  <link rel="stylesheet" type="text/css" href="css/table_bootstrap/main.css">
   <link type="text/css" rel="stylesheet" href="./css/indexStyle.css" />
+  <!--================================================================================================-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -42,62 +51,157 @@
         </div>
       </div>
       <div class="btn_container">
-        <button type="button" id="execute_query_btn" class="btn_style" >Esegui query</button>
+        <a href="#" id="execute_query_btn" class="myButton">Esegui query</a>
       </div>
     </div>
     <div id="result_content_page">
       <p class="result_page_name"> Query selezionata </p>
       <!-- table -->
-      <div id="tb_prod" class="table_scroll">
-        <table class="table_data">
-          <thead>
-            <tr>
-              <th> Attr1 </th>
-              <th> Attr2 </th>
-              <th> Attr3 </th>
-              <th> Attr4 </th>
-              <th> Attr5 </th>
-              <th> Attr6 </th>
-              <th> Attr7 </th>
-              <th> Attr8 </th>
-              <th> Attr9 </th>
-              <th> Attr10 </th>
-              <th> Attr11 </th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td> 1 </td>
-            <td> 2 </td>
-            <td> 3 </td>
-            <td> 4 </td>
-            <td> 5 </td>
-            <td> 6 </td>
-            <td> 7 </td>
-            <td> 8 </td>
-            <td> 9 </td>
-            <td> 10 </td>
-            <td> 11 </td>
-          </tr>
-          <tr>
-            <td> 1 </td>
-            <td> 2 </td>
-            <td> 3 </td>
-            <td> 4 </td>
-            <td> 5 </td>
-            <td> 6 </td>
-            <td> 7 </td>
-            <td> 8 </td>
-            <td> 9 </td>
-            <td> 10 </td>
-            <td> 11 </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="container-table100">
+        <div class="wrap-table100">
+          <div class="table">
+
+            <div class="row header noHover">
+              <div class="cell">
+                Full Name
+              </div>
+              <div class="cell">
+                Age
+              </div>
+              <div class="cell">
+                Job Title
+              </div>
+              <div class="cell">
+                Location
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Vincent Williamson
+              </div>
+              <div class="cell" data-title="Age">
+                31
+              </div>
+              <div class="cell" data-title="Job Title">
+                iOS Developer
+              </div>
+              <div class="cell" data-title="Location">
+                Washington
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Joseph Smith
+              </div>
+              <div class="cell" data-title="Age">
+                27
+              </div>
+              <div class="cell" data-title="Job Title">
+                Project Manager
+              </div>
+              <div class="cell" data-title="Location">
+                Somerville, MA
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Justin Black
+              </div>
+              <div class="cell" data-title="Age">
+                26
+              </div>
+              <div class="cell" data-title="Job Title">
+                Front-End Developer
+              </div>
+              <div class="cell" data-title="Location">
+                Los Angeles
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Sean Guzman
+              </div>
+              <div class="cell" data-title="Age">
+                25
+              </div>
+              <div class="cell" data-title="Job Title">
+                Web Designer
+              </div>
+              <div class="cell" data-title="Location">
+                San Francisco
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Keith Carter
+              </div>
+              <div class="cell" data-title="Age">
+                20
+              </div>
+              <div class="cell" data-title="Job Title">
+                Graphic Designer
+              </div>
+              <div class="cell" data-title="Location">
+                New York, NY
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Austin Medina
+              </div>
+              <div class="cell" data-title="Age">
+                32
+              </div>
+              <div class="cell" data-title="Job Title">
+                Photographer
+              </div>
+              <div class="cell" data-title="Location">
+                New York
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Vincent Williamson
+              </div>
+              <div class="cell" data-title="Age">
+                31
+              </div>
+              <div class="cell" data-title="Job Title">
+                iOS Developer
+              </div>
+              <div class="cell" data-title="Location">
+                Washington
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Full Name">
+                Joseph Smith
+              </div>
+              <div class="cell" data-title="Age">
+                27
+              </div>
+              <div class="cell" data-title="Job Title">
+                Project Manager
+              </div>
+              <div class="cell" data-title="Location">
+                Somerville, MA
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
       <!-- grafico -->
       <div class="btn_container">
-        <button type="button" id="reset_btn" class="btn_style">Reset</button>
+        <a href="#" id="reset_btn" class="myButton">Reset</a>
       </div>
     </div>
   </section>
@@ -105,5 +209,10 @@
   <footer> </footer>
   <script type="text/javascript" src="script/jquery-3.5.1.js"></script>
   <script type="text/javascript" src="script/query_page_script.js"></script>
+  <!--==========================================================================================-->
+  <script src="script/table_bootstrap_js/popper.js"></script>
+  <script src="script/table_bootstrap_js/bootstrap.min.js"></script>
+  <script src="script/table_bootstrap_js/select2.min.js"></script>
+  <script src="script/table_bootstrap_js/main.js"></script>
   </body>
 </html>
