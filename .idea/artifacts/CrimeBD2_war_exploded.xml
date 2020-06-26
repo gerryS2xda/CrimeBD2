@@ -8,6 +8,7 @@
           <element id="module-output" name="CrimeBD2" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
           <element id="library" level="project" name="neo4j-java-driver-4.0.1" />
         </element>
       </element>

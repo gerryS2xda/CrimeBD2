@@ -60,21 +60,19 @@ public class Fix_CSV {
             return;
         }
 
-        //Leggo gli headers
+        //Leggo gli header
         logger.info("LEGGO GLI HEADER DEL FILE CSV");
         String line= scanner.nextLine();
         logger.info("SCRIVO GLI HEADER NEL NUOVO FILE DESTINAZIONE");
         pw.println(line);
 
 
-        /*
-         * Il problema è con gli attributi che sono stringhe che contengono il carattere ,
-         * andrò quindi a prendere questi attributi e sostituire le , con i !
-         * successivamente ricompongo la stringa e sostituisco tutte le , separatrici di attributi con ;
-         * vado ad aggiustare poi gli attributi trasformando i ! in , nuovamente.
-         *
-         */
-
+      /*
+      Vengono effettuate le opportune modifiche per posizionare correttamente i caratteri separatori.
+      Il dataset presenta come caratteri separatori il carattere "," che è contenuto anche nelle stringhe di alcuni attributi,
+      vengono quindi individuate le "," contenute in questi attributi e sostituite con un carattere speciale temporaneo "!",
+      successivamente le "," vengono sostituite con un carattere separatore unico ";", infine vengono ripristinate le "," sostituendole ai "!".
+       */
         while(scanner.hasNextLine() && line != "")  {
 
             line= scanner.nextLine();
