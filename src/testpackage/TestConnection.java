@@ -9,6 +9,7 @@ public class TestConnection implements AutoCloseable {
     private final Driver driver;
 
     public TestConnection(String uri, String username, String password){
+
         driver = GraphDatabase.driver(uri, AuthTokens.basic(username,password));
     }
 
@@ -20,8 +21,7 @@ public class TestConnection implements AutoCloseable {
     public void insert(){
         try ( Session session = driver.session() ) {
 
-
-            session.writeTransaction(tx -> tx.run("MERGE (c:crime { incident_number: $x }",parameters("x",1)));
+            session.writeTransaction(tx -> tx.run("MERGE (c:crime { incident_number: $x })",parameters("x",1)));
         }
     }
 
