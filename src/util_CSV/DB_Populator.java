@@ -121,10 +121,11 @@ public class DB_Populator implements AutoCloseable {
     public static void main(String[] args){
 
         DB_Populator db_populator = new DB_Populator("bolt://localhost:7687","neo4j","root");
-        ArrayList<Crime> crimes = Reader_CSV.readCSV("dataset/dataset_completo.txt");
+        ArrayList<Crime> crimes = Reader_CSV.readCSV("dataset/dataset_completo_no_NULL.txt");
         int count = 0;
         for(Crime temp : crimes){
             db_populator.insertCrime(temp);
+            System.out.println(count);
             count++;
         }
 
