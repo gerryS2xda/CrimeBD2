@@ -19,10 +19,9 @@
   <header>
     <!-- barra di navigazione -->
   </header>
-  <section id="left_sidebar">
-
-  </section>
+  <section id="left_sidebar"> </section>
   <section id="main_content">
+    <img id="police_img" src="images/police_distintivo.png" alt="Boston Police Department" />
     <p id="main_text"> Boston Police Department Report </p>
     <div id="select_query_page">
       <div id="form_layout">
@@ -30,22 +29,114 @@
           <p class="suggest_txt">Seleziona la query da eseguire</p>
           <form action="" method="POST">
             <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="" checked="checked">
               <span class="span_txt_radio"> Query 1 </span>
               <!-- trovare suggerimenti -->
-              <select name="attr1" class="combo_box_radio">
-                <option value="val1">Value1</option>
-                <option value="val2">Value2</option>
-              </select>
+              <div class="custom-select-w3c">
+                <select>
+                  <option value="0">Select a item:</option>
+                  <option value="1">Value2</option>
+                </select>
+              </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Query 2 </span>
               <!-- trovare suggerimenti -->
-              <select name="attr1" class="combo_box_radio">
-                <option value="val1">Value1</option>
-                <option value="val2">Value2</option>
-              </select>
+              <div class="custom-select-w3c">
+                <select>
+                  <option value="0">Select a item:</option>
+                  <option value="1">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 3 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 4 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 5 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 6 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 7 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 8 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 9 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Query 10 </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select name="attr1">
+                  <option value="val1">Value1</option>
+                  <option value="val2">Value2</option>
+                </select>
+              </div>
             </div>
           </form>
         </div>
@@ -214,5 +305,6 @@
   <script src="script/table_bootstrap_js/bootstrap.min.js"></script>
   <script src="script/table_bootstrap_js/select2.min.js"></script>
   <script src="script/table_bootstrap_js/main.js"></script>
+  <script src="script/custom_select_script.js"></script>
   </body>
 </html>
