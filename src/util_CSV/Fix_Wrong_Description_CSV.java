@@ -16,7 +16,7 @@ public class Fix_Wrong_Description_CSV {
         logger.info("INIZIO IL FIXING DEI DATI");
         String pathORIG = "dataset/dataset_completo_no_NULL.txt";
         String pathDEST="dataset/dataset_completo_no_wrong_description.txt";
-        Fix_NULL_CSV.fixCSV(pathORIG, pathDEST);
+        Fix_Wrong_Description_CSV.fixCSV(pathORIG, pathDEST);
         logger.info("FIXING DEI DATI COMPLETATO");
     }
 
