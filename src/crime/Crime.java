@@ -11,7 +11,7 @@ public class Crime {
                  String dayOfWeek, int hour, String uCR_Part, String street, double lat, double l, String location) {
 
         this.incidentNumber = incidentNumber;
-        this.offenseCode = offenseCode;
+        this.offenseCode = Integer.parseInt(offenseCode);
         this.offenseCodeGroup = offenseCodeGroup;
         this.offenseDescription = offenseDescription;
         this.district = district;
@@ -33,7 +33,7 @@ public class Crime {
     public Crime(String[] attributi) {
 
         this.incidentNumber = attributi[0];
-        this.offenseCode =  attributi[1];
+        this.offenseCode =  Integer.parseInt(attributi[1]);
         this.offenseCodeGroup =  attributi[2];
         this.offenseDescription =  attributi[3];
         this.district =  attributi[4];
@@ -63,10 +63,10 @@ public class Crime {
     public void setIncidentNumber(String incidentNumber) {
         this.incidentNumber = incidentNumber;
     }
-    public String getOffenseCode() {
+    public int getOffenseCode() {
         return offenseCode;
     }
-    public void setOffenseCode(String offenseCode) {
+    public void setOffenseCode(int offenseCode) {
         this.offenseCode = offenseCode;
     }
     public String getOffenseCodeGroup() {
@@ -170,7 +170,7 @@ public class Crime {
 
     //Variabili di istanza
     private String incidentNumber;
-    private String offenseCode;
+    private int offenseCode;
     private String offenseCodeGroup;
     private String offenseDescription;
     private String district;
