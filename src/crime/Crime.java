@@ -168,6 +168,16 @@ public class Crime {
                 + UCR_Part + ", street=" + street + ", lat=" + lat + ", Long=" + Long + ", location=" + location + "]";
     }
 
+    public String toJSONString(){
+        String str = "{\"incidentNumber\": \"" + incidentNumber + "\", \"offenseCode\": " + offenseCode + ",\"offenseCodeGroup\": \"" + offenseCodeGroup +
+                "\",\"offenseDescription\": \"" + offenseDescription + "\",\"district\": \"" + district + "\",\"reportingArea\": \"" + reportingArea +
+                "\",\"shooting\": \"" + shooting + "\",\"occurredOnDate\": \"" + occurredOnDate.toString() + "\", \"year\": " + year +
+                ", \"month\": " + month + ", \"dayOfWeek\": \"" + dayOfWeek + "\", \"hour\": " + hour + ",\"UCR_Part\": \"" + UCR_Part +
+                "\", \"street\": \"" + street + "\", \"lat\": " + lat + ", \"Long\": " + Long + ",\"location\": \"" + location + "\"";
+        return str;
+    }
+
+
     //Variabili di istanza
     private String incidentNumber;
     private int offenseCode;
