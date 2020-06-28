@@ -120,10 +120,10 @@
                 </select>
               </div>
             </div>
+            <!--  REPLACE WITH INSERT QUERY
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
-              <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
                 <select placeholder="Pick a state...">
                   <option value="">Select a state...</option>
@@ -131,6 +131,7 @@
                 </select>
               </div>
             </div>
+            -->
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Verifica se vi sono incidenti/reati a distanza 3 sulla base di longitudine </span>
@@ -149,16 +150,17 @@
                   </select>
                 </div>
             </div>
+
             <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+                <input class="radio_btn_style" type="radio" name="query_sel" value="">
+                <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
+
+                <div class="custom-select-w3c">
+                  <select placeholder="Pick a state...">
+                    <option value="">Select a state...</option>
+                    <option value="1">Value2</option>
+                  </select>
+                </div>
               <span class="span_txt_radio"> e la città di </span>
               <div class="custom-select-w3c">
                 <select placeholder="Pick a state...">
@@ -180,24 +182,25 @@
       <div class="container-table100">
         <div class="wrap-table100">
           <div class="table">
-
-            <div class="row header noHover">
-              <div class="cell">
-                Full Name
-              </div>
-              <div class="cell">
-                Age
-              </div>
-              <div class="cell">
-                Job Title
-              </div>
-              <div class="cell">
-                Location
-              </div>
+            <div id="table_header" class="row header noHover">
+              <div class="cell"> Incident number </div>
+              <div class="cell"> Offense code </div>
+              <div class="cell"> Offense code group</div>
+              <div class="cell"> Offense description </div>
+              <div class="cell"> District </div>
+              <div class="cell"> Reporting area </div>
+              <div class="cell"> Shooting </div>
+              <div class="cell"> Occured on date </div>
+              <div class="cell"> UCR part </div>
+              <div class="cell"> Street </div>
+              <div class="cell"> Latitude </div>
+              <div class="cell"> Longitude </div>
+              <div class="cell"> Location </div>
             </div>
 
+          <!-- DELETE ROW
             <div class="row">
-              <div class="cell" data-title="Full Name">
+                <div class="cell" data-title="Full Name">
                 Vincent Williamson
               </div>
               <div class="cell" data-title="Age">
@@ -315,8 +318,9 @@
                 Somerville, MA
               </div>
             </div>
-
+      -->
           </div>
+
         </div>
       </div>
       <!-- grafico -->

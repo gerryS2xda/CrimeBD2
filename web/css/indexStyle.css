@@ -98,6 +98,13 @@ body{
     margin: 5%;
 }
 
+.hidetable{
+    display: none;
+}
+
+.table_body_json{
+    display: inherit;
+}
 
 /* Style tabella dei dati */
 .table_scroll{
