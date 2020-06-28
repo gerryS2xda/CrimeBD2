@@ -5,12 +5,13 @@
   <title>BPD Report</title>
  <!--=================================================================================================-->
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/animate.css">
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/select2.min.css">
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/perfect-scrollbar.css">
   <link rel="stylesheet" type="text/css" href="./css/table_bootstrap/util.css">
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/main.css">
+  <link type="text/css" rel="stylesheet" href="css/select-bootstrap3-min.css" />
   <link type="text/css" rel="stylesheet" href="./css/indexStyle.css" />
   <!--================================================================================================-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,111 +31,139 @@
           <form action="" method="POST">
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="" checked="checked">
-              <span class="span_txt_radio"> Query 1 </span>
+              <span class="span_txt_radio"> Visualizza reati/incidenti del giorno precedente </span>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Numero reati con sparatoria nell'ultimo mese avvenuti in  </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select>
-                  <option value="0">Select a item:</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
+                </select>
+              </div>
+              <span class="span_txt_radio"> nell'intervallo orario </span>
+              <div class="custom-select-w3c">
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
                   <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 2 </span>
+              <span class="span_txt_radio"> Incidenti/reati avvenuti nella città di </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select>
-                  <option value="0">Select a item:</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
                   <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 3 </span>
+              <span class="span_txt_radio"> Visualizza la categoria di incidenti/reati che avvengono maggiormente nella città di </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 4 </span>
+              <span class="span_txt_radio"> Mostra in quali giorni della settimana avvengono reati/incidenti di tipo </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
+                </select>
+              </div>
+              <span class="span_txt_radio"> nella città di  </span>
+                <div class="custom-select-w3c">
+                  <select placeholder="Pick a state...">
+                    <option value="">Select a state...</option>
+                    <option value="1">Value2</option>
+                  </select>
+                </div>
+            </div>
+            <div class="radiobtn_container">
+              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio"> Incidenti/reati avvenuti nella città di </span>
+              <!-- trovare suggerimenti -->
+              <div class="custom-select-w3c">
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
+                </select>
+              </div>
+              <span class="span_txt_radio"> nella fascia oraria </span>
+              <div class="custom-select-w3c">
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 5 </span>
+              <span class="span_txt_radio"> Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 6 </span>
+              <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 7 </span>
+              <span class="span_txt_radio"> Verifica se vi sono incidenti/reati a distanza 3 sulla base di longitudine </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
+              <span class="span_txt_radio"> e latitudine </span>
+                <div class="custom-select-w3c">
+                  <select placeholder="Pick a state...">
+                    <option value="">Select a state...</option>
+                    <option value="1">Value2</option>
+                  </select>
+                </div>
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 8 </span>
+              <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
-            </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 9 </span>
-              <!-- trovare suggerimenti -->
+              <span class="span_txt_radio"> e la città di </span>
               <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
-                </select>
-              </div>
-            </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Query 10 </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select name="attr1">
-                  <option value="val1">Value1</option>
-                  <option value="val2">Value2</option>
+                <select placeholder="Pick a state...">
+                  <option value="">Select a state...</option>
+                  <option value="1">Value2</option>
                 </select>
               </div>
             </div>
@@ -305,6 +334,7 @@
   <script src="script/table_bootstrap_js/bootstrap.min.js"></script>
   <script src="script/table_bootstrap_js/select2.min.js"></script>
   <script src="script/table_bootstrap_js/main.js"></script>
-  <script src="script/custom_select_script.js"></script>
+ <!-- <script src="script/custom_select_script.js"></script> -->
+  <script src="script/selectize-min.js"></script>
   </body>
 </html>

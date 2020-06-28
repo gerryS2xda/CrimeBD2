@@ -10,3 +10,9 @@ $("#reset_btn").click(function(){
     $("#result_content_page").hide();
 });
 
+//Other function
+$(document).ready(function () {
+    $('select').selectize({
+        sortField: 'text'
+    });
+});
