@@ -29,13 +29,13 @@
         <div id="radio_btn_container">
           <p class="suggest_txt">Seleziona la query da eseguire</p>
           <form action="" method="POST">
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="" checked="checked">
+            <div class="radiobtn_container query1">
+              <input id="query1" class="radio_btn_style" type="radio" name="query_sel" value="" checked="checked">
               <span class="span_txt_radio"> Visualizza reati/incidenti del giorno precedente </span>
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Numero reati con sparatoria nell'ultimo mese avvenuti in  </span>
+            <div class="radiobtn_container query2">
+              <input id="query2" class="radio_btn_style" type="radio" name="query_sel" value="">
+              <span class="span_txt_radio" > Numero reati con sparatoria nell'ultimo mese avvenuti in  </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
                 <select placeholder="Pick a state...">
