@@ -43,20 +43,20 @@
               <span class="span_txt_radio"> - </span>
               <input type="number" class="numberfield" name="fascia_oraria_max" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query3">
+              <input id="query3" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Incidenti/reati avvenuti nella street  </span>
               <!-- input field per street (ricerca possibile regular expression E13) -->
               <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query4">
+              <input id="query4" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Visualizza la categoria di incidenti/reati che avvengono maggiormente nella città di </span>
               <!-- input field per citta (ricerca citta possibile regular expression) -->
 
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query5">
+              <input id="query5" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
@@ -69,8 +69,8 @@
               <!-- input field per distretto (ricerca possibile regular expression E13) -->
               <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query6">
+              <input id="query6" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Incidenti/reati avvenuti nella street </span>
               <!-- input field per street (ricerca possibile regular expression E13) -->
               <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
@@ -79,8 +79,8 @@
               <span class="span_txt_radio"> - </span>
               <input type="number" class="numberfield" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
             </div>
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query7">
+              <input id="query7" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
@@ -91,8 +91,8 @@
               </div>
             </div>
             <!--  REPLACE WITH INSERT QUERY
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query8">
+              <input id="query8" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
               <div class="custom-select-w3c">
                 <select placeholder="Pick a state...">
@@ -102,16 +102,16 @@
               </div>
             </div>
             -->
-            <div class="radiobtn_container">
-              <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query9">
+              <input id="query9" class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Verifica se vi sono incidenti/reati a distanza 3 sulla base di longitudine </span>
               <input type="text" class="inputfield" placeholder="(es. longitude)">
               <span class="span_txt_radio"> e latitudine </span>
               <input type="text" class="inputfield" placeholder="(es. latitude)">
             </div>
 
-            <div class="radiobtn_container">
-                <input class="radio_btn_style" type="radio" name="query_sel" value="">
+            <div class="radiobtn_container query10">
+                <input id="query10" class="radio_btn_style" type="radio" name="query_sel" value="">
                 <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
                 <div class="custom-select-w3c">
                   <select placeholder="Pick a state...">
@@ -133,6 +133,7 @@
     </div>
     <div id="result_content_page">
       <p class="result_page_name"> Query selezionata </p>
+      <p class="noresult_p"> Nessun risultato da mostrare! </p>
       <!-- table -->
       <div class="container-table100">
         <div class="wrap-table100">

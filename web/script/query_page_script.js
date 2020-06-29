@@ -1,12 +1,15 @@
 
 //Action button
 $("#execute_query_btn").click(function(){
-
+    showResultPage();
+    /*
     if(isRequestSearch()){
         sendSearchRequest();
     }else{
         showResultPage();
     }
+    */
+
 });
 
 function showResultPage(){
@@ -19,10 +22,10 @@ function showResultPage(){
 $("#reset_btn").click(function(){
     $("#select_query_page").show();
     $("#result_content_page").hide();
-    resetTable();
+    resetResultPage();
 });
 
-function resetTable(){
+function resetResultPage(){
 
     var str = "<div id=\"table_header\" class=\"row header noHover\">" +
         "<div class=\"cell\"> Incident number </div><div class=\"cell\"> Offense code </div>" +
@@ -33,7 +36,7 @@ function resetTable(){
         "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div>\n" +
         "<div class=\"cell\"> Location </div></div>";
     $(".table").html(str);
-
+    $(".noresult_p").hide();
 }
 
 //General function
@@ -68,44 +71,54 @@ function sendRequestAndObtainResponseQuery(){
     var idquery = rbtn.attr("id"); //dammi id della query selezionata
     var d = rbtn.parent(); //dammi il padre di <input> selezionato
 
-    var s = ""; //stringa che contiene gli input dell'utente
-    var j = 1; //count dei parametri da passare alla request
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("custom-select-w3c")){ //se il figlio del <div> e' uno <div class"custom-select-w3c">...
-            s+= "param" + j  +":"  + e.children().val()+";"; //dammi il valore della <select>
-            j++;
+            a.select =  e.children().val(); //dammi il valore della <select>
         }
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            s+= "param" + j  +":"  + e.children().val()+";"; //dammi il valore della <select>
-            j++;
+            a.textfield = e.val(); //dammi il valore della <select>
         }
-        if(e.hasClass("numberfield")){ //se il figlio del <div> e' uno <input class"numberfield">...
-            s+= "param" + j  +":"  + e.children().val()+";"; //dammi il valore della <select>
-            j++;
+        if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
+            if (e.attr("fascia_oraria_min")){
+                a.numfieldmin = e.val(); //dammi il valore della <select>
+            }
+            if (e.attr("fascia_oraria_max")){
+                a.numfieldmax = e.val(); //dammi il valore della <select>
+            }
         }
+
     }
 
-    $.post("crime-contr", {"action": idquery, "input" : s}, function(resp, statTxt, xhr){
+    $.post("crime-contr", {"action": idquery, "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success"){
-
-
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
-            var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
-            var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto delle tabelle
+            if(!o.result === "noresult") {
+                var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
+                var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto delle tabelle
 
-            for(var i = 0; i < size; i++) {
-                var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'prod' dell'oggetto JS appena convertito
-                str+= "<div class=\"row\"><div class=\"cell\">"+ k.incidentNumber + "</div><div class=\"cell\">"+ k.offenseCode + "</div>" +
-                    "<div class=\"cell\">"+ k.offenseCodeGroup + "</div>" + "<div class=\"cell\">"+ k.offenseDescription + "</div>"
-                    + "<div class=\"cell\">"+ k.district + "</div>" + "<div class=\"cell\">"+ k.reportingArea + "</div>"
-                    + "<div class=\"cell\">"+ k.shooting + "</div>" + "<div class=\"cell\">"+ k.occurredOnDate + "</div>"
-                    + "<div class=\"cell\">"+ k.UCR_Part + "</div>" + "<div class=\"cell\">"+ k.street + "</div>"
-                    + "<div class=\"cell\">"+ k.lat + "</div>" + "<div class=\"cell\">"+ k.Long + "</div>" + "<div class=\"cell\">"+ k.location + "</div></div>";
+                for (var i = 0; i < size; i++) {
+                    var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'prod' dell'oggetto JS appena convertito
+                    str += "<div class=\"row\"><div class=\"cell\">" + k.incidentNumber + "</div><div class=\"cell\">" + k.offenseCode + "</div>" +
+                        "<div class=\"cell\">" + k.offenseCodeGroup + "</div>" + "<div class=\"cell\">" + k.offenseDescription + "</div>"
+                        + "<div class=\"cell\">" + k.district + "</div>" + "<div class=\"cell\">" + k.reportingArea + "</div>"
+                        + "<div class=\"cell\">" + k.shooting + "</div>" + "<div class=\"cell\">" + k.occurredOnDate + "</div>"
+                        + "<div class=\"cell\">" + k.UCR_Part + "</div>" + "<div class=\"cell\">" + k.street + "</div>"
+                        + "<div class=\"cell\">" + k.lat + "</div>" + "<div class=\"cell\">" + k.Long + "</div>" + "<div class=\"cell\">" + k.location + "</div></div>";
 
+                }
+                $("#table_header").after(str);
+                $(".container-table100").show();
+            }else{
+                $(".noresult_p").show();
             }
-            $("#table_header").after(str);
-            $(".container-table100").show();
 
         }
 

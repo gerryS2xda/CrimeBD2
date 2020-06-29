@@ -291,3 +291,7 @@ body{
     color: black;
     border-color: black;
 }
+
+.noresult_p{
+    display: none;
+}
