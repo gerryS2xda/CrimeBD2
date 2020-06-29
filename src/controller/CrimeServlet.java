@@ -34,7 +34,33 @@ public class CrimeServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         if(action.equals("search")){
+            String key = request.getParameter("key");
+            String value = request.getParameter("value");
+            boolean flag = false;
 
+            //codice per ricerca nel dataset
+
+            ArrayList<Crime> crimes = new ArrayList<Crime>();
+            crimes.add(crime);
+            crimes.add(crime2);
+            if(key!= null && value != null){
+                if(key.equals("distretto")){
+                    for(Crime c : crimes){
+                        if(c.getDistrict().equals(value)){
+                            flag = true;
+                            break;
+                        }
+                    }
+                }else if(key.equals("street")){
+                    for(Crime c : crimes){
+                        if(c.getStreet().equals(value)){
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            response.getWriter().write(json.toJson("{\"done\":" + flag + "}"));
         }
 
         if(action.equals("query1")){
@@ -56,6 +82,8 @@ public class CrimeServlet extends HttpServlet {
             response.getWriter().write(json.toJson(str));
 
         }else if(action.equals("query2")){
+            //Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto (input) nella fascia oraria (input min) - (input max)
+
 
         }else if(action.equals("query3")){
 

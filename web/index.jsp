@@ -35,47 +35,29 @@
             </div>
             <div class="radiobtn_container query2">
               <input id="query2" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio" > Numero reati con sparatoria nell'ultimo mese avvenuti in  </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
-              <span class="span_txt_radio"> nell'intervallo orario </span>
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <span class="span_txt_radio" > Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto  </span>
+              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
+              <!-- input field per distretto (ricerca possibile regular expression E13) -->
+              <span class="span_txt_radio"> nella fascia oraria </span>
+              <input type="number" class="numberfield" name="fascia_oraria_min" min="1" max="24" value="1" onblur="validateFasciaOraria($(this))">
+              <span class="span_txt_radio"> - </span>
+              <input type="number" class="numberfield" name="fascia_oraria_max" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati avvenuti nella città di </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <span class="span_txt_radio"> Incidenti/reati avvenuti nella street  </span>
+              <!-- input field per street (ricerca possibile regular expression E13) -->
+              <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Visualizza la categoria di incidenti/reati che avvengono maggiormente nella città di </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <!-- input field per citta (ricerca citta possibile regular expression) -->
+
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Mostra in quali giorni della settimana avvengono reati/incidenti di tipo </span>
+              <span class="span_txt_radio"> Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo </span>
               <!-- trovare suggerimenti -->
               <div class="custom-select-w3c">
                 <select placeholder="Pick a state...">
@@ -83,31 +65,19 @@
                   <option value="1">Value2</option>
                 </select>
               </div>
-              <span class="span_txt_radio"> nella città di  </span>
-                <div class="custom-select-w3c">
-                  <select placeholder="Pick a state...">
-                    <option value="">Select a state...</option>
-                    <option value="1">Value2</option>
-                  </select>
-                </div>
+              <span class="span_txt_radio"> nel distretto </span>
+              <!-- input field per distretto (ricerca possibile regular expression E13) -->
+              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati avvenuti nella città di </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <span class="span_txt_radio"> Incidenti/reati avvenuti nella street </span>
+              <!-- input field per street (ricerca possibile regular expression E13) -->
+              <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
               <span class="span_txt_radio"> nella fascia oraria </span>
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <input type="number" class="numberfield" min="1" max="24" value="1" onblur="validateFasciaOraria($(this))">
+              <span class="span_txt_radio"> - </span>
+              <input type="number" class="numberfield" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
             </div>
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
@@ -135,39 +105,24 @@
             <div class="radiobtn_container">
               <input class="radio_btn_style" type="radio" name="query_sel" value="">
               <span class="span_txt_radio"> Verifica se vi sono incidenti/reati a distanza 3 sulla base di longitudine </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <input type="text" class="inputfield" placeholder="(es. longitude)">
               <span class="span_txt_radio"> e latitudine </span>
-                <div class="custom-select-w3c">
-                  <select placeholder="Pick a state...">
-                    <option value="">Select a state...</option>
-                    <option value="1">Value2</option>
-                  </select>
-                </div>
+              <input type="text" class="inputfield" placeholder="(es. latitude)">
             </div>
 
             <div class="radiobtn_container">
                 <input class="radio_btn_style" type="radio" name="query_sel" value="">
                 <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
-
                 <div class="custom-select-w3c">
                   <select placeholder="Pick a state...">
                     <option value="">Select a state...</option>
-                    <option value="1">Value2</option>
+                    <option value="Part One">Part One</option>
+                    <option value="Part Two">Part Two</option>
+                    <option value="Part Three">Part Three</option>
                   </select>
                 </div>
               <span class="span_txt_radio"> e la città di </span>
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
+              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
             </div>
           </form>
         </div>

@@ -259,3 +259,35 @@ body{
 .select-items div:hover, .same-as-selected {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+/* style for input field */
+.inputfield{
+    width: 200px;
+    padding: 8px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.numberfield {
+    width: 80px;
+    padding: 8px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color : black;
+}
+
+.numberfield_err{
+    color: red;
+    border-color: red;
+}
+
+.numberfield_noerr{
+    color: black;
+    border-color: black;
+}
