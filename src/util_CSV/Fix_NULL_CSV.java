@@ -65,11 +65,8 @@ public class Fix_NULL_CSV {
         logger.info("LEGGO GLI HEADER DEL FILE CSV");
         String line= scanner.nextLine();
 
-
-
-      /*
-      Andiamo a costrurire una tabella hash contenente le coppie offense code, offense code group
-       */
+        /*Viene costruita una tabella hash contenente le coppie offense_code e offense_code_group per mappare
+        il codice con il valore corrispondente*/
         HashMap<String,String> offense = new HashMap<String,String>();
 
         while(scanner.hasNextLine() && line != "")  {
@@ -77,10 +74,10 @@ public class Fix_NULL_CSV {
             line= scanner.nextLine();
             String[] attributi= line.split(";");
 
-            //aggiusto l'offense code togliendo gli 0 davanti al numero
+            //l'offense_code viene normalizzato togliendo tutti gli 0 in eccesso dinanzi al numero effettivo
             int offense_code = Integer.parseInt(attributi[1]);
 
-            //se il valore di offense code group non è vuoto lo vado a salvare correlandolo a offense code
+            //se il valore di offense_code_group non è vuoto lo si va a salvare correlandolo a offense_code
             if(!attributi[2].equals("") && attributi[2] != null) {
                 offense.put(Integer.toString(offense_code), attributi[2]);
             }
