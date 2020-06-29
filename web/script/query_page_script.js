@@ -100,7 +100,8 @@ function sendRequestAndObtainResponseQuery(){
     $.post("crime-contr", {"action": idquery, "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success"){
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
-            if(!o.result === "noresult") {
+            var flag = o["crime0"];
+            if(flag !== "noresult"){
                 var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
                 var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto delle tabelle
 
@@ -117,6 +118,7 @@ function sendRequestAndObtainResponseQuery(){
                 $("#table_header").after(str);
                 $(".container-table100").show();
             }else{
+                $(".container-table100").hide();
                 $(".noresult_p").show();
             }
 

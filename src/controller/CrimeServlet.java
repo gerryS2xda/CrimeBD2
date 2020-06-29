@@ -107,7 +107,7 @@ public class CrimeServlet extends HttpServlet {
                 str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
                 response.getWriter().write(json.toJson(str));
             }else{
-                response.getWriter().write(json.toJson("{\"result\": \"noresult\"}"));
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
         }else if(action.equals("query4")){

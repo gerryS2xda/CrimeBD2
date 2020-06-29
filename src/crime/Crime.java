@@ -169,11 +169,26 @@ public class Crime {
     }
 
     public String toJSONString(){
-        String str = "{\"incidentNumber\": \"" + incidentNumber + "\", \"offenseCode\": " + offenseCode + ",\"offenseCodeGroup\": \"" + offenseCodeGroup +
-                "\",\"offenseDescription\": \"" + offenseDescription + "\",\"district\": \"" + district + "\",\"reportingArea\": \"" + reportingArea +
-                "\",\"shooting\": \"" + shooting + "\",\"occurredOnDate\": \"" + occurredOnDate.toString() + "\", \"year\": " + year +
-                ", \"month\": " + month + ", \"dayOfWeek\": \"" + dayOfWeek + "\", \"hour\": " + hour + ",\"UCR_Part\": \"" + UCR_Part +
-                "\", \"street\": \"" + street + "\", \"lat\": " + lat + ", \"Long\": " + Long + ",\"location\": \"" + location + "\"";
+        String fixlocation = location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
+        String fixshooting = "";
+        String fixUCR = "";
+        if(shooting.equals("\"\"")){
+            fixshooting = "\"None\"";
+        }else{
+            fixshooting = shooting;
+        }
+        if(!UCR_Part.contains("Part ")){
+            fixUCR = "\"None\"";
+        }else{
+            fixUCR = UCR_Part;
+        }
+        String str = "{\"incidentNumber\": " + incidentNumber + ", \"offenseCode\": " + offenseCode + ", \"offenseCodeGroup\": " + offenseCodeGroup +
+                ", \"offenseDescription\": " + offenseDescription + ", \"district\": " + district + ", \"reportingArea\": " + reportingArea +
+                ", \"shooting\": " + fixshooting + ", \"occurredOnDate\": \"" + occurredOnDate.toString() + "\", \"year\": " + year +
+                ", \"month\": " + month + ", \"dayOfWeek\": " + dayOfWeek + ", \"hour\": " + hour + ", \"UCR_Part\": " + fixUCR +
+                ", \"street\": " + street + ", \"lat\": " + lat + ", \"Long\": " + Long + ", \"location\": " + fixlocation + "";
+        //System.out.println(str);
+        //NB: la stringa JSON richiede che per i value string "incidentNumber": "I92097173", quindi occorre aggiungere \" (e' stato rimosso per fix)
         return str;
     }
 
