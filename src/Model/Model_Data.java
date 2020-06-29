@@ -41,24 +41,20 @@ public class Model_Data {
 
     }
 
-    public Crime query_2(){
-        Crime crime= null;
-
-        return crime;
-    }
-
-    public ArrayList<Crime> query_3(String street_name){
-
-
+    public ArrayList<Crime> query_2(String district_name, int oraInizio, int oraFine){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
-                Result result  = tx.run("match (c:crime)-[:type]->(o:offense),\n" +
-                        "(c)-[:occurred_district]->(d:district),\n" +
-                        "(c)-[:occurred_street]->(s:street),\n" +
-                        "(c)-[:UCR]->(u:UCR_part)\n" +
-                        "where s.street_name = $street_name" +
-                        " return c,o,d,s,u", parameters("district_name",street_name));
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district)," +
+                        "(c:crime)-[:occurred_street]->(s:street)," +
+                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "where c.shooting='1' AND " +
+                        "duration.between(date(c.occurred_on_date),date())<=duration(\"P1M\") AND " +
+                        "d.district_name= $district_name AND " +
+                        "c.hour>=$oraInizio AND c.hour<=$oraFine " +
+                        "return c,o,d,s,u", parameters("district_name",district_name,"oraInizio",oraInizio
+                        ,"oraFine",oraFine));
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
@@ -70,10 +66,45 @@ public class Model_Data {
         }
     }
 
-    public Crime query_4(){
-        Crime crime= null;
+    public ArrayList<Crime> query_3(String street_name){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<Crime> crimini = new ArrayList<Crime>();
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
+                        "where s.street_name = $street_name" +
+                        " return c,o,d,s,u", parameters("street_name",street_name));
+                while(result.hasNext()){
+                    Record r = result.next();
+                    Crime crime = Model_Data.buildCrime(r);
+                    System.out.println(crime);
+                    crimini.add(crime);
+                }
+                return crimini;
+            });
+        }
+    }
 
-        return crime;
+    public String query_4(String district_name){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                String offese_description= "";
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense),\n" +
+                        "(c:crime)-[:occurred_district]->(d:district)\n" +
+                        "where d.district = $district_name " +
+                        "return o.offense_description as offense_description , count(*) as times\n" +
+                        "order by times DESC\n" +
+                        "LIMIT 1", parameters("district_name",district_name));
+                while(result.hasNext()){
+                    Record r = result.next();
+                    offese_description = r.get(0).get("offense_description").asString();
+
+                }
+                return offese_description;
+            });
+        }
     }
 
     public Crime query_5(){
@@ -82,16 +113,45 @@ public class Model_Data {
         return crime;
     }
 
-    public Crime query_6(){
-        Crime crime= null;
-
-        return crime;
+    public ArrayList<Crime> query_6(String district_name, int oraInizio, int oraFine){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<Crime> crimini = new ArrayList<Crime>();
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district)," +
+                        "(c:crime)-[:occurred_street]->(s:street)," +
+                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "where d.district_name= $district_name AND c.hour>=$oraInizio AND c.hour<=$oraFine" +
+                        "return c,o,d,s,u", parameters("district_name",district_name,"oraInizio",oraInizio
+                        ,"oraFine",oraFine));
+                while(result.hasNext()){
+                    Record r = result.next();
+                    Crime crime = Model_Data.buildCrime(r);
+                    System.out.println(crime);
+                    crimini.add(crime);
+                }
+                return crimini;
+            });
+        }
     }
 
-    public Crime query_7(){
-        Crime crime= null;
-
-        return crime;
+    public int query_7(String offense_code_group){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                int hour = -1; //se resta -1 significa che non c'e la strada
+                Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district)" +
+                        "where o.offense_code_group= $offense_code_group" +
+                        "return c.hour as hour, count(*) as times " +
+                        "order by times DESC " +
+                        "LIMIT 1", parameters("offense_code_group", offense_code_group));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    hour = r.get(0).get("offense_description").asInt();
+                }
+                return hour;
+            });
+        }
     }
 
     public Crime query_8(){
@@ -106,10 +166,25 @@ public class Model_Data {
         return crime;
     }
 
-    public Crime query_10(){
-        Crime crime= null;
-
-        return crime;
+    public ArrayList<Crime> query_10(String district_name, String ucr_part){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<Crime> crimini = new ArrayList<Crime>();
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district)," +
+                        "(c:crime)-[:occurred_street]->(s:street)," +
+                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "where d.district_name=$district_name  AND u.ucr_part=$ucr_part" +
+                        "return c,o,d,s,u", parameters("district_name",district_name,"ucr_part",ucr_part));
+                while(result.hasNext()){
+                    Record r = result.next();
+                    Crime crime = Model_Data.buildCrime(r);
+                    System.out.println(crime);
+                    crimini.add(crime);
+                }
+                return crimini;
+            });
+        }
     }
 
 
