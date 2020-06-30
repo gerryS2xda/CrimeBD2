@@ -102,7 +102,7 @@ public class Fix_NULL_CSV {
             return;
         }
 
-        //Vado ora a ricostruire il dataset andando a ostituire i valori mancanti
+        //Vado ora a ricostruire il dataset andando a sostituire i valori mancanti
         logger.info("LEGGO GLI HEADER DEL FILE CSV");
         line= scanner.nextLine();
         logger.info("SCRIVO GLI HEADER NEL NUOVO FILE DESTINAZIONE");
