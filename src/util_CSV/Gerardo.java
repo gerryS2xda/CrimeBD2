@@ -68,14 +68,14 @@ public class Gerardo {
 
 
 
-        while(scanner.hasNextLine() && line != "")  {
+        while(scanner.hasNextLine() && !line.equals(""))  {
 
             line= scanner.nextLine();
             String[] attributi= line.split(";");
             String good_line;
 
             if(attributi[13].isEmpty() || attributi[13] == null){
-                break;
+                continue;
             }
             else{
                  good_line= attributi[0] +";" + attributi[1] +";" + attributi[2] +";" + attributi[3]
