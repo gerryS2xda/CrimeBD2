@@ -108,20 +108,27 @@ public class Fix_Missing_District_CSV {
         logger.info("SCRIVO GLI HEADER NEL NUOVO FILE DESTINAZIONE");
         pw.println(line);
 
+        int count=1;
         while(scanner.hasNextLine() && line != "")  {
 
             line= scanner.nextLine();
             String[] attributi= line.split(";");
 
 
+            if(street.get(attributi[13]) == null){
+             System.out.println(count);
+             count++;
+             continue;
+            }
+            else {
+                String good_line = attributi[0] + ";" + attributi[1] + ";" + attributi[2] + ";" + attributi[3]
+                        + ";" + street.get(attributi[13]) + ";" + attributi[5] + ";" + attributi[6] + ";" + attributi[7] + ";" + attributi[8]
+                        + ";" + attributi[9] + ";" + attributi[10] + ";" + attributi[11] + ";" + attributi[12] + ";" + attributi[13]
+                        + ";" + attributi[14] + ";" + attributi[15] + ";" + attributi[16];
+                pw.println(good_line);
+            }
 
-            String good_line= attributi[0] +";" + attributi[1] +";" + attributi[2] +";" + attributi[3]
-                    +";" + street.get(attributi[13]) +";" + attributi[5] +";" + attributi[6] +";" + attributi[7] +";" + attributi[8]
-                    +";" + attributi[9] +";" + attributi[10] +";" + attributi[11] +";" + attributi[12] +";" + attributi[13]
-                    +";" + attributi[14] +";" + attributi[15] +";" + attributi[16];
 
-
-            pw.println(good_line);
 
 
         }
