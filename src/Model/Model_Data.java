@@ -196,6 +196,24 @@ public class Model_Data {
         }
     }
 
+
+    public ArrayList<String> query_offense_code_group(){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<String> offense_code_group = new ArrayList<String>();
+                Result result  = tx.run("match (o:offense) return o.offense_code_group");
+                while(result.hasNext()){
+                    Record r = result.next();
+                    System.out.println(r.get(0).asString());
+                    offense_code_group.add(r.get(0).asString());
+                }
+                return offense_code_group;
+            });
+        }
+    }
+
+
+
     public  void insertCrime(Crime crime) {
         try (Session session = driver.session()) {
 
@@ -323,7 +341,7 @@ public class Model_Data {
 
     public static void main(String[] args){
         Model_Data md= new Model_Data();
-
+        md.query_offense_code_group();
     }
 
 }
