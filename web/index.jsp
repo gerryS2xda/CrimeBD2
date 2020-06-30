@@ -101,6 +101,6 @@
   <script src="script/table_bootstrap_js/select2.min.js"></script>
   <script src="script/table_bootstrap_js/main.js"></script>
   <script src="script/custom_select_script.js"></script>
-  <!--<script src="script/selectize-min.js"></script> -->
+  <script src="script/selectize-min.js"></script>
   </body>
 </html>

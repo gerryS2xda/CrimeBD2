@@ -4,7 +4,7 @@ var x, i, j, l, ll, selElmnt, a, b, c;
 x = document.getElementsByClassName("custom-select-w3c");
 l = x.length;
 for (i = 0; i < l; i++) {
-    selElmnt = x[i].getElementsByTagName("select")[0];
+    selElmnt = x[i].getElementsByClassName("cust_sel");[0];
     ll = selElmnt.length;
     /*for each element, create a new DIV that will act as the selected item:*/
     a = document.createElement("DIV");

@@ -196,16 +196,6 @@ body{
 
 /* Custom style select */
 /* The container must be positioned relative: */
-.custom-select-main{
-    font-family: Arial;
-    width: 200px;
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-    position: relative;
-    top: 8px;
-}
-
 .custom-select-w3c{
     font-family: Arial;
     width: 200px;
@@ -216,11 +206,7 @@ body{
     top: 8px;
 }
 
-.custom-select-main select{
-    display: none; /*hide original SELECT element: */
-}
-
-.custom-select-w3c select {
+.cust_sel.selectized{
     display: none; /*hide original SELECT element: */
 }
 

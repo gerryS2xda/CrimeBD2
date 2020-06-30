@@ -3,13 +3,6 @@ var optioncategory = ""; //conterra' il codice html per mostare tutte le categor
 
 
 //main function
-/*
-$(document).ready(function () {
-    $('select').selectize({
-        sortField: 'text'
-    });
-});*/
-
 $(document).ready(function(){
     $("#select_query").trigger("change");
     sendRequestForInitCategorySelect();
@@ -74,6 +67,9 @@ $("#select_query").change(function(){
     $(".query_sel_text").text(selectedText);
     $(".content_fieldset").html(createContentForFieldSet(query, selectedText));
     $(".single_result_container").hide();
+    $(".cust_sel").selectize({
+        sortField: 'text'
+    });
 });
 
 function createContentForFieldSet(querynum, selectedText){
@@ -98,7 +94,7 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 5"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div><br>" +
+            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div><br>" +
             "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
         $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo <span class=\"select_span\"> </span> nel distretto <span class=\"tf_span\"></span>");
     }
@@ -110,7 +106,7 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 7"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
+            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
             "</select></div>";
         $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo <span class=\"select_span\"> </span>");
     }
@@ -118,7 +114,7 @@ function createContentForFieldSet(querynum, selectedText){
     if(querynum === "Query 9"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label> UCR </label><div class=\"custom-select-w3c\">" +
-            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
+            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
             "<option value=\"Part One\">Part One</option><option value=\"Part Two\">Part Two</option>" +
             "<option value=\"Part Three\">Part Three</option></select></div>";
         $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span> e al distretto <span class=\"tf_span\"></span>");
