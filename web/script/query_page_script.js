@@ -53,7 +53,7 @@ function resetResultPage(){
         "<div class=\"cell\"> District </div><div class=\"cell\"> Reporting area </div>" +
         "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date </div>\n" +
         "<div class=\"cell\"> UCR part </div><div class=\"cell\"> Street </div>\n" +
-        "<div class=\"cell\"> Latitude </div></div>";
+        "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div></div>";
     $(".table").html(str);
     $(".noresult_p").hide();
     $(".single_result_container").hide();
@@ -117,7 +117,7 @@ function createContentForFieldSet(querynum, selectedText){
             "<label> UCR </label><div class=\"custom-select-w3c\">" +
             "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
             "<option value=\"Part One\">Part One</option><option value=\"Part Two\">Part Two</option>" +
-            "<option value=\"Part Three\">Part Three</option></select></div>";
+            "<option value=\"Part Three\">Part Three</option><option value=\"Other\">Other</option></select></div>";
         $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span> e al distretto <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 10"){

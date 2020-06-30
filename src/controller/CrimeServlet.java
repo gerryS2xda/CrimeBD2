@@ -151,9 +151,9 @@ public class CrimeServlet extends HttpServlet {
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             int hour = model_data.query_7(params.getSelect());
             if(hour >= 0){
-                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
-            }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": " + hour + "}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
         }else if(action.equals("Query 8")){
