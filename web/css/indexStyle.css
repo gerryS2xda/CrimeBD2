@@ -56,6 +56,7 @@ body{
     font-size: 28px;
     background-color: #2dabf9;
     text-align: center;
+    border-radius: 6px;
 }
 
 #form_layout{
@@ -96,6 +97,7 @@ body{
     background-color: #2dabf9;
     text-align: center;
     margin: 5%;
+    border-radius: 6px;
 }
 
 .hidetable{
@@ -298,6 +300,12 @@ body{
 
 .noresult_p{
     display: none;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 16px;
+    color: white;
+    margin-bottom: 16px;
+    font-weight: bold;
 }
 
 #fieldsetquery{
@@ -355,3 +363,6 @@ margin-bottom: 24px;
     display: none;
 }
 
+.content_fieldset{
+    margin-top: 16px;
+}

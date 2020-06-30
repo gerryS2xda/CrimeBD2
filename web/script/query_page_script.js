@@ -67,6 +67,7 @@ $("#select_query").change(function(){
     $(".query_sel_text").text(selectedText);
     $(".content_fieldset").html(createContentForFieldSet(query, selectedText));
     $(".single_result_container").hide();
+    $(".noresult_p").hide();
     $(".cust_sel").selectize({
         sortField: 'text'
     });
