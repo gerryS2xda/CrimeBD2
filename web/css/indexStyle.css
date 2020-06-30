@@ -196,7 +196,7 @@ body{
 
 /* Custom style select */
 /* The container must be positioned relative: */
-.custom-select-w3c{
+.custom-select-main{
     font-family: Arial;
     width: 200px;
     display: inline-block;
@@ -204,6 +204,10 @@ body{
     margin-right: 10px;
     position: relative;
     top: 8px;
+}
+
+.custom-select-main select{
+    display: none; /*hide original SELECT element: */
 }
 
 .custom-select-w3c select {
@@ -263,7 +267,7 @@ body{
 /* style for input field */
 .inputfield{
     width: 200px;
-    padding: 8px 16px;
+    padding: 6px 16px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -273,7 +277,7 @@ body{
 
 .numberfield {
     width: 80px;
-    padding: 8px 16px;
+    padding: 6px 16px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -294,4 +298,56 @@ body{
 
 .noresult_p{
     display: none;
+}
+
+#fieldsetquery{
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+}
+
+.query_legend{
+    display: block;
+    font-size: 18px;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    width: auto;
+    /* max-width: 100%; */
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+}
+
+.query_sel_text{
+font-size: 24px;
+}
+
+.query_text_for_result{
+display: none;
+}
+
+label{
+font-size: 18px;
+margin-right: 20px;
+}
+
+#select_query{
+margin-top: 24px;
+margin-bottom: 24px;
 }

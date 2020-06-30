@@ -274,11 +274,12 @@ th {
   text-align: left;
 }
 
+/*
 label {
   display: inline-block;
   margin-bottom: .5rem;
 }
-
+*/
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -342,6 +343,7 @@ textarea {
   resize: vertical;
 }
 
+/*
 fieldset {
   min-width: 0;
   padding: 0;
@@ -360,7 +362,7 @@ legend {
   color: inherit;
   white-space: normal;
 }
-
+*/
 progress {
   vertical-align: baseline;
 }
@@ -1991,8 +1993,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   background-image: none;
 }
 
-a.btn.disabled,
-fieldset[disabled] a.btn {
+a.btn.disabled{
   pointer-events: none;
 }
 

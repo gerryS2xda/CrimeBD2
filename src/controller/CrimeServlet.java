@@ -67,7 +67,7 @@ public class CrimeServlet extends HttpServlet {
             response.getWriter().write(json.toJson("{\"done\":" + flag + "}"));
         }
 */
-        if(action.equals("query1")){
+        if(action.equals("Query 1")){
             //Visualizza reati/incidenti del giorno precedente
             //LocalDateTime yesterdayDate = LocalDateTime.now().minusDays(1);
 
@@ -85,11 +85,11 @@ public class CrimeServlet extends HttpServlet {
             str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
             response.getWriter().write(json.toJson(str));
 
-        }else if(action.equals("query2")){
+        }else if(action.equals("Query 2")){
             //Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto (input) nella fascia oraria (input min) - (input max)
 
 
-        }else if(action.equals("query3")){
+        }else if(action.equals("Query 3")){
             //Incidenti/reati avvenuti nella street
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             ArrayList<Crime> crimes = new ArrayList<Crime>();
@@ -110,19 +110,19 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
-        }else if(action.equals("query4")){
+        }else if(action.equals("Query 4")){
 
-        }else if(action.equals("query5")){
+        }else if(action.equals("Query 5")){
 
-        }else if(action.equals("query6")){
+        }else if(action.equals("Query 6")){
 
-        }else if(action.equals("query7")){
+        }else if(action.equals("Query 7")){
 
-        }else if(action.equals("query8")){
+        }else if(action.equals("Query 8")){
 
-        }else if(action.equals("query9")){
+        }else if(action.equals("Query 9")){
 
-        }else if(action.equals("query10")){
+        }else if(action.equals("Query 10")){
 
         }
 

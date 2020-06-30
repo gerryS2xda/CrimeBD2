@@ -1,4 +1,15 @@
 
+/*
+$(document).ready(function () {
+    $('select').selectize({
+        sortField: 'text'
+    });
+});*/
+
+$(document).ready(function(){
+    $("#select_query").trigger("change");
+});
+
 //Action button
 $("#execute_query_btn").click(function(){
     showResultPage();
@@ -39,36 +50,116 @@ function resetResultPage(){
 }
 
 //General function
+$("#select_query").change(function(){
+    var query = $(this).val(); //dammi il contenuto di value della select
+    var selectedText = $("#select_query option:selected").html();
+    $(".query_legend").text(query);
+    $(".query_sel_text").text(selectedText);
+    $(".content_fieldset").html(createContentForFieldSet(query, selectedText));
+});
+
+function createContentForFieldSet(querynum, selectedText){
+    var str = "";
+    if(querynum === "Query 1"){
+        str+= "<p class=\"label_p\"> Nessun input richiesto </p>";
+        $(".query_text_for_result").html(selectedText);
+    }
+    if(querynum === "Query 2"){
+        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"1\" onblur=\"validateFasciaOraria($(this))\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"2\" onblur=\"validateFasciaOraria($(this))\">";
+        $(".query_text_for_result").html("Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto <span class=\"tf_span\"></span> e in una data fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>");
+    }
+    if(querynum === "Query 3"){
+        str+="<label>Street</label><input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\">"
+        $(".query_text_for_result").html("Incidenti/reati avvenuti nella street <span class=\"tf_span\"></span>");
+    }
+    if(querynum === "Query 4"){
+        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
+        $(".query_text_for_result").html("Visualizza la categoria di incidenti/reati che avvengono maggiormente nel distretto <span class=\"tf_span\"></span>");
+    }
+    if(querynum === "Query 5"){
+        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
+        $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo <span class=\"select_span\"> </span> nel distretto <span class=\"tf_span\"></span>");
+    }
+    if(querynum === "Query 6"){
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\"> <br>" +
+            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"1\" onblur=\"validateFasciaOraria($(this))\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"2\" onblur=\"validateFasciaOraria($(this))\">";
+        $(".query_text_for_result").html("Incidenti/reati avvenuti nella street <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"");
+    }
+    if(querynum === "Query 7"){
+        str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
+            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
+            "<option value=\"1\">Value2</option></select></div>";
+        $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo <span class=\"select_span\"> </span>");
+    }
+    //query 8 -> Insert
+    if(querynum === "Query 9"){
+        str+= "<label> UCR </label><div class=\"custom-select-w3c\">" +
+            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
+            "<option value=\"Part One\">Part One</option><option value=\"Part Two\">Part Two</option>" +
+            "<option value=\"Part Three\">Part Three</option></select></div>";
+        $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span>");
+    }
+    if(querynum === "Query 10"){
+        str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
+        $(".query_text_for_result").html("Cancellazione mediante inserimento dell'Incident number <span class=\"tf_span\"></span>");
+    }
+    return str;
+}
 
 //function per costruire e settare la stringa relativa alla query selezionata
 function createAndSetQuerySelectString(){
-    var rbtn = $(":checked"); //prendi tutti gli element "checked" (es. un radio button)
-    var idquery = rbtn.attr("id"); //dammi id della query selezionata
-    var d = rbtn.parent(); //dammi il padre di <input> selezionato
 
-    var s = "";
-    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+    var qr = $(".query_text_for_result").children(); //dammi tutti i figli di tale <span> per creare la stringa
+
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <fieldset> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
-        if(e.hasClass("span_txt_radio")){  //se il figlio del <div> e' uno <span class"span_txt_radio">...
-            s+= "" + e.text();
-        }
+        alert("E: " + e.attr("class"));
         if(e.hasClass("custom-select-w3c")){ //se il figlio del <div> e' uno <div class"custom-select-w3c">...
-            s+= "" + e.children().val(); //dammi il valore della <select>
+            for(var j=0; j< qr.length; j++){
+                var f = qr.eq(j); //cerca <span class="tf_span">...
+                if(f.hasClass("select_span")){
+                    f.text(e.children().val()); //dammi il valore della <select>
+                }
+            }
         }
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            s+= "" + e.val(); //dammi il valore della <select>
+            for(var j=0; j< qr.length; j++){
+                var f = qr.eq(j); //cerca <span class="tf_span">...
+                if(f.hasClass("tf_span")){
+                    f.text(e.val()); //dammi il valore della <input>
+                }
+            }
         }
         if(e.hasClass("numberfield")){ //se il figlio del <div> e' uno <input class"numberfield">...
-            s+= "" + e.val(); //dammi il valore della <select>
+            if (e.attr("fascia_oraria_min")) {
+                for (var j = 0; j < qr.length; j++) {
+                    var f = qr.eq(j); //cerca <span class="district_tf">...
+                    if (f.hasClass("fascia_or_nm_min")) {
+                        f.text(e.val()); //dammi il valore della <input>
+                    }
+                }
+            }else if (e.attr("fascia_oraria_max")){
+                for (var j = 0; j < qr.length; j++) {
+                    var f = qr.eq(j); //cerca <span class="district_tf">...
+                    if (f.hasClass("fascia_or_nm_max")) {
+                        f.text(e.val()); //dammi il valore della <input>
+                    }
+                }
+            }
         }
+
     }
-    $(".result_page_name").text(s);
+    $(".result_page_name").text($(".query_text_for_result").text());
 }
 
 function sendRequestAndObtainResponseQuery(){
-    var rbtn = $(":checked"); //prendi tutti gli element "checked" (es. un radio button)
-    var idquery = rbtn.attr("id"); //dammi id della query selezionata
-    var d = rbtn.parent(); //dammi il padre di <input> selezionato
+
+    var idquery = $(".query_legend").text(); //dammi id della query selezionata
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
 
     var a = new Object();
     a.select = "";
@@ -199,13 +290,6 @@ function validateFasciaOraria(item){
     }
     return val;
 }
-
-//Other function
-$(document).ready(function () {
-    $('select').selectize({
-        sortField: 'text'
-    });
-});
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */

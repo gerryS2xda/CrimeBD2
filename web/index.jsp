@@ -29,101 +29,29 @@
         <div id="radio_btn_container">
           <p class="suggest_txt">Seleziona la query da eseguire</p>
           <form action="" method="POST">
-            <div class="radiobtn_container query1">
-              <input id="query1" class="radio_btn_style" type="radio" name="query_sel" value="" checked="checked">
-              <span class="span_txt_radio"> Visualizza reati/incidenti del giorno precedente </span>
-            </div>
-            <div class="radiobtn_container query2">
-              <input id="query2" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio" > Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto  </span>
-              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
-              <!-- input field per distretto (ricerca possibile regular expression E13) -->
-              <span class="span_txt_radio"> nella fascia oraria </span>
-              <input type="number" class="numberfield" name="fascia_oraria_min" min="1" max="24" value="1" onblur="validateFasciaOraria($(this))">
-              <span class="span_txt_radio"> - </span>
-              <input type="number" class="numberfield" name="fascia_oraria_max" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
-            </div>
-            <div class="radiobtn_container query3">
-              <input id="query3" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati avvenuti nella street  </span>
-              <!-- input field per street (ricerca possibile regular expression E13) -->
-              <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
-            </div>
-            <div class="radiobtn_container query4">
-              <input id="query4" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Visualizza la categoria di incidenti/reati che avvengono maggiormente nella città di </span>
-              <!-- input field per citta (ricerca citta possibile regular expression) -->
 
-            </div>
-            <div class="radiobtn_container query5">
-              <input id="query5" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
-              <span class="span_txt_radio"> nel distretto </span>
-              <!-- input field per distretto (ricerca possibile regular expression E13) -->
-              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
-            </div>
-            <div class="radiobtn_container query6">
-              <input id="query6" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati avvenuti nella street </span>
-              <!-- input field per street (ricerca possibile regular expression E13) -->
-              <input type="text" class="inputfield" name="street" placeholder="(es. GIBSON ST)">
-              <span class="span_txt_radio"> nella fascia oraria </span>
-              <input type="number" class="numberfield" min="1" max="24" value="1" onblur="validateFasciaOraria($(this))">
-              <span class="span_txt_radio"> - </span>
-              <input type="number" class="numberfield" min="1" max="24" value="2" onblur="validateFasciaOraria($(this))">
-            </div>
-            <div class="radiobtn_container query7">
-              <input id="query7" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo </span>
-              <!-- trovare suggerimenti -->
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
-            </div>
-            <!--  REPLACE WITH INSERT QUERY
-            <div class="radiobtn_container query8">
-              <input id="query8" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
-              <div class="custom-select-w3c">
-                <select placeholder="Pick a state...">
-                  <option value="">Select a state...</option>
-                  <option value="1">Value2</option>
-                </select>
-              </div>
-            </div>
-            -->
-            <div class="radiobtn_container query9">
-              <input id="query9" class="radio_btn_style" type="radio" name="query_sel" value="">
-              <span class="span_txt_radio"> Verifica se vi sono incidenti/reati a distanza 3 sulla base di longitudine </span>
-              <input type="text" class="inputfield" placeholder="(es. longitude)">
-              <span class="span_txt_radio"> e latitudine </span>
-              <input type="text" class="inputfield" placeholder="(es. latitude)">
-            </div>
+              <select id="select_query" name="select_query">
+                <option value="Query 1"> Visualizza reati/incidenti del giorno precedente </option>
+                <option value="Query 2"> Numero reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
+                <option value="Query 3"> Incidenti/reati avvenuti in una determinata street </option>
+                <option value="Query 4"> Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
+                <option value="Query 5"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
+                <option value="Query 6"> Incidenti/reati avvenuti in una determinata street e in una data fascia oraria </option>
+                <option value="Query 7"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
+                <!--<option value="Query 8"> Incidenti/reati avvenuti in una determinata street x nella fascia oraria y </option> -->
+                <option value="Query 9"> Incidenti/reati in base al valore di UCR </option>
+                <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
+                <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente </option>
+                <option value="Query 12"> Mostra la percentuale di reati avvenuti in un distretto </option>
+                <option value="Query 13"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
+              </select>
 
-            <div class="radiobtn_container query10">
-                <input id="query10" class="radio_btn_style" type="radio" name="query_sel" value="">
-                <span class="span_txt_radio"> Incidenti/reati in base al valore di UCR </span>
-                <div class="custom-select-w3c">
-                  <select placeholder="Pick a state...">
-                    <option value="">Select a state...</option>
-                    <option value="Part One">Part One</option>
-                    <option value="Part Two">Part Two</option>
-                    <option value="Part Three">Part Three</option>
-                  </select>
-                </div>
-              <span class="span_txt_radio"> e la città di </span>
-              <input type="text" class="inputfield" name="distretto" placeholder="(es. E13)">
-            </div>
+            <fieldset id="fieldsetquery">
+              <legend class="query_legend"> Query x</legend>
+              <p class="query_sel_text"> Title </p>
+              <div class="content_fieldset"></div>
+              <span class="query_text_for_result"></span>
+            </fieldset>
           </form>
         </div>
       </div>
@@ -294,7 +222,7 @@
   <script src="script/table_bootstrap_js/bootstrap.min.js"></script>
   <script src="script/table_bootstrap_js/select2.min.js"></script>
   <script src="script/table_bootstrap_js/main.js"></script>
- <!-- <script src="script/custom_select_script.js"></script> -->
-  <script src="script/selectize-min.js"></script>
+  <script src="script/custom_select_script.js"></script>
+  <!--<script src="script/selectize-min.js"></script> -->
   </body>
 </html>
