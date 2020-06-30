@@ -174,29 +174,8 @@ public class Model_Data {
         md.insertCrime(crime);
     }
 
-    public ArrayList<Crime> query_9(int lat, int longit){
-        try ( Session session = driver.session() ) {
-            return session.readTransaction(tx -> {
-                ArrayList<Crime> crimini = new ArrayList<Crime>();
-                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)," +
-                        "(c:crime)-[:occurred_street]->(s:street)," +
-                        "(c:crime)-[:UCR]->(u:UCR_part) " +
-                        "where (c.lat <= $lat +3 AND c.lat >= $lat - 3) AND (c.long <= $longit +3 AND c.long >= $longit - 3) " +
-                        "return c,o,d,s,u", parameters("lat",lat,"longit",longit));
-                while(result.hasNext()){
-                    Record r = result.next();
-                    Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
-                    crimini.add(crime);
-                }
-                return crimini;
-            });
-        }
-    }
 
-
-    public ArrayList<Crime> query_10(String district_name, String ucr_part){
+    public ArrayList<Crime> query_9(String district_name, String ucr_part){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
@@ -344,7 +323,7 @@ public class Model_Data {
 
     public static void main(String[] args){
         Model_Data md= new Model_Data();
-        md.query_10("B2","Part One");
+
     }
 
 }
