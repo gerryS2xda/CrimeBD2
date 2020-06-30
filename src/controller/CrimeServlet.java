@@ -36,58 +36,44 @@ public class CrimeServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
 
-        /*
-        if(action.equals("search")){
-            String key = request.getParameter("key");
-            String value = request.getParameter("value");
-            boolean flag = false;
-
-            //codice per ricerca nel dataset
-
-            ArrayList<Crime> crimes = new ArrayList<Crime>();
-            crimes.add(crime);
-            crimes.add(crime2);
-            if(key!= null && value != null){
-                if(key.equals("distretto")){
-                    for(Crime c : crimes){
-                        if(c.getDistrict().equals(value)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }else if(key.equals("street")){
-                    for(Crime c : crimes){
-                        if(c.getStreet().equals(value)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            response.getWriter().write(json.toJson("{\"done\":" + flag + "}"));
-        }
-*/
         if(action.equals("Query 1")){
             //Visualizza reati/incidenti del giorno precedente
             //LocalDateTime yesterdayDate = LocalDateTime.now().minusDays(1);
-
-            String str = "{";
             ArrayList<Crime> crimes = new ArrayList<Crime>();
-            crimes.add(crime);
-            crimes.add(crime2);
-
-            int i = 0;
-            for(Crime c : crimes) {
-                str += "\"crime"+i +"\":" + c.toJSONString();
-                str+= "},";
-                i++;
+            crimes = model_data.query_1();
+            if(crimes.size() > 0){
+                String str = "{";
+                int i = 0;
+                for(Crime c : crimes) {
+                    str += "\"crime"+i +"\":" + c.toJSONString();
+                    str+= "},";
+                    i++;
+                }
+                str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+                response.getWriter().write(json.toJson(str));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
-            str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
-            response.getWriter().write(json.toJson(str));
-
         }else if(action.equals("Query 2")){
-            //Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto (input) nella fascia oraria (input min) - (input max)
-
+            //Reati con sparatoria nell'ultimo mese avvenuti nel distretto (input) nella fascia oraria (input min) - (input max)
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            ArrayList<Crime> crimes = new ArrayList<Crime>();
+            if(!params.getTextfield().equals("")) {
+                crimes = model_data.query_2(params.getTextfield(), params.getNumfieldmin(), params.getNumfieldmax());
+            }
+            if(crimes.size() > 0){
+                String str = "{";
+                int i = 0;
+                for(Crime c : crimes) {
+                    str += "\"crime"+i +"\":" + c.toJSONString();
+                    str+= "},";
+                    i++;
+                }
+                str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+                response.getWriter().write(json.toJson(str));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
 
         }else if(action.equals("Query 3")){
             //Incidenti/reati avvenuti nella street
@@ -111,18 +97,89 @@ public class CrimeServlet extends HttpServlet {
             }
 
         }else if(action.equals("Query 4")){
+            //Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            String category = model_data.query_4(params.getTextfield());
+            if(category.equals("")){
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + category + "\"}"));
+            }
 
         }else if(action.equals("Query 5")){
+            //Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            String day_of_week = model_data.query_5(params.getTextfield(), params.getSelect());
+            if(day_of_week.equals("")){
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + day_of_week + "\"}"));
+            }
 
         }else if(action.equals("Query 6")){
+            //Incidenti/reati avvenuti in una determinata street e in una data fascia oraria
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            ArrayList<Crime> crimes = new ArrayList<Crime>();
+            if(!params.getTextfield().equals("")) {
+                crimes = model_data.query_6(params.getTextfield(), params.getNumfieldmin(), params.getNumfieldmax());
+            }
+            if(crimes.size() > 0){
+                String str = "{";
+                int i = 0;
+                for(Crime c : crimes) {
+                    str += "\"crime"+i +"\":" + c.toJSONString();
+                    str+= "},";
+                    i++;
+                }
+                str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+                response.getWriter().write(json.toJson(str));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
 
         }else if(action.equals("Query 7")){
+            //Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            int hour = model_data.query_7(params.getSelect());
+            if(hour >= 0){
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": " + hour + "}"));
+            }
 
         }else if(action.equals("Query 8")){
+            //Inserimento di un incidente/reato
+
 
         }else if(action.equals("Query 9")){
+            //Incidenti/reati in base al valore di UCR e alla street
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
+            ArrayList<Crime> crimes = new ArrayList<Crime>();
+            if(!params.getTextfield().equals("")) {
+                crimes = model_data.query_9(params.getTextfield(), params.getSelect());
+            }
+            if(crimes.size() > 0){
+                String str = "{";
+                int i = 0;
+                for(Crime c : crimes) {
+                    str += "\"crime"+i +"\":" + c.toJSONString();
+                    str+= "},";
+                    i++;
+                }
+                str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+                response.getWriter().write(json.toJson(str));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
+
 
         }else if(action.equals("Query 10")){
+
+        }else if(action.equals("Query 11")){
+
+        }else if(action.equals("Query 12")){
+
+        }else if(action.equals("Query 13")){
 
         }
 

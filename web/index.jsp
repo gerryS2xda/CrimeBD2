@@ -32,14 +32,14 @@
 
               <select id="select_query" name="select_query">
                 <option value="Query 1"> Visualizza reati/incidenti del giorno precedente </option>
-                <option value="Query 2"> Numero reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
+                <option value="Query 2"> Reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
                 <option value="Query 3"> Incidenti/reati avvenuti in una determinata street </option>
                 <option value="Query 4"> Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
                 <option value="Query 5"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
-                <option value="Query 6"> Incidenti/reati avvenuti in una determinata street e in una data fascia oraria </option>
+                <option value="Query 6"> Incidenti/reati avvenuti in una determinato distretto e in una data fascia oraria </option>
                 <option value="Query 7"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
-                <!--<option value="Query 8"> Incidenti/reati avvenuti in una determinata street x nella fascia oraria y </option> -->
-                <option value="Query 9"> Incidenti/reati in base al valore di UCR </option>
+                <!--<option value="Query 8"> Inserimento di un incidente/reato </option> -->
+                <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente </option>
                 <option value="Query 12"> Mostra la percentuale di reati avvenuti in un distretto </option>
@@ -50,7 +50,9 @@
               <legend class="query_legend"> Query x</legend>
               <p class="query_sel_text"> Title </p>
               <div class="content_fieldset"></div>
-              <span class="query_text_for_result"></span>
+              <div class="single_result_container"></div>
+              <p class="noresult_p"> Nessun risultato da mostrare! </p>
+              <span class="query_text_for_result"></span> <!-- hide content for utility -->
             </fieldset>
           </form>
         </div>
@@ -61,7 +63,6 @@
     </div>
     <div id="result_content_page">
       <p class="result_page_name"> Query selezionata </p>
-      <p class="noresult_p"> Nessun risultato da mostrare! </p>
       <!-- table -->
       <div class="container-table100">
         <div class="wrap-table100">
@@ -74,135 +75,12 @@
               <div class="cell"> District </div>
               <div class="cell"> Reporting area </div>
               <div class="cell"> Shooting </div>
-              <div class="cell"> Occured on date </div>
+              <div class="cell"> Date </div>
               <div class="cell"> UCR part </div>
               <div class="cell"> Street </div>
               <div class="cell"> Latitude </div>
               <div class="cell"> Longitude </div>
-              <div class="cell"> Location </div>
             </div>
-
-          <!-- DELETE ROW
-            <div class="row">
-                <div class="cell" data-title="Full Name">
-                Vincent Williamson
-              </div>
-              <div class="cell" data-title="Age">
-                31
-              </div>
-              <div class="cell" data-title="Job Title">
-                iOS Developer
-              </div>
-              <div class="cell" data-title="Location">
-                Washington
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Joseph Smith
-              </div>
-              <div class="cell" data-title="Age">
-                27
-              </div>
-              <div class="cell" data-title="Job Title">
-                Project Manager
-              </div>
-              <div class="cell" data-title="Location">
-                Somerville, MA
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Justin Black
-              </div>
-              <div class="cell" data-title="Age">
-                26
-              </div>
-              <div class="cell" data-title="Job Title">
-                Front-End Developer
-              </div>
-              <div class="cell" data-title="Location">
-                Los Angeles
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Sean Guzman
-              </div>
-              <div class="cell" data-title="Age">
-                25
-              </div>
-              <div class="cell" data-title="Job Title">
-                Web Designer
-              </div>
-              <div class="cell" data-title="Location">
-                San Francisco
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Keith Carter
-              </div>
-              <div class="cell" data-title="Age">
-                20
-              </div>
-              <div class="cell" data-title="Job Title">
-                Graphic Designer
-              </div>
-              <div class="cell" data-title="Location">
-                New York, NY
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Austin Medina
-              </div>
-              <div class="cell" data-title="Age">
-                32
-              </div>
-              <div class="cell" data-title="Job Title">
-                Photographer
-              </div>
-              <div class="cell" data-title="Location">
-                New York
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Vincent Williamson
-              </div>
-              <div class="cell" data-title="Age">
-                31
-              </div>
-              <div class="cell" data-title="Job Title">
-                iOS Developer
-              </div>
-              <div class="cell" data-title="Location">
-                Washington
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="cell" data-title="Full Name">
-                Joseph Smith
-              </div>
-              <div class="cell" data-title="Age">
-                27
-              </div>
-              <div class="cell" data-title="Job Title">
-                Project Manager
-              </div>
-              <div class="cell" data-title="Location">
-                Somerville, MA
-              </div>
-            </div>
-      -->
           </div>
 
         </div>

@@ -12,23 +12,12 @@ $(document).ready(function(){
 
 //Action button
 $("#execute_query_btn").click(function(){
-    showResultPage();
-    /*
-    if(isRequestSearch()){
-        sendSearchRequest();
-    }else{
-        showResultPage();
-    }
-    */
-
-});
-
-function showResultPage(){
-    $("#select_query_page").hide();
-    $("#result_content_page").show();
     createAndSetQuerySelectString();
     sendRequestAndObtainResponseQuery();
-}
+    $(".noresult_p").hide();
+    $(".single_result_container").hide();
+
+});
 
 $("#reset_btn").click(function(){
     $("#select_query_page").show();
@@ -42,11 +31,12 @@ function resetResultPage(){
         "<div class=\"cell\"> Incident number </div><div class=\"cell\"> Offense code </div>" +
         "<div class=\"cell\"> Offense code group</div><div class=\"cell\"> Offense description </div>" +
         "<div class=\"cell\"> District </div><div class=\"cell\"> Reporting area </div>" +
-        "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Occured on date </div>\n" +
+        "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date </div>\n" +
         "<div class=\"cell\"> UCR part </div><div class=\"cell\"> Street </div>\n" +
-        "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div></div>";
+        "<div class=\"cell\"> Latitude </div></div>";
     $(".table").html(str);
     $(".noresult_p").hide();
+    $(".single_result_container").hide();
 }
 
 //General function
@@ -56,6 +46,7 @@ $("#select_query").change(function(){
     $(".query_legend").text(query);
     $(".query_sel_text").text(selectedText);
     $(".content_fieldset").html(createContentForFieldSet(query, selectedText));
+    $(".single_result_container").hide();
 });
 
 function createContentForFieldSet(querynum, selectedText){
@@ -66,9 +57,9 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 2"){
         str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"1\" onblur=\"validateFasciaOraria($(this))\"> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"2\" onblur=\"validateFasciaOraria($(this))\">";
-        $(".query_text_for_result").html("Numero reati con sparatoria nell'ultimo mese avvenuti nel distretto <span class=\"tf_span\"></span> e in una data fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>");
+            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\" onblur=\"validateFasciaOraria($(this))\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\" onblur=\"validateFasciaOraria($(this))\">";
+        $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto <span class=\"tf_span\"></span> e in una data fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>");
     }
     if(querynum === "Query 3"){
         str+="<label>Street</label><input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\">"
@@ -83,10 +74,10 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo <span class=\"select_span\"> </span> nel distretto <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 6"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\"> <br>" +
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"1\" onblur=\"validateFasciaOraria($(this))\"> - " +
             "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"2\" onblur=\"validateFasciaOraria($(this))\">";
-        $(".query_text_for_result").html("Incidenti/reati avvenuti nella street <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"");
+        $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"");
     }
     if(querynum === "Query 7"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
@@ -96,11 +87,12 @@ function createContentForFieldSet(querynum, selectedText){
     }
     //query 8 -> Insert
     if(querynum === "Query 9"){
-        str+= "<label> UCR </label><div class=\"custom-select-w3c\">" +
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+            "<label> UCR </label><div class=\"custom-select-w3c\">" +
             "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
             "<option value=\"Part One\">Part One</option><option value=\"Part Two\">Part Two</option>" +
             "<option value=\"Part Three\">Part Three</option></select></div>";
-        $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span>");
+        $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span> e al distretto <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 10"){
         str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
@@ -117,7 +109,6 @@ function createAndSetQuerySelectString(){
 
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <fieldset> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
-        alert("E: " + e.attr("class"));
         if(e.hasClass("custom-select-w3c")){ //se il figlio del <div> e' uno <div class"custom-select-w3c">...
             for(var j=0; j< qr.length; j++){
                 var f = qr.eq(j); //cerca <span class="tf_span">...
@@ -135,14 +126,14 @@ function createAndSetQuerySelectString(){
             }
         }
         if(e.hasClass("numberfield")){ //se il figlio del <div> e' uno <input class"numberfield">...
-            if (e.attr("fascia_oraria_min")) {
+            if (e.attr("name") === "fascia_oraria_min") {
                 for (var j = 0; j < qr.length; j++) {
                     var f = qr.eq(j); //cerca <span class="district_tf">...
                     if (f.hasClass("fascia_or_nm_min")) {
                         f.text(e.val()); //dammi il valore della <input>
                     }
                 }
-            }else if (e.attr("fascia_oraria_max")){
+            }else if (e.attr("name") === "fascia_oraria_max"){
                 for (var j = 0; j < qr.length; j++) {
                     var f = qr.eq(j); //cerca <span class="district_tf">...
                     if (f.hasClass("fascia_or_nm_max")) {
@@ -177,10 +168,10 @@ function sendRequestAndObtainResponseQuery(){
             a.textfield = e.val(); //dammi il valore della <select>
         }
         if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
-            if (e.attr("fascia_oraria_min")){
+            if (e.attr("name") === "fascia_oraria_min"){
                 a.numfieldmin = e.val(); //dammi il valore della <select>
             }
-            if (e.attr("fascia_oraria_max")){
+            if (e.attr("name") === "fascia_oraria_max"){
                 a.numfieldmax = e.val(); //dammi il valore della <select>
             }
         }
@@ -191,7 +182,9 @@ function sendRequestAndObtainResponseQuery(){
         if(xhr.readyState == 4 && statTxt == "success"){
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
             var flag = o["crime0"];
-            if(flag !== "noresult"){
+            if(flag === "oneresult"){
+                createSingleResultContent(o["crime1"]);
+            }else if(flag !== "noresult"){
                 var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
                 var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto delle tabelle
 
@@ -207,6 +200,10 @@ function sendRequestAndObtainResponseQuery(){
                 }
                 $("#table_header").after(str);
                 $(".container-table100").show();
+
+                //mostra la result page solo per la table (per ora)
+                $("#select_query_page").hide();
+                $("#result_content_page").show();
             }else{
                 $(".container-table100").hide();
                 $(".noresult_p").show();
@@ -215,6 +212,12 @@ function sendRequestAndObtainResponseQuery(){
         }
 
     });
+}
+
+function createSingleResultContent(item){
+    $(".single_result_container").show();
+    var str = "<label>Risultato </label> <input type=\"text\" class=\"inputfield\" name=\"result\" disabled value=\"" + item +"\">";
+    $(".single_result_container").html(str);
 }
 
 function isRequestSearch(){

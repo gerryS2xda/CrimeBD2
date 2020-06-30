@@ -206,6 +206,16 @@ body{
     top: 8px;
 }
 
+.custom-select-w3c{
+    font-family: Arial;
+    width: 200px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    top: 8px;
+}
+
 .custom-select-main select{
     display: none; /*hide original SELECT element: */
 }
@@ -266,13 +276,17 @@ body{
 
 /* style for input field */
 .inputfield{
-    width: 200px;
+    width: 300px;
     padding: 6px 16px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.inputfield:disabled{
+    color: white;
 }
 
 .numberfield {
@@ -328,7 +342,6 @@ body{
     /* max-width: 100%; */
     padding: 0;
     margin-bottom: 0;
-    font-size: 1.5rem;
     line-height: inherit;
     color: inherit;
     white-space: normal;
@@ -351,3 +364,8 @@ margin-right: 20px;
 margin-top: 24px;
 margin-bottom: 24px;
 }
+
+.single_result_container{
+    display: none;
+}
+
