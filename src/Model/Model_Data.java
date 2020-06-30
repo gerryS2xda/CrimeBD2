@@ -94,13 +94,13 @@ public class Model_Data {
                 String offese_description= "";
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense),\n" +
                         "(c:crime)-[:occurred_district]->(d:district)\n" +
-                        "where d.district = $district_name " +
+                        "where d.district_name = $district_name " +
                         "return o.offense_description as offense_description , count(*) as times\n" +
                         "order by times DESC\n" +
                         "LIMIT 1", parameters("district_name",district_name));
                 while(result.hasNext()){
                     Record r = result.next();
-                    offese_description = r.get(0).get("offense_description").asString();
+                    offese_description = r.get(0).asString();
 
                 }
                 return offese_description;
@@ -108,19 +108,19 @@ public class Model_Data {
         }
     }
 
-    public String query_5(String district_name, String offese_code_group){
+    public String query_5(String district_name, String offense_code_group){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 String day_of_week= "";
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
                         "(c:crime)-[:occurred_district]->(d:district)" +
-                        "where d.district = $district  AND o.offense_code_group = $offense_code_group " +
+                        "where d.district_name = $district_name  AND o.offense_code_group = $offense_code_group " +
                         "return c.day_of_week as day_of_week , count(*) as times " +
                         "order by times DESC " +
-                        "LIMIT 1", parameters("district_name",district_name,"offese_code_group",offese_code_group));
+                        "LIMIT 1", parameters("district_name",district_name,"offense_code_group",offense_code_group));
                 while(result.hasNext()){
                     Record r = result.next();
-                    day_of_week = r.get(0).get("day_of_week").asString();
+                    day_of_week = r.get(0).asString();
 
                 }
                 return day_of_week;
@@ -136,7 +136,7 @@ public class Model_Data {
                         "(c:crime)-[:occurred_district]->(d:district)," +
                         "(c:crime)-[:occurred_street]->(s:street)," +
                         "(c:crime)-[:UCR]->(u:UCR_part) " +
-                        "where d.district_name= $district_name AND c.hour>=$oraInizio AND c.hour<=$oraFine" +
+                        "where d.district_name= $district_name AND c.hour>=$oraInizio AND c.hour<=$oraFine " +
                         "return c,o,d,s,u", parameters("district_name",district_name,"oraInizio",oraInizio
                         ,"oraFine",oraFine));
                 while(result.hasNext()){
@@ -156,13 +156,13 @@ public class Model_Data {
                 int hour = -1; //se resta -1 significa che non c'e la strada
                 Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
                         "(c:crime)-[:occurred_district]->(d:district)" +
-                        "where o.offense_code_group= $offense_code_group" +
+                        "where o.offense_code_group= $offense_code_group " +
                         "return c.hour as hour, count(*) as times " +
                         "order by times DESC " +
                         "LIMIT 1", parameters("offense_code_group", offense_code_group));
                 while (result.hasNext()) {
                     Record r = result.next();
-                    hour = r.get(0).get("hour").asInt();
+                    hour = r.get(0).asInt();
                 }
                 return hour;
             });
@@ -182,7 +182,7 @@ public class Model_Data {
                         "(c:crime)-[:occurred_district]->(d:district)," +
                         "(c:crime)-[:occurred_street]->(s:street)," +
                         "(c:crime)-[:UCR]->(u:UCR_part) " +
-                        "where (c.lat <= $lat +3 AND c.lat >= $lat - 3) AND (c.long <= $longit +3 AND c.long >= $longit - 3)" +
+                        "where (c.lat <= $lat +3 AND c.lat >= $lat - 3) AND (c.long <= $longit +3 AND c.long >= $longit - 3) " +
                         "return c,o,d,s,u", parameters("lat",lat,"longit",longit));
                 while(result.hasNext()){
                     Record r = result.next();
@@ -204,7 +204,7 @@ public class Model_Data {
                         "(c:crime)-[:occurred_district]->(d:district)," +
                         "(c:crime)-[:occurred_street]->(s:street)," +
                         "(c:crime)-[:UCR]->(u:UCR_part) " +
-                        "where d.district_name=$district_name  AND u.ucr_part=$ucr_part" +
+                        "where d.district_name=$district_name  AND u.ucr_part=$ucr_part " +
                         "return c,o,d,s,u", parameters("district_name",district_name,"ucr_part",ucr_part));
                 while(result.hasNext()){
                     Record r = result.next();
@@ -344,7 +344,7 @@ public class Model_Data {
 
     public static void main(String[] args){
         Model_Data md= new Model_Data();
-        md.query_3("A1");
+        md.query_10("B2","Part One");
     }
 
 }
