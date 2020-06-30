@@ -33,8 +33,7 @@ function resetResultPage(){
         "<div class=\"cell\"> District </div><div class=\"cell\"> Reporting area </div>" +
         "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Occured on date </div>\n" +
         "<div class=\"cell\"> UCR part </div><div class=\"cell\"> Street </div>\n" +
-        "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div>\n" +
-        "<div class=\"cell\"> Location </div></div>";
+        "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div></div>";
     $(".table").html(str);
     $(".noresult_p").hide();
 }
@@ -112,7 +111,7 @@ function sendRequestAndObtainResponseQuery(){
                         + "<div class=\"cell\">" + k.district + "</div>" + "<div class=\"cell\">" + k.reportingArea + "</div>"
                         + "<div class=\"cell\">" + k.shooting + "</div>" + "<div class=\"cell\">" + k.occurredOnDate + "</div>"
                         + "<div class=\"cell\">" + k.UCR_Part + "</div>" + "<div class=\"cell\">" + k.street + "</div>"
-                        + "<div class=\"cell\">" + k.lat + "</div>" + "<div class=\"cell\">" + k.Long + "</div>" + "<div class=\"cell\">" + k.location + "</div></div>";
+                        + "<div class=\"cell\">" + k.lat + "</div>" + "<div class=\"cell\">" + k.Long + "</div></div>";
 
                 }
                 $("#table_header").after(str);
