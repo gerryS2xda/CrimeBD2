@@ -18,14 +18,6 @@ public class CrimeServlet extends HttpServlet {
 
         Gson json = new Gson();
         Model_Data model_data = new Model_Data();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Crime crime = new Crime("I92097173", "3115", "INVESTIGATE PERSON", "INVESTIGATE PERSON", "C11", "355", "0",
-                LocalDateTime.parse("2019-10-23 00:00:00", formatter), 2019, 10, "Wednesday", 0, "", "GIBSON ST",
-                42.297555,-71.059709, "(42.29755500, -71.05970900)");
-        Crime crime2 = new Crime("I92097174", "3115", "INVESTIGATE PERSON", "INVESTIGATE PERSON", "C11", "355", "0",
-                LocalDateTime.parse("2020-06-27 00:00:00", formatter), 2019, 10, "Wednesday", 0, "", "GIBSON ST",
-                42.297555,-71.059709, "(42.29755500, -71.05970900)");
         String action = request.getParameter("action");
 
 
@@ -35,6 +27,23 @@ public class CrimeServlet extends HttpServlet {
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+
+        if(action.equals("init_select_category_incident")){
+            ArrayList<String> categories = model_data.query_offense_code_group();
+            if(categories.size() > 0){
+                String str = "{";
+                int i = 0;
+                for(String c : categories) {
+                    str += "\"category"+i +"\": \"" + categories.get(i) + "\",";
+                    i++;
+                }
+                str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+                response.getWriter().write(json.toJson(str));
+            }else{
+                response.getWriter().write(json.toJson("{\"category0\": \"noresult\"}"));
+            }
+
+        }
 
         if(action.equals("Query 1")){
             //Visualizza reati/incidenti del giorno precedente

@@ -1,4 +1,8 @@
+//variabili globali
+var optioncategory = ""; //conterra' il codice html per mostare tutte le category (scelta impiegata per richiedere una sola volta la category alla servlet)
 
+
+//main function
 /*
 $(document).ready(function () {
     $('select').selectize({
@@ -8,7 +12,30 @@ $(document).ready(function () {
 
 $(document).ready(function(){
     $("#select_query").trigger("change");
+    sendRequestForInitCategorySelect();
 });
+
+function sendRequestForInitCategorySelect(){
+
+    $.post("crime-contr", {"action": "init_select_category_incident"}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success"){
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+            var flag = o["category0"];
+            if(flag !== "noresult"){
+                var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
+                for (var i = 0; i < size; i++) {
+                    var k = o["category" + i];	//prendi l'oggetto JS associato alla proprieta' 'prod' dell'oggetto JS appena convertito
+                    optioncategory += "<option value=\"" + k + "\">" + k + "</option>";
+
+                }
+            }else{
+                optioncategory += "<option value=\"NoContent\"> Nessun contenuto da mostrare</option>";
+            }
+
+        }
+
+    });
+}
 
 //Action button
 $("#execute_query_btn").click(function(){
@@ -70,7 +97,9 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html("Visualizza la categoria di incidenti/reati che avvengono maggiormente nel distretto <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 5"){
-        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
+        str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
+            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div><br>" +
+            "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
         $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo <span class=\"select_span\"> </span> nel distretto <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 6"){
@@ -81,8 +110,8 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 7"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
-            "<option value=\"1\">Value2</option></select></div>";
+            "<select placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
+            "</select></div>";
         $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo <span class=\"select_span\"> </span>");
     }
     //query 8 -> Insert
@@ -218,47 +247,6 @@ function createSingleResultContent(item){
     $(".single_result_container").show();
     var str = "<label>Risultato </label> <input type=\"text\" class=\"inputfield\" name=\"result\" disabled value=\"" + item +"\">";
     $(".single_result_container").html(str);
-}
-
-function isRequestSearch(){
-    var rbtn = $(":checked"); //prendi tutti gli element "checked" (es. un radio button)
-    var d = rbtn.parent(); //dammi il padre di <input> selezionato
-    var flag = false;
-
-    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
-        var e = d.children().eq(i); //elemento html che si sta esaminando
-        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-
-            flag = true;
-        }
-    }
-    return flag;
-}
-
-function sendSearchRequest(){
-    var rbtn = $(":checked"); //prendi tutti gli element "checked" (es. un radio button)
-    var d = rbtn.parent(); //dammi il padre di <input> selezionato
-    var s = ""; //stringa che contiene gli input dell'utente
-    var t = ""; //campo da cercare
-    var j = 1; //count dei parametri da passare alla request
-    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
-        var e = d.children().eq(i); //elemento html che si sta esaminando
-        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            s+= "" + e.val()+"";
-            t+= "" + e.attr("name");
-        }
-    }
-
-    $.post("crime-contr", {"action": "search", "key" : t, "value" : s}, function(resp, statTxt, xhr){
-        if(xhr.readyState == 4 && statTxt == "success"){
-            var o = JSON.parse(resp);
-            if(!o.done) {
-                alert("Valore non trovato! Si prega di inserire un altro valore di ricerca");
-            }else{
-                showResultPage();
-            }
-        }
-    });
 }
 
 //Validate function
