@@ -81,8 +81,8 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 2"){
         str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\" onblur=\"validateFasciaOraria($(this))\"> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\" onblur=\"validateFasciaOraria($(this))\">";
+            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
         $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto <span class=\"tf_span\"></span> e in una data fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>");
     }
     if(querynum === "Query 3"){
@@ -101,9 +101,9 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 6"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"1\" onblur=\"validateFasciaOraria($(this))\"> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"2\" onblur=\"validateFasciaOraria($(this))\">";
-        $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"");
+            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
+        $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"></span>");
     }
     if(querynum === "Query 7"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
@@ -126,6 +126,11 @@ function createContentForFieldSet(querynum, selectedText){
     }
     return str;
 }
+
+//function per attivare trigger per valutazione input relativa alla fascia oraria
+$(".numberfield").blur(function(){
+    validateFasciaOraria($(this));
+});
 
 //function per costruire e settare la stringa relativa alla query selezionata
 function createAndSetQuerySelectString(){

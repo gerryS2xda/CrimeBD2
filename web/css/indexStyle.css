@@ -286,6 +286,8 @@ body{
     border-radius: 4px;
     box-sizing: border-box;
     color : black;
+    margin-right: 8px;
+    margin-left: 8px;
 }
 
 .numberfield_err{
@@ -321,6 +323,7 @@ body{
     border-style: groove;
     border-color: threedface;
     border-image: initial;
+    border-radius: 6px;
 }
 
 .query_legend{
@@ -339,10 +342,13 @@ body{
     line-height: inherit;
     color: inherit;
     white-space: normal;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .query_sel_text{
 font-size: 24px;
+    margin-left: 16px;
 }
 
 .query_text_for_result{
@@ -357,6 +363,11 @@ margin-right: 20px;
 #select_query{
 margin-top: 24px;
 margin-bottom: 24px;
+    padding: 6px 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .single_result_container{
@@ -365,4 +376,5 @@ margin-bottom: 24px;
 
 .content_fieldset{
     margin-top: 16px;
+    margin-left: 16px;
 }
