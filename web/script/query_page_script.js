@@ -71,6 +71,14 @@ $("#select_query").change(function(){
     $(".cust_sel").selectize({
         sortField: 'text'
     });
+    if(query === "Query 8"){
+        showInsertContentPopup();
+        $("#execute_query_btn").hide();
+        $("#insert_query8_btn").show();
+    }else{
+        $("#execute_query_btn").show();
+        $("#insert_query8_btn").hide();
+    }
 });
 
 function createContentForFieldSet(querynum, selectedText){
@@ -111,7 +119,7 @@ function createContentForFieldSet(querynum, selectedText){
             "</select></div>";
         $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo <span class=\"select_span\"> </span>");
     }
-    //query 8 -> Insert
+    //query 8 -> Insert (non necessita di questo)
     if(querynum === "Query 9"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label> UCR </label><div class=\"custom-select-w3c\">" +
@@ -123,6 +131,15 @@ function createContentForFieldSet(querynum, selectedText){
     if(querynum === "Query 10"){
         str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
         $(".query_text_for_result").html("Cancellazione mediante inserimento dell'Incident number <span class=\"tf_span\"></span>");
+    }
+    if(querynum === "Query 11"){
+
+    }
+    if(querynum === "Query 12"){
+
+    }
+    if(querynum === "Query 13"){
+
     }
     return str;
 }
@@ -284,6 +301,81 @@ function validateFasciaOraria(item){
     return val;
 }
 
+//funzioni per la query 8 (inserimento)
+$("#insert_query8_btn").click(function(){
+    showInsertContentPopup();
+});
+
+function showInsertContentPopup(){
+    $("#content_popup").show();
+    $("#content_popup").addClass("popup_body");
+    $(".single_result_container").hide(); //ogni volta che viene aperto il popup, nascondi risultato precedente
+}
+
+function resetContentPopup(){
+    $("#inc_number").val(""); //string
+    $("#off_code").val(""); //int
+    $("#off_code_group").val(""); //string
+    $("#off_code_desc").val(""); //string
+    $("#district_ins").val(""); //string
+    $("#report_area_ins").val(""); //string
+    $("#shooting_ins").val("1"); //string  (1 = sì, 0 = no, "None" = non si sa)
+    $("#ucr_path_in").val("Part One"); //string
+    $("#street_ins").val(""); //string
+    $("#latitude_ins").val(""); //double
+    $("#longitude_ins").val(""); //longitude
+}
+
+$("#insert_crime_btn").click(function(){
+    removeContentPopup();
+    sendRequestForInsert();
+});
+
+$("#annulla_crime_btn").click(function(){
+    removeContentPopup();
+});
+
+function removeContentPopup(){
+    $("#content_popup").removeClass("popup_body");
+    $("#content_popup").hide();
+}
+
+function sendRequestForInsert(){
+
+    var occuredOnDate =  $("#datetime_ins").val();
+
+    var a = new Object(); //construct JSON object Crime (convert it in Java Object in Servlet
+    a.incidentNumber = $("#inc_number").val(); //string
+    a.offenseCode = $("#off_code").val(); //int
+    a.offenseCodeGroup = $("#off_code_group").val(); //string
+    a.offenseDescription = $("#off_code_desc").val(); //string
+    a.district = $("#district_ins").val(); //string
+    a.reportingArea = $("#report_area_ins").val(); //string
+    a.shooting = $("#shooting_ins").val(); //string  (1 = sì, 0 = no, "None" = non si sa)
+    //occuredOnDate e' di tipo LocaltDateTime  (passo come input)
+    //a.year = 0;     a.month = 0 a.dayOfWeek = ""; //string
+    a.UCR_Part = $("#ucr_path_in").val(); //string
+    a.street = $("#street_ins").val(); //string
+    a.lat = $("#latitude_ins").val(); //double
+    a.Long = $("#longitude_ins").val(); //longitude
+
+    $.post("crime-contr", {"action": "Query 8", "input" : JSON.stringify(a), "occuredOnDate": occuredOnDate}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success"){
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+            var flag = o["crime0"];
+            if(flag === "done"){
+                $(".single_result_container").show();
+                var str = "<p class=\"insert_suc_p\"> Inserimento effettuato con successo!</p>";
+                $(".single_result_container").html(str);
+            }else{
+                $(".noresult_p").show();
+            }
+            resetContentPopup(); //reset popup quando riceve risposta
+        }
+
+    });
+}
+
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */
 function sizeObject(obj) {
@@ -292,4 +384,4 @@ function sizeObject(obj) {
         if (obj.hasOwnProperty(key)) size++;
     }
     return size;
-};
+}

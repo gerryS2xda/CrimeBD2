@@ -25,6 +25,29 @@
     <img id="police_img" src="images/police_distintivo.png" alt="Boston Police Department" />
     <p id="main_text"> Boston Police Department Report </p>
     <div id="select_query_page">
+      <div id="content_popup">
+        <div id="content_popup_area">
+          <h1>Inserimento incidente/reato</h1>
+          <label class="label_popup">Incident number </label><input type="text" class="inputfield_pop" id="inc_number" placeholder="(es. I192012345)"><br>
+          <label class="label_popup">Offense code </label><input type="number" class="numberfield_pop" id="off_code" placeholder="(es. 1234)"> <br>
+          <label class="label_popup">Offense code group </label><input type="text" class="inputfield_pop" id="off_code_group" placeholder="(es. Auto Theft)"><br>
+          <label class="label_popup">Offense description </label><input type="text" class="inputfield_pop" id="off_code_desc" placeholder="(es. Auto Theft - Scooter)"><br>
+          <label class="label_popup">District </label><input type="text" class="inputfield_pop" id="district_ins" placeholder="(es. A1)"><br>
+          <label class="label_popup">Reporting area </label><input type="text" class="inputfield_pop" id="report_area_ins" placeholder="(es. 123)"><br>
+          <label class="label_popup"> Shooting </label><select class="select_normal_style" id="shooting_ins"><option value="1">Sì</option><option value="0">No</option><option value="None">Non si sa</option></select>
+          <label class="label_popup"> UCR part </label><select class="select_normal_style" id="ucr_path_in"><option value="Part One">Part One</option>
+          <option value="Part Two">Part Two</option><option value="Part Three">Part Three</option>
+          <option value="Other">Part Three</option></select><br>
+          <label class="label_popup"> Date and time </label> <input type="datetime-local" class="datetime_input" id="datetime_ins"><br>
+          <label class="label_popup"> Street </label><input type="text" class="inputfield_pop" id="street_ins" placeholder="(es. BOWDOIN ST)"><br>
+          <label class="label_popup"> Latitude </label><input type="text" class="inputfield_pop" id="latitude_ins" placeholder="(es. 12.34567890)"><br>
+          <label class="label_popup"> Longitude </label><input type="text" class="inputfield_pop" id="longitude_ins" placeholder="(es. 12.34567890)"><br>
+          <div class="content_pop_button_area">
+            <button id="insert_crime_btn" type="button" class="myButton">Inserisci</button>
+            <button id="annulla_crime_btn" type="button" class="myButton">Annulla</button>
+          </div>
+        </div>
+      </div>
       <div id="form_layout">
         <div id="radio_btn_container">
           <p class="suggest_txt">Seleziona la query da eseguire</p>
@@ -38,7 +61,7 @@
                 <option value="Query 5"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
                 <option value="Query 6"> Incidenti/reati avvenuti in una determinato distretto e in una data fascia oraria </option>
                 <option value="Query 7"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
-                <!--<option value="Query 8"> Inserimento di un incidente/reato </option> -->
+                <option value="Query 8"> Inserimento di un incidente/reato </option>
                 <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente </option>
@@ -59,6 +82,7 @@
       </div>
       <div class="btn_container">
         <a href="#" id="execute_query_btn" class="myButton">Esegui query</a>
+        <a href="#" id="insert_query8_btn" class="myButton">Inserisci</a>
       </div>
     </div>
     <div id="result_content_page">

@@ -310,6 +310,15 @@ body{
     font-weight: bold;
 }
 
+.insert_suc_p{
+    text-align: center;
+    font-size: 24px;
+    margin-top: 16px;
+    color: white;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
 #fieldsetquery{
     display: block;
     margin-inline-start: 2px;
@@ -377,4 +386,114 @@ margin-bottom: 24px;
 .content_fieldset{
     margin-top: 16px;
     margin-left: 16px;
+}
+
+/* style for popup 'Inserimento' */
+.popup_body{
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    position: fixed;
+    width: 100%;
+    padding: 1% 0 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    overflow-y: scroll;
+}
+
+#content_popup{
+    display: none;
+}
+
+#content_popup_area {
+    position: relative;
+    background: #FFFFFF;
+    max-width: 550px;
+    margin: 0 auto 100px;
+    padding: 40px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    z-index: 6;
+}
+
+.content_pop_button_area{
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 5%;
+}
+
+#content_popup_area div button{
+    margin-left: 10%;
+}
+
+#content_popup_area h1 {
+    color: #555555;
+    font-size: 28px;
+    font-weight: normal;
+    /* margin-top: 10px; */
+    margin-bottom: 16px;
+    text-shadow: 0 1px 0 #ffffff;
+    text-align: center;
+}
+
+#content_popup_area span{
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.label_popup{
+    color:black;
+}
+
+.numberfield_pop {
+    width: 120px;
+    padding: 6px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color : black;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.inputfield_pop{
+    width: 200px;
+    padding: 6px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.select_normal_style{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 6px 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.datetime_input{
+    padding: 6px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: black;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+#insert_query8_btn{
+    display: none;
 }

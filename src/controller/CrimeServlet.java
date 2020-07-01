@@ -3,11 +3,9 @@ package controller;
 import Model.Model_Data;
 import com.google.gson.Gson;
 import crime.Crime;
-
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
@@ -158,8 +156,24 @@ public class CrimeServlet extends HttpServlet {
 
         }else if(action.equals("Query 8")){
             //Inserimento di un incidente/reato
+            boolean done = true; //nessun controllo di inserimento, quindi true
+            Crime c = json.fromJson(request.getParameter("input"), Crime.class);
+            String occuredDate = request.getParameter("occuredOnDate");
+            LocalDateTime lc = LocalDateTime.parse(occuredDate);
+            c.setOccurredOnDate(lc);
+            c.setHour(lc.getHour());
+            c.setDayOfWeek(lc.getDayOfWeek().toString());
+            c.setMonth(lc.getMonthValue());
+            c.setYear(lc.getYear());
+            System.out.println(c.toString() + "\nOccuredDate: " + occuredDate);
 
-
+            //aggiungere location
+            //model_data.query_8(c);
+            if(done){
+                response.getWriter().write(json.toJson("{\"crime0\": \"done\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
         }else if(action.equals("Query 9")){
             //Incidenti/reati in base al valore di UCR e alla street
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
