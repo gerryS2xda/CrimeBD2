@@ -203,28 +203,15 @@ public class CrimeServlet extends HttpServlet {
         }else if(action.equals("Query 12")){
 
         }else if(action.equals("Query 13")){
-
+            String location = request.getParameter("location");
+            if(location != null || !(location.equals(""))){
+                System.out.println(location);  //si ottiene questo risultato selezionando un punto sulla mappa: (42.069841971408174, -87.4601584792328)
+                //query13 (location in input)
+                response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"flag\": \"exception\"}"));
+            }
         }
-
-            /*
-            response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-
-			String str = "{";
-			ArrayList<ProdottoBean> prodotti = pm.doRetrieveAll("DataScadenza");
-			int i = 0;
-			for(ProdottoBean p : prodotti) {
-				str += "\"prod"+i +"\":" + p.toString();
-				if(p.getSconto() != 0){
-					str += ", \"prezzoScontato\":" + Utils.calculatePrezzoScontato(p.getPrezzo(), p.getSconto()) + "},";
-				}else{str+= "},";}
-			    	i++;
-			}
-			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
-			response.getWriter().write(json.toJson(str));
-			*/
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

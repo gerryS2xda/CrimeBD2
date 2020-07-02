@@ -63,6 +63,7 @@ function resetResultPage(){
 $("#select_query").change(function(){
     var query = $(this).val(); //dammi il contenuto di value della select
     var selectedText = $("#select_query option:selected").html();
+
     $(".query_legend").text(query);
     $(".query_sel_text").text(selectedText);
     $(".content_fieldset").html(createContentForFieldSet(query, selectedText));
@@ -71,7 +72,12 @@ $("#select_query").change(function(){
     $(".cust_sel").selectize({
         sortField: 'text'
     });
-    if(query === "Query 8"){
+
+    otherSettingsForQuery(query);
+});
+
+function otherSettingsForQuery(querynum){
+    if(querynum === "Query 8"){
         showInsertContentPopup();
         $("#execute_query_btn").hide();
         $("#insert_query8_btn").show();
@@ -79,7 +85,12 @@ $("#select_query").change(function(){
         $("#execute_query_btn").show();
         $("#insert_query8_btn").hide();
     }
-});
+
+    if(querynum === "Query 13"){
+        $("#select_query_page").hide();
+        $("#map_content_page").show();
+    }
+}
 
 function createContentForFieldSet(querynum, selectedText){
     var str = "";
@@ -375,6 +386,14 @@ function sendRequestForInsert(){
 
     });
 }
+
+//script for map content page
+$("#back_query13_btn").click(function(){
+    $("#select_query").val("Query 1");
+   $("#map_content_page").hide();
+   $("#select_query_page").show();
+    $("#select_query").trigger("change");
+});
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */

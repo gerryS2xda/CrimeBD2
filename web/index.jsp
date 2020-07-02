@@ -114,6 +114,15 @@
         <a href="#" id="reset_btn" class="myButton">Reset</a>
       </div>
     </div>
+    <div id="map_content_page">
+      <p class="map_page_title"> Seleziona un punto sulla mappa, per verificare gli incidenti che sono accaduti</p>
+      <!-- map content -->
+      <!--The div element for the map -->
+      <div id="map"></div>
+      <div class="btn_container">
+        <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
+      </div>
+    </div>
   </section>
   <section id="right_sidebar"> </section>
   <footer> </footer>
@@ -126,5 +135,14 @@
   <script src="script/table_bootstrap_js/main.js"></script>
   <script src="script/custom_select_script.js"></script>
   <script src="script/selectize-min.js"></script>
+  <script src="script/map_script.js"></script>
+  <!--Load the API from the specified URL
+      * The async attribute allows the browser to render the page while the API loads
+      * The key parameter will contain your own API key (which is not needed for this tutorial)
+      * The callback parameter executes the initMap() function
+      -->
+  <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqHYFWIhxhaA6Fd_HvnwqfCunXjrul8_k&callback=initMap">
+  </script>
   </body>
 </html>
