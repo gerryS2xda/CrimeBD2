@@ -197,16 +197,32 @@ public class CrimeServlet extends HttpServlet {
 
 
         }else if(action.equals("Query 10")){
+            //Cancellazione mediante inserimento dell'Incident number
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
+            boolean flag = false; //usa per testare se cancellazione ha avuto successo oppure no
+            if(!params.getTextfield().equals("")){
+                String incidentNumber = params.getTextfield();
+                System.out.println(incidentNumber); //testa se incident number e' stato ricevuto
+                //manca codice della query 10 (modelData)
+                if(flag){
+                    response.getWriter().write(json.toJson("{\"crime0\": \"done\"}"));
+                }else{
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
+            }
 
         }else if(action.equals("Query 11")){
+            //Per ogni ora visualizza il crimine che viene eseguito maggiormente (usare istogramma)
 
         }else if(action.equals("Query 12")){
+            //Mostra la percentuale di reati avvenuti in un distretto (usare grafico a torta)
 
         }else if(action.equals("Query 13")){
+            //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
             String location = request.getParameter("location");
             if(location != null || !(location.equals(""))){
                 System.out.println(location);  //si ottiene questo risultato selezionando un punto sulla mappa: (42.069841971408174, -87.4601584792328)
-                //query13 (location in input)
+                //query13 (location in input) - rest. una lista di crimini
                 response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
             }else{
                 response.getWriter().write(json.toJson("{\"flag\": \"exception\"}"));
