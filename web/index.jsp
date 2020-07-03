@@ -123,6 +123,14 @@
         <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
+    <div id="histogram_content_page">
+      <p class="histogram_page_title"> Per ogni ora visualizza il crimine che viene eseguito maggiormente</p>
+      <!-- histogram content -->
+      <div id="my_dataviz"></div>
+      <div class="btn_container">
+        <a href="#" id="back_query11_btn" class="myButton">Torna indietro</a>
+      </div>
+    </div>
   </section>
   <section id="right_sidebar"> </section>
   <footer> </footer>
@@ -144,5 +152,8 @@
   <script async defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqHYFWIhxhaA6Fd_HvnwqfCunXjrul8_k&callback=initMap">
   </script>
+  <!-- histogram script -->
+  <script src="script/d3histlib.js"></script>
+  <script src="script/histogram_script.js"></script>
   </body>
 </html>

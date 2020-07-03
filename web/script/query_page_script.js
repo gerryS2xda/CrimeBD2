@@ -32,11 +32,19 @@ function sendRequestForInitCategorySelect(){
 
 //Action button
 $("#execute_query_btn").click(function(){
-    createAndSetQuerySelectString();
-    sendRequestAndObtainResponseQuery();
-    $(".noresult_p").hide();
-    $(".single_result_container").hide();
 
+    var querynum = $(".query_legend").text();
+
+    if(querynum === "Query 11"){
+        sendRequestQuery11();
+    }else if(querynum === "Query 12"){
+
+    }else{
+        createAndSetQuerySelectString();
+        sendRequestAndObtainResponseQuery();
+        $(".noresult_p").hide();
+        $(".single_result_container").hide();
+    }
 });
 
 $("#reset_btn").click(function(){
@@ -394,6 +402,11 @@ $("#back_query13_btn").click(function(){
    $("#select_query_page").show();
     $("#select_query").trigger("change");
 });
+
+//script for hist query 11
+function sendRequestQuery11(){
+
+}
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */

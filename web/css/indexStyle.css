@@ -91,7 +91,7 @@ body{
 	display: none; /*reso visibile quando preme btn */
 }
 
-.result_page_name, .map_page_title{
+.result_page_name{
     padding: 12px;
     font-size: 28px;
     background-color: #2dabf9;
@@ -510,4 +510,27 @@ margin-bottom: 24px;
     width: 50%;  /* The width is the width of the web page  (default: 100%) */
     margin-left: 25%;
     color: black; /* colore del testo dei popup che mostrano la longitudine e latitudine */
+}
+
+.map_page_title{
+    padding: 12px;
+    font-size: 28px;
+    background-color: #2dabf9;
+    text-align: center;
+    margin: 5%;
+    border-radius: 6px;
+}
+
+/* HISTOGRAM STYLE */
+#histogram_content_page{
+    display: none;
+}
+
+.histogram_page_title{
+    padding: 12px;
+    font-size: 28px;
+    background-color: #2dabf9;
+    text-align: center;
+    margin: 5%;
+    border-radius: 6px;
 }
