@@ -226,27 +226,13 @@ public class CrimeServlet extends HttpServlet {
 
                 //Eseguo la query per ottenere una lista di oggetti "Tuple "categoria di incidente/reato" in base all'ora
                 //e converti in stringa JSON
-                ArrayList<Tuple> tuples = new ArrayList<Tuple>(); //crea una lista di tuple in base all'ora
+                ArrayList<Tuple> tuples = model_data.query_11(distretto); //crea una lista di tuple in base all'ora
+
                 String jsonResult = "[";
-                for(int i = 0; i <24; i++){
-                    Tuple t = model_data.subQuery_11(distretto, i);
-                    tuples.add(t);
+                for(Tuple t : tuples){
                     jsonResult += "{\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
                             "\"hour\": " + t.getHour() +"},";
                 }
-
-                //Conta quanti incidenti/reati vengono eseguiti in quel distretto
-                Map<String, Integer> map = new HashMap<>();
-                for(Tuple t : tuples){ //per ogni tupla
-                    if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
-                        map.put(t.getOffense_code_group(), 1);
-                    }else{  //se gia' presente, incrementa il conteggio
-                        int count = map.get(t.getOffense_code_group());
-                        count++;
-                        map.replace(t.getOffense_code_group(), count);
-                    }
-                }
-
 
                 jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "]"; //rimuovi ultima ',' e poi aggiungi ']'
                 System.out.println(jsonResult);
