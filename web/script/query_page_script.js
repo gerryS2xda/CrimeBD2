@@ -152,7 +152,8 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html("Cancellazione mediante inserimento dell'Incident number <span class=\"tf_span\"></span>");
     }
     if(querynum === "Query 11"){
-
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
+        $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"select_span\"> </span>\"></span>");
     }
     if(querynum === "Query 12"){
 
@@ -404,9 +405,12 @@ $("#back_query13_btn").click(function(){
 });
 
 //script for hist query 11
-function sendRequestQuery11(){
-
-}
+$("#back_query11_btn").click(function(){
+    $("#select_query").val("Query 1");
+    $("#histogram_content_page").hide();
+    $("#select_query_page").show();
+    $("#select_query").trigger("change");
+});
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */

@@ -1,12 +1,19 @@
 package controller;
 
 import Model.Model_Data;
+import Model.Tuple;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
 import crime.Crime;
 import javax.servlet.annotation.WebServlet;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
 
@@ -212,10 +219,43 @@ public class CrimeServlet extends HttpServlet {
             }
 
         }else if(action.equals("Query 11")){
-            //Per ogni ora visualizza il crimine che viene eseguito maggiormente (usare istogramma)
+            //Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto (usare istogramma)
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
+            if(!params.getTextfield().equals("")) {
+                String distretto = params.getTextfield();
+
+                //Eseguo la query per ottenere una lista di oggetti "Tuple "categoria di incidente/reato" in base all'ora
+                //e converti in stringa JSON
+                ArrayList<Tuple> tuples = new ArrayList<Tuple>(); //crea una lista di tuple in base all'ora
+                String jsonResult = "[";
+                for(int i = 0; i <24; i++){
+                    Tuple t = model_data.subQuery_11(distretto, i);
+                    tuples.add(t);
+                    jsonResult += "{\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
+                            "\"hour\": " + t.getHour() +"},";
+                }
+
+                //Conta quanti incidenti/reati vengono eseguiti in quel distretto
+                Map<String, Integer> map = new HashMap<>();
+                for(Tuple t : tuples){ //per ogni tupla
+                    if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
+                        map.put(t.getOffense_code_group(), 1);
+                    }else{  //se gia' presente, incrementa il conteggio
+                        int count = map.get(t.getOffense_code_group());
+                        count++;
+                        map.replace(t.getOffense_code_group(), count);
+                    }
+                }
+
+
+                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "]"; //rimuovi ultima ',' e poi aggiungi ']'
+                System.out.println(jsonResult);
+                response.getWriter().write(json.toJson(jsonResult));
+            }
 
         }else if(action.equals("Query 12")){
             //Mostra la percentuale di reati avvenuti in un distretto (usare grafico a torta)
+
 
         }else if(action.equals("Query 13")){
             //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
@@ -232,5 +272,13 @@ public class CrimeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
+    }
+
+    //Other methods
+    public void writeTupleJsonObject(JsonWriter writer, Tuple t) throws IOException {
+        writer.beginObject();
+        writer.name("offense_code_group").value(t.getOffense_code_group());
+        writer.name("hour").value(t.getHour());
+        writer.endObject();
     }
 }

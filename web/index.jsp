@@ -64,7 +64,7 @@
                 <option value="Query 8"> Inserimento di un incidente/reato </option>
                 <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
-                <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente </option>
+                <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
                 <option value="Query 12"> Mostra la percentuale di reati avvenuti in un distretto </option>
                 <option value="Query 13"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
               </select>
