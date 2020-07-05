@@ -38,7 +38,7 @@ $("#execute_query_btn").click(function(){
     if(querynum === "Query 11"){
         sendRequestQuery11();
     }else if(querynum === "Query 12"){
-
+        sendRequestQuery12();
     }else{
         createAndSetQuerySelectString();
         sendRequestAndObtainResponseQuery();
@@ -153,13 +153,11 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 11"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
-        $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"select_span\"> </span>\"></span>");
+        $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"select_span\"> </span>\"");
     }
     if(querynum === "Query 12"){
-
-    }
-    if(querynum === "Query 13"){
-
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
+        $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"select_span\"> </span>\"");
     }
     return str;
 }
@@ -405,9 +403,70 @@ $("#back_query13_btn").click(function(){
 });
 
 //script for hist query 11
+function sendRequestQuery11(){
+
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i); //elemento html che si sta esaminando
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
+        }
+    }
+
+    $.post("crime-contr", {"action": "Query 11", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success") {
+            $("#select_query_page").hide();
+            $("#histogram_content_page").show();
+        }
+    });
+}
+
 $("#back_query11_btn").click(function(){
     $("#select_query").val("Query 1");
     $("#histogram_content_page").hide();
+    $("#select_query_page").show();
+    $("#select_query").trigger("change");
+});
+
+//script for hist query 12
+function sendRequestQuery12(){
+
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i); //elemento html che si sta esaminando
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
+        }
+    }
+
+    $.post("crime-contr", {"action": "Query 12", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success") {
+            loadpiechart(); //carica o costruisci il pie chart
+            $("#select_query_page").hide();
+            $("#piechart_content_page").show();
+        }
+    });
+}
+
+$("#back_query12_btn").click(function(){
+    $("#select_query").val("Query 1");
+    $("#piechart_content_page").hide();
     $("#select_query_page").show();
     $("#select_query").trigger("change");
 });

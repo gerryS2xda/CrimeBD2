@@ -241,7 +241,29 @@ public class CrimeServlet extends HttpServlet {
 
         }else if(action.equals("Query 12")){
             //Mostra la percentuale di reati avvenuti in un distretto (usare grafico a torta)
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
+            if(!params.getTextfield().equals("")) {
+                String distretto = params.getTextfield();
 
+                System.out.println("Query 12 - distretto: " + distretto); //test
+                //altro codice
+                response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
+
+            }
+
+            /* Possibile codice da usare per questa query
+            //Conta quanti incidenti/reati vengono eseguiti in quel distretto
+                Map<String, Integer> map = new HashMap<>();
+                for(Tuple t : tuples){ //per ogni tupla
+                    if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
+                        map.put(t.getOffense_code_group(), 1);
+                    }else{  //se gia' presente, incrementa il conteggio
+                        int count = map.get(t.getOffense_code_group());
+                        count++;
+                        map.replace(t.getOffense_code_group(), count);
+                    }
+                }
+             */
 
         }else if(action.equals("Query 13")){
             //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti

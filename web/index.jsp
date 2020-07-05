@@ -65,7 +65,7 @@
                 <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
-                <option value="Query 12"> Mostra la percentuale di reati avvenuti in un distretto </option>
+                <option value="Query 12"> Mostra la percentuale di reati avvenuti in un dato distretto </option>
                 <option value="Query 13"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
               </select>
 
@@ -131,6 +131,14 @@
         <a href="#" id="back_query11_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
+    <div id="piechart_content_page">
+      <p class="pie_page_title"> Mostra la percentuale di reati avvenuti in un dato distretto </p>
+      <!-- piechart content -->
+      <div id="chartContainer"></div>
+      <div class="btn_container">
+        <a href="#" id="back_query12_btn" class="myButton">Torna indietro</a>
+      </div>
+    </div>
   </section>
   <section id="right_sidebar"> </section>
   <footer> </footer>
@@ -152,8 +160,12 @@
   <script async defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqHYFWIhxhaA6Fd_HvnwqfCunXjrul8_k&callback=initMap">
   </script>
-  <!-- histogram script -->
+  <!-- histogram script
   <script src="script/d3histlib.js"></script>
   <script src="script/histogram_script.js"></script>
+  -->
+  <!-- PIE CHART script -->
+  <script src="script/canvasjsmin.js"></script>
+  <script src="script/piechart.js"></script>
   </body>
 </html>
