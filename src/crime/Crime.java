@@ -5,6 +5,27 @@ import java.time.format.DateTimeFormatter;
 
 public class Crime {
 
+    //Constructors
+    public Crime(){
+        this.incidentNumber = "\"test\"";
+        this.offenseCode = 1234;
+        this.offenseCodeGroup = "\"offenseCodeGroup\"";
+        this.offenseDescription = "\"offenseDescription\"";
+        this.district = "\"district\"";
+        this.reportingArea = "\"reportingArea\"";
+        this.shooting = "\"shooting\"";
+        this.occurredOnDate = LocalDateTime.now();
+        this.year = LocalDateTime.now().getYear();
+        this.month = LocalDateTime.now().getMonthValue();
+        this.dayOfWeek = "\"" + LocalDateTime.now().getDayOfWeek().toString() + "\"";
+        this.hour = LocalDateTime.now().getHour();
+        this.UCR_Part= "\"UCR_Part\"";
+        this.street = "\"street\"";
+        this.lat = 0;
+        this.Long = 0;
+        this.location = "\"(0, 0)\"";
+
+    }
 
     public Crime(String incidentNumber, String offenseCode, String offenseCodeGroup, String offenseDescription,
                  String district, String reportingArea, String shooting, LocalDateTime occurredOnDate, int year, int month,
@@ -57,6 +78,7 @@ public class Crime {
         this.location =  attributi[16];
     }
 
+    //Getters and setters
     public String getIncidentNumber() {
         return incidentNumber;
     }
@@ -169,7 +191,7 @@ public class Crime {
     }
 
     public String toJSONString(){
-        String fixlocation = location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
+        String fixlocation = "\"" + location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
         String fixshooting = "";
         String fixUCR = "";
         if(shooting.equals("\"\"")){
@@ -187,7 +209,7 @@ public class Crime {
                 ", \"offenseDescription\": " + offenseDescription + ", \"district\": " + district + ", \"reportingArea\": " + reportingArea +
                 ", \"shooting\": " + fixshooting + ", \"occurredOnDate\": \"" + changeDateFormat + "\", \"year\": " + year +
                 ", \"month\": " + month + ", \"dayOfWeek\": " + dayOfWeek + ", \"hour\": " + hour + ", \"UCR_Part\": " + fixUCR +
-                ", \"street\": " + street + ", \"lat\": " + lat + ", \"Long\": " + Long + ", \"location\": " + fixlocation + "";
+                ", \"street\": " + street + ", \"lat\": \"" + lat + "\", \"Long\": \"" + Long + "\", \"location\": " + fixlocation + "";
         //System.out.println(str);
         //NB: la stringa JSON richiede che per i value string "incidentNumber": "I92097173", quindi occorre aggiungere \" (e' stato rimosso per fix)
         return str;

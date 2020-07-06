@@ -76,6 +76,13 @@
               <div class="content_fieldset"></div>
               <div class="single_result_container"></div>
               <p class="noresult_p"> Nessun risultato da mostrare! </p>
+              <div id="result_query1_container">
+                <div class="container-table100_q1">
+                  <div class="wrap-table100_q1">
+                    <div class="table_q1"></div>
+                  </div>
+                </div>
+              </div>
               <span class="query_text_for_result"></span> <!-- hide content for utility -->
             </fieldset>
           </form>

@@ -47,7 +47,20 @@ public class CrimeServlet extends HttpServlet {
 
         }
 
-        if(action.equals("Query 2")){
+        if(action.equals("Query 1")){
+            //Mostra le informazioni relative ad un determinato incidente/reato
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
+            if(!params.getTextfield().equals("")){
+                String incidentNumber = params.getTextfield();
+                
+                Crime c = model_data.query_1(incidentNumber);
+                if(!c.getIncidentNumber().equalsIgnoreCase("")){
+                    response.getWriter().write(json.toJson("{\"crime0\":" + c.toJSONString() + "}}"));
+                }else{
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
+            }
+        }else if(action.equals("Query 2")){
             //Visualizza reati/incidenti del giorno precedente
 
             ArrayList<Crime> crimes = new ArrayList<Crime>();

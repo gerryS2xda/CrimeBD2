@@ -514,6 +514,38 @@ margin-right: 20px;
     display: none;
 }
 
+/* Style Query 1 */
+#result_query1_container{
+    display: none;
+}
+
+.container-table100_q1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* padding: 33px 30px; */
+    margin-top: 3%;
+}
+
+.wrap-table100_q1 {
+    width: 1350px;
+    /*width: 960px; */
+    height: auto;
+    border-radius: 6px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.table_q1 {
+    width: 100%;
+    display: table;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
 
 /* MAP STYLE */
 #map_content_page{
@@ -584,3 +616,4 @@ margin-right: 20px;
     position: relative;
     user-select: none;
 }
+

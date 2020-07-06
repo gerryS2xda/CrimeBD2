@@ -35,7 +35,9 @@ $("#execute_query_btn").click(function(){
 
     var querynum = $(".query_legend").text();
 
-    if(querynum === "Query 12"){
+    if(querynum === "Query 1"){
+        sendRequestAndResponseForQuery1();
+    }else if(querynum === "Query 12"){
         sendRequestQuery12();
     }else if(querynum === "Query 13"){
         sendRequestQuery13();
@@ -82,6 +84,9 @@ $("#select_query").change(function(){
     });
 
     otherSettingsForQuery(query);
+
+    //reset code
+    $("#result_query1_container").hide();
 });
 
 function otherSettingsForQuery(querynum){
@@ -102,6 +107,10 @@ function otherSettingsForQuery(querynum){
 
 function createContentForFieldSet(querynum, selectedText){
     var str = "";
+    if(querynum === "Query 1"){
+        str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
+        $(".query_text_for_result").html("Mostra le informazioni relative ad un incidente/reato \"<span class=\"tf_span\"></span>\"");
+    }
     if(querynum === "Query 2"){
         str+= "<p class=\"label_p\"> Nessun input richiesto </p>";
         $(".query_text_for_result").html(selectedText);
@@ -307,38 +316,63 @@ function createSingleResultContent(item){
     $(".single_result_container").html(str);
 }
 
-//Validate function
-function validateFasciaOraria(item){
-    var x = item.val(); //dammi il valore
-    var y = item.attr("name"); //dammi il valore di attr. "name" per sapere che tipo di field
-    var val = false;
-    if(y === "fascia_oraria_min"){
-        var z = item.next().next();
-        if(x > z.val()){
-            alert("Primo valore della fascia oraria deve essere minore del secondo!!");
-            item.addClass("numberfield_err");
-        }else if(x == z.val()){
-            alert("I due valori devono essere diversi!!");
-            item.addClass("numberfield_err");
-            z.addClass("numberfield_err");
-        }else{
-            item.removeClass("numberfield_err");
-            z.removeClass("numberfield_err");
-            val = true;
-        }
-    }else if(y === "fascia_oraria_max"){
-        var z = item.prev().prev();
-        if(x < z.val()){
-            alert("Primo valore della fascia oraria deve essere minore del secondo");
-            item.addClass("numberfield_err");
-        }else{
-            item.removeClass("numberfield_err");
-            z.removeClass("numberfield_err");
-            val = true;
+//FUNCTIONS DEDICATE PER QUERY "PARTICOLARI"
+
+//functions for query 1
+function sendRequestAndResponseForQuery1(){
+
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i);
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
         }
     }
-    return val;
+
+    $.post("crime-contr", {"action": "Query 1", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success"){
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+
+            //Crea una tabella risultato con una sola riga (risultato query 1)
+            var flag = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            if(flag !== "noresult"){
+                //crea html per la table
+                var tableheader = "<div id=\"table_header2\" class=\"row header noHover\">" +
+                    "<div class=\"cell\"> Offense code </div>" +
+                    "<div class=\"cell\"> Offense code group</div><div class=\"cell\"> Offense description </div>" +
+                    "<div class=\"cell district_header\"> District </div><div class=\"cell\"> Reporting area </div>" +
+                    "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date and Time </div>\n" +
+                    "<div class=\"cell ucr_header\"> UCR part </div><div class=\"cell street_header\"> Street </div>\n" +
+                    "<div class=\"cell lat_header\"> Latitude </div><div class=\"cell long_header\"> Longitude </div></div>";
+
+                var tablebody = "<div class=\"row\"><div class=\"cell\">" + flag.offenseCode + "</div>" +
+                        "<div class=\"cell\">" + flag.offenseCodeGroup + "</div>" + "<div class=\"cell\">" + flag.offenseDescription + "</div>"
+                        + "<div class=\"cell district_row\">" + flag.district + "</div>" + "<div class=\"cell\">" + flag.reportingArea + "</div>"
+                        + "<div class=\"cell\">" + flag.shooting + "</div>" + "<div class=\"cell\">" + flag.occurredOnDate + "</div>"
+                        + "<div class=\"cell ucr_row\">" + flag.UCR_Part + "</div>" + "<div class=\"cell street_row\">" + flag.street + "</div>"
+                        + "<div class=\"cell lat_row\">" + flag.lat + "</div>" + "<div class=\"cell long_row\">" + flag.Long + "</div></div>";
+                $(".table_q1").html(tableheader);
+                $("#table_header2").after(tablebody);
+
+                $("#result_query1_container").show();
+
+            }else{
+                $(".noresult_p").show();
+            }
+
+        }
+
+    });
 }
+
 
 //funzioni per la query 9 (inserimento)
 $("#insert_query9_btn").click(function(){

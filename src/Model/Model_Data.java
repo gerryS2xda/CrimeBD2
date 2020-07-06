@@ -18,6 +18,11 @@ public class Model_Data {
         driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j","root"));
     }
 
+    public Crime query_1(String incidentnumber){
+        //Completare
+        return new Crime();
+    }
+
     public ArrayList<Crime> query_2(){
 
 
