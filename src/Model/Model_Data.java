@@ -196,6 +196,19 @@ public class Model_Data {
         }
     }
 
+
+    public void query_10(String incident_number){
+        try ( Session session = driver.session() ) {
+            session.writeTransaction(tx -> tx.run("MATCH (c:crime)-[t:type]->(:offense)," +
+                    "(c)-[od:occured_district]->(:district)," +
+                    "(c)-[os:occured_street]->(:street)," +
+                    "(c)-[u:UCR]->(:UCR_part) " +
+                    "where c.incident_number = $incident_number " +
+                    "delete t,od,os,u,c", parameters("incident_number", incident_number)));
+        }
+    }
+
+
     public Tuple subQuery_11(String district_name, int hour){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
@@ -225,6 +238,28 @@ public class Model_Data {
         }
         return tuples;
     }
+
+    public ArrayList<Crime> query_12(String district_name){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<Crime> crimini = new ArrayList<Crime>();
+                Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
+                        "where d.district_name=$district_name " +
+                        "return c,o,d,s,u", parameters("district_name",district_name));
+                while(result.hasNext()){
+                    Record r = result.next();
+                    Crime crime = Model_Data.buildCrime(r);
+                    System.out.println(crime);
+                    crimini.add(crime);
+                }
+                return crimini;
+            });
+        }
+    }
+
 
     public ArrayList<String> query_offense_code_group(){
         try ( Session session = driver.session() ) {
