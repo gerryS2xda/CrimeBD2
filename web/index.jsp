@@ -146,6 +146,7 @@
   <footer> </footer>
   <script type="text/javascript" src="script/jquery-3.5.1.js"></script>
   <script type="text/javascript" src="script/query_page_script.js"></script>
+  <script type="text/javascript" src="script/validation_field_script.js"></script>
   <!--==========================================================================================-->
   <script src="script/table_bootstrap_js/popper.js"></script>
   <script src="script/table_bootstrap_js/bootstrap.min.js"></script>
