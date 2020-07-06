@@ -59,7 +59,7 @@ function resetResultPage(){
         "<div class=\"cell\"> Incident number </div><div class=\"cell\"> Offense code </div>" +
         "<div class=\"cell\"> Offense code group</div><div class=\"cell\"> Offense description </div>" +
         "<div class=\"cell district_header\"> District </div><div class=\"cell\"> Reporting area </div>" +
-        "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date </div>\n" +
+        "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date and Time </div>\n" +
         "<div class=\"cell ucr_header\"> UCR part </div><div class=\"cell street_header\"> Street </div>\n" +
         "<div class=\"cell lat_header\"> Latitude </div><div class=\"cell long_header\"> Longitude </div></div>";
     $(".table").html(str);

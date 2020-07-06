@@ -182,9 +182,10 @@ public class Crime {
         }else{
             fixUCR = UCR_Part;
         }
+        String changeDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm").format(occurredOnDate);
         String str = "{\"incidentNumber\": " + incidentNumber + ", \"offenseCode\": " + offenseCode + ", \"offenseCodeGroup\": " + offenseCodeGroup +
                 ", \"offenseDescription\": " + offenseDescription + ", \"district\": " + district + ", \"reportingArea\": " + reportingArea +
-                ", \"shooting\": " + fixshooting + ", \"occurredOnDate\": \"" + occurredOnDate.toString() + "\", \"year\": " + year +
+                ", \"shooting\": " + fixshooting + ", \"occurredOnDate\": \"" + changeDateFormat + "\", \"year\": " + year +
                 ", \"month\": " + month + ", \"dayOfWeek\": " + dayOfWeek + ", \"hour\": " + hour + ", \"UCR_Part\": " + fixUCR +
                 ", \"street\": " + street + ", \"lat\": " + lat + ", \"Long\": " + Long + ", \"location\": " + fixlocation + "";
         //System.out.println(str);

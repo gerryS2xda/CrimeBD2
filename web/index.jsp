@@ -99,7 +99,7 @@
               <div class="cell district_header"> District </div>
               <div class="cell"> Reporting area </div>
               <div class="cell"> Shooting </div>
-              <div class="cell"> Date </div>
+              <div class="cell"> Date and Time </div>
               <div class="cell ucr_header"> UCR part </div>
               <div class="cell street_header"> Street </div>
               <div class="cell lat_header"> Latitude </div>
@@ -119,6 +119,7 @@
       <!-- map content -->
       <!--The div element for the map -->
       <div id="map"></div>
+      <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47196.6336442026!2d-71.06267002774499!3d42.325686117559286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20Massachusetts%2C%20Stati%20Uniti!5e0!3m2!1sit!2sit!4v1594021951326!5m2!1sit!2sit" class="mapstyle_iframe" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
       <div class="btn_container">
         <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
       </div>
