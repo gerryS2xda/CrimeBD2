@@ -172,10 +172,11 @@ public class CrimeServlet extends HttpServlet {
             c.setDayOfWeek(lc.getDayOfWeek().toString());
             c.setMonth(lc.getMonthValue());
             c.setYear(lc.getYear());
+            c.setLocation("(42.32512200, -71.10777900)");
             System.out.println(c.toString() + "\nOccuredDate: " + occuredDate);
 
             //aggiungere location
-            //model_data.query_8(c);
+            model_data.query_8(c);
             if(done){
                 response.getWriter().write(json.toJson("{\"crime0\": \"done\"}"));
             }else{

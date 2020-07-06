@@ -200,8 +200,8 @@ public class Model_Data {
     public void query_10(String incident_number){
         try ( Session session = driver.session() ) {
             session.writeTransaction(tx -> tx.run("MATCH (c:crime)-[t:type]->(:offense)," +
-                    "(c)-[od:occured_district]->(:district)," +
-                    "(c)-[os:occured_street]->(:street)," +
+                    "(c)-[od:occurred_district]->(:district)," +
+                    "(c)-[os:occurred_street]->(:street)," +
                     "(c)-[u:UCR]->(:UCR_part) " +
                     "where c.incident_number = $incident_number " +
                     "delete t,od,os,u,c", parameters("incident_number", incident_number)));
