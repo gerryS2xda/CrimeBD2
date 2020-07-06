@@ -54,19 +54,20 @@
           <form action="" method="POST">
 
               <select id="select_query" name="select_query">
-                <option value="Query 1"> Visualizza reati/incidenti del giorno precedente </option>
-                <option value="Query 2"> Reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
-                <option value="Query 3"> Incidenti/reati avvenuti in una determinata street </option>
-                <option value="Query 4"> Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
-                <option value="Query 5"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
-                <option value="Query 6"> Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria </option>
-                <option value="Query 7"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
-                <option value="Query 8"> Inserimento di un incidente/reato </option>
-                <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
-                <option value="Query 10"> Cancellazione mediante inserimento dell'Incident number </option>
-                <option value="Query 11"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
-                <option value="Query 12"> Mostra la percentuale di reati avvenuti in un dato distretto </option>
-                <option value="Query 13"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
+                <option value="Query 1"> Mostra le informazioni relative ad un determinato incidente/reato </option>
+                <option value="Query 2"> Visualizza reati/incidenti del giorno precedente </option>
+                <option value="Query 3"> Reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
+                <option value="Query 4"> Incidenti/reati avvenuti in una determinata street </option>
+                <option value="Query 5"> Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
+                <option value="Query 6"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
+                <option value="Query 7"> Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria </option>
+                <option value="Query 8"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
+                <option value="Query 9"> Inserimento di un incidente/reato </option>
+                <option value="Query 10"> Incidenti/reati in base al valore di UCR e al distretto </option>
+                <option value="Query 11"> Cancellazione mediante inserimento dell'Incident number </option>
+                <option value="Query 12"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
+                <option value="Query 13"> Mostra la percentuale di reati avvenuti in un dato distretto </option>
+                <option value="Query 14"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
               </select>
 
             <fieldset id="fieldsetquery">
@@ -82,7 +83,7 @@
       </div>
       <div class="btn_container">
         <a href="#" id="execute_query_btn" class="myButton">Esegui query</a>
-        <a href="#" id="insert_query8_btn" class="myButton">Inserisci</a>
+        <a href="#" id="insert_query9_btn" class="myButton">Inserisci</a>
       </div>
     </div>
     <div id="result_content_page">
@@ -121,7 +122,7 @@
       <div id="map"></div>
       <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47196.6336442026!2d-71.06267002774499!3d42.325686117559286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20Massachusetts%2C%20Stati%20Uniti!5e0!3m2!1sit!2sit!4v1594021951326!5m2!1sit!2sit" class="mapstyle_iframe" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
       <div class="btn_container">
-        <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
+        <a href="#" id="back_query14_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
     <div id="histogram_content_page">
@@ -129,7 +130,7 @@
       <!-- histogram content -->
       <div id="my_dataviz"></div>
       <div class="btn_container">
-        <a href="#" id="back_query11_btn" class="myButton">Torna indietro</a>
+        <a href="#" id="back_query12_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
     <div id="piechart_content_page">
@@ -137,7 +138,7 @@
       <!-- piechart content -->
       <div id="chartContainer"></div>
       <div class="btn_container">
-        <a href="#" id="back_query12_btn" class="myButton">Torna indietro</a>
+        <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
   </section>

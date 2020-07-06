@@ -18,7 +18,7 @@ public class Model_Data {
         driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j","root"));
     }
 
-    public ArrayList<Crime> query_1(){
+    public ArrayList<Crime> query_2(){
 
 
         try ( Session session = driver.session() ) {
@@ -42,7 +42,7 @@ public class Model_Data {
 
     }
 
-    public ArrayList<Crime> query_2(String district_name, int oraInizio, int oraFine){
+    public ArrayList<Crime> query_3(String district_name, int oraInizio, int oraFine){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
@@ -67,7 +67,7 @@ public class Model_Data {
         }
     }
 
-    public ArrayList<Crime> query_3(String street_name){
+    public ArrayList<Crime> query_4(String street_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
@@ -88,7 +88,7 @@ public class Model_Data {
         }
     }
 
-    public String query_4(String district_name){
+    public String query_5(String district_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 String offese_description= "";
@@ -108,7 +108,7 @@ public class Model_Data {
         }
     }
 
-    public String query_5(String district_name, String offense_code_group){
+    public String query_6(String district_name, String offense_code_group){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 String day_of_week= "";
@@ -128,7 +128,7 @@ public class Model_Data {
         }
     }
 
-    public ArrayList<Crime> query_6(String district_name, int oraInizio, int oraFine){
+    public ArrayList<Crime> query_7(String district_name, int oraInizio, int oraFine){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
@@ -150,7 +150,7 @@ public class Model_Data {
         }
     }
 
-    public int query_7(String offense_code_group){
+    public int query_8(String offense_code_group){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 int hour = -1; //se resta -1 significa che non c'e la strada
@@ -169,13 +169,13 @@ public class Model_Data {
         }
     }
 
-    public void query_8(Crime crime){
+    public void query_9(Crime crime){
         Model_Data md= new Model_Data();
         md.insertCrime(crime);
     }
 
 
-    public ArrayList<Crime> query_9(String district_name, String ucr_part){
+    public ArrayList<Crime> query_10(String district_name, String ucr_part){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
@@ -197,7 +197,7 @@ public class Model_Data {
     }
 
 
-    public void query_10(String incident_number){
+    public void query_11(String incident_number){
         try ( Session session = driver.session() ) {
             session.writeTransaction(tx -> tx.run("MATCH (c:crime)-[t:type]->(:offense)," +
                     "(c)-[od:occurred_district]->(:district)," +
@@ -208,8 +208,17 @@ public class Model_Data {
         }
     }
 
+    public ArrayList<Tuple> query_12(String district_name){
+        ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+        Model_Data md= new Model_Data();
+        int i;
+        for(i=0;i<24;i++){
+            tuples.add(md.subQuery_12(district_name,i));
+        }
+        return tuples;
+    }
 
-    public Tuple subQuery_11(String district_name, int hour){
+    public Tuple subQuery_12(String district_name, int hour){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 Tuple tuple= null;
@@ -228,18 +237,7 @@ public class Model_Data {
         }
     }
 
-
-    public ArrayList<Tuple> query_11(String district_name){
-        ArrayList<Tuple> tuples = new ArrayList<Tuple>();
-        Model_Data md= new Model_Data();
-        int i;
-        for(i=0;i<24;i++){
-            tuples.add(md.subQuery_11(district_name,i));
-        }
-        return tuples;
-    }
-
-    public ArrayList<Crime> query_12(String district_name){
+    public ArrayList<Crime> query_13(String district_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();

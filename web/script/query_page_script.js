@@ -35,10 +35,10 @@ $("#execute_query_btn").click(function(){
 
     var querynum = $(".query_legend").text();
 
-    if(querynum === "Query 11"){
-        sendRequestQuery11();
-    }else if(querynum === "Query 12"){
+    if(querynum === "Query 12"){
         sendRequestQuery12();
+    }else if(querynum === "Query 13"){
+        sendRequestQuery13();
     }else{
         createAndSetQuerySelectString();
         sendRequestAndObtainResponseQuery();
@@ -85,16 +85,16 @@ $("#select_query").change(function(){
 });
 
 function otherSettingsForQuery(querynum){
-    if(querynum === "Query 8"){
+    if(querynum === "Query 9"){
         showInsertContentPopup();
         $("#execute_query_btn").hide();
-        $("#insert_query8_btn").show();
+        $("#insert_query9_btn").show();
     }else{
         $("#execute_query_btn").show();
-        $("#insert_query8_btn").hide();
+        $("#insert_query9_btn").hide();
     }
 
-    if(querynum === "Query 13"){
+    if(querynum === "Query 14"){
         $("#select_query_page").hide();
         $("#map_content_page").show();
     }
@@ -102,44 +102,44 @@ function otherSettingsForQuery(querynum){
 
 function createContentForFieldSet(querynum, selectedText){
     var str = "";
-    if(querynum === "Query 1"){
+    if(querynum === "Query 2"){
         str+= "<p class=\"label_p\"> Nessun input richiesto </p>";
         $(".query_text_for_result").html(selectedText);
     }
-    if(querynum === "Query 2"){
+    if(querynum === "Query 3"){
         str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
             "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
         $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto <span class=\"tf_span\"></span> e in una data fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>");
     }
-    if(querynum === "Query 3"){
+    if(querynum === "Query 4"){
         str+="<label>Street</label><input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\">"
         $(".query_text_for_result").html("Incidenti/reati avvenuti nella street <span class=\"tf_span\"></span>");
     }
-    if(querynum === "Query 4"){
+    if(querynum === "Query 5"){
         str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
         $(".query_text_for_result").html("Visualizza la categoria di incidenti/reati che avvengono maggiormente nel distretto <span class=\"tf_span\"></span>");
     }
-    if(querynum === "Query 5"){
+    if(querynum === "Query 6"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
             "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div><br>" +
             "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
         $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo <span class=\"select_span\"> </span> nel distretto <span class=\"tf_span\"></span>");
     }
-    if(querynum === "Query 6"){
+    if(querynum === "Query 7"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
             "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
         $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto <span class=\"tf_span\"></span> e nella fascia oraria <span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"></span>");
     }
-    if(querynum === "Query 7"){
+    if(querynum === "Query 8"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
             "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
             "</select></div>";
         $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo <span class=\"select_span\"> </span>");
     }
-    //query 8 -> Insert (non necessita di questo)
-    if(querynum === "Query 9"){
+    //query 9 -> Insert (non necessita di questo)
+    if(querynum === "Query 10"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
             "<label> UCR </label><div class=\"custom-select-w3c\">" +
             "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
@@ -147,15 +147,15 @@ function createContentForFieldSet(querynum, selectedText){
             "<option value=\"Part Three\">Part Three</option><option value=\"Other\">Other</option></select></div>";
         $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR <span class=\"select_span\"> </span> e al distretto <span class=\"tf_span\"></span>");
     }
-    if(querynum === "Query 10"){
+    if(querynum === "Query 11"){
         str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
         $(".query_text_for_result").html("Cancellazione mediante inserimento dell'Incident number <span class=\"tf_span\"></span>");
     }
-    if(querynum === "Query 11"){
+    if(querynum === "Query 12"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
         $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"select_span\"> </span>\"");
     }
-    if(querynum === "Query 12"){
+    if(querynum === "Query 13"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
         $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"select_span\"> </span>\"");
     }
@@ -340,8 +340,8 @@ function validateFasciaOraria(item){
     return val;
 }
 
-//funzioni per la query 8 (inserimento)
-$("#insert_query8_btn").click(function(){
+//funzioni per la query 9 (inserimento)
+$("#insert_query9_btn").click(function(){
     showInsertContentPopup();
 });
 
@@ -351,8 +351,8 @@ function showInsertContentPopup(){
     $(".single_result_container").hide(); //ogni volta che viene aperto il popup, nascondi risultato precedente
 }
 
-function resetContentPopup(){string
-    $("#inc_number").val(""); //
+function resetContentPopup(){
+    $("#inc_number").val(""); //string
     $("#off_code").val(""); //int
     $("#off_code_group").val(""); //string
     $("#off_code_desc").val(""); //string
@@ -379,7 +379,7 @@ function removeContentPopup(){
     $("#content_popup").hide();
 }
 
-function sendRequestForInsert(){  //Query 8
+function sendRequestForInsert(){  //Query 9
 
     var occuredOnDate =  $("#datetime_ins").val();
 
@@ -398,7 +398,7 @@ function sendRequestForInsert(){  //Query 8
     a.lat = $("#latitude_ins").val(); //double
     a.Long = $("#longitude_ins").val(); //longitude
 
-    $.post("crime-contr", {"action": "Query 8", "input" : JSON.stringify(a), "occuredOnDate": occuredOnDate}, function(resp, statTxt, xhr){
+    $.post("crime-contr", {"action": "Query 9", "input" : JSON.stringify(a), "occuredOnDate": occuredOnDate}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success"){
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
             var flag = o["crime0"];
@@ -416,44 +416,10 @@ function sendRequestForInsert(){  //Query 8
 }
 
 //script for map content page
-$("#back_query13_btn").click(function(){
+$("#back_query14_btn").click(function(){
     $("#select_query").val("Query 1");
    $("#map_content_page").hide();
    $("#select_query_page").show();
-    $("#select_query").trigger("change");
-});
-
-//script for hist query 11
-function sendRequestQuery11(){
-
-    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
-
-    var a = new Object();
-    a.select = "";
-    a.textfield = "";
-    a.numfieldmin = 0;
-    a.numfieldmax = 0;
-
-    //var s = "{"; //stringa che contiene gli input dell'utente
-    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
-        var e = d.children().eq(i); //elemento html che si sta esaminando
-        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
-        }
-    }
-
-    $.post("crime-contr", {"action": "Query 11", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
-        if(xhr.readyState == 4 && statTxt == "success") {
-            $("#select_query_page").hide();
-            $("#histogram_content_page").show();
-        }
-    });
-}
-
-$("#back_query11_btn").click(function(){
-    $("#select_query").val("Query 1");
-    $("#histogram_content_page").hide();
-    $("#select_query_page").show();
     $("#select_query").trigger("change");
 });
 
@@ -478,6 +444,40 @@ function sendRequestQuery12(){
 
     $.post("crime-contr", {"action": "Query 12", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success") {
+            $("#select_query_page").hide();
+            $("#histogram_content_page").show();
+        }
+    });
+}
+
+$("#back_query12_btn").click(function(){
+    $("#select_query").val("Query 1");
+    $("#histogram_content_page").hide();
+    $("#select_query_page").show();
+    $("#select_query").trigger("change");
+});
+
+//script for hist query 13
+function sendRequestQuery13(){
+
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i); //elemento html che si sta esaminando
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
+        }
+    }
+
+    $.post("crime-contr", {"action": "Query 13", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success") {
             loadpiechart(); //carica o costruisci il pie chart
             $("#select_query_page").hide();
             $("#piechart_content_page").show();
@@ -485,7 +485,7 @@ function sendRequestQuery12(){
     });
 }
 
-$("#back_query12_btn").click(function(){
+$("#back_query13_btn").click(function(){
     $("#select_query").val("Query 1");
     $("#piechart_content_page").hide();
     $("#select_query_page").show();
