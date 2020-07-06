@@ -177,7 +177,7 @@ public class Crime {
         }else{
             fixshooting = shooting;
         }
-        if(!UCR_Part.contains("Part ")){
+        if(UCR_Part.equals("")){
             fixUCR = "\"None\"";
         }else{
             fixUCR = UCR_Part;

@@ -58,10 +58,10 @@ function resetResultPage(){
     var str = "<div id=\"table_header\" class=\"row header noHover\">" +
         "<div class=\"cell\"> Incident number </div><div class=\"cell\"> Offense code </div>" +
         "<div class=\"cell\"> Offense code group</div><div class=\"cell\"> Offense description </div>" +
-        "<div class=\"cell\"> District </div><div class=\"cell\"> Reporting area </div>" +
+        "<div class=\"cell district_header\"> District </div><div class=\"cell\"> Reporting area </div>" +
         "<div class=\"cell\"> Shooting </div><div class=\"cell\"> Date </div>\n" +
-        "<div class=\"cell\"> UCR part </div><div class=\"cell\"> Street </div>\n" +
-        "<div class=\"cell\"> Latitude </div><div class=\"cell\"> Longitude </div></div>";
+        "<div class=\"cell ucr_header\"> UCR part </div><div class=\"cell street_header\"> Street </div>\n" +
+        "<div class=\"cell lat_header\"> Latitude </div><div class=\"cell long_header\"> Longitude </div></div>";
     $(".table").html(str);
     $(".noresult_p").hide();
     $(".single_result_container").hide();
@@ -247,6 +247,7 @@ function sendRequestAndObtainResponseQuery(){
     $.post("crime-contr", {"action": idquery, "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success"){
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+            //Crea tabella risultato, ma prima verifica se vi sono risultati
             var flag = o["crime0"];
             if(flag === "oneresult"){
                 createSingleResultContent(o["crime1"]);
@@ -255,16 +256,20 @@ function sendRequestAndObtainResponseQuery(){
                 var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto delle tabelle
 
                 for (var i = 0; i < size; i++) {
-                    var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'prod' dell'oggetto JS appena convertito
+                    var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
                     str += "<div class=\"row\"><div class=\"cell\">" + k.incidentNumber + "</div><div class=\"cell\">" + k.offenseCode + "</div>" +
                         "<div class=\"cell\">" + k.offenseCodeGroup + "</div>" + "<div class=\"cell\">" + k.offenseDescription + "</div>"
-                        + "<div class=\"cell\">" + k.district + "</div>" + "<div class=\"cell\">" + k.reportingArea + "</div>"
+                        + "<div class=\"cell district_row\">" + k.district + "</div>" + "<div class=\"cell\">" + k.reportingArea + "</div>"
                         + "<div class=\"cell\">" + k.shooting + "</div>" + "<div class=\"cell\">" + k.occurredOnDate + "</div>"
-                        + "<div class=\"cell\">" + k.UCR_Part + "</div>" + "<div class=\"cell\">" + k.street + "</div>"
-                        + "<div class=\"cell\">" + k.lat + "</div>" + "<div class=\"cell\">" + k.Long + "</div></div>";
+                        + "<div class=\"cell ucr_row\">" + k.UCR_Part + "</div>" + "<div class=\"cell street_row\">" + k.street + "</div>"
+                        + "<div class=\"cell lat_row\">" + k.lat + "</div>" + "<div class=\"cell long_row\">" + k.Long + "</div></div>";
 
                 }
                 $("#table_header").after(str);
+
+                //Prima di mostrara la table, verifica se ci sono colonne da rimuovere
+                hideColumnOfTable(flag);
+
                 $(".container-table100").show();
 
                 //mostra la result page solo per la table (per ora)
@@ -278,6 +283,22 @@ function sendRequestAndObtainResponseQuery(){
         }
 
     });
+}
+
+function hideColumnOfTable(obj){
+
+    if(obj.district === "distretto"){
+        $(".district_header").addClass("hidecolumn");
+        $(".district_row").addClass("hidecolumn");
+    }
+    if(obj.street  === "street"){
+        $(".street_header").addClass("hidecolumn");
+        $(".street_row").addClass("hidecolumn");
+    }
+    if(obj.UCR_Part  === "ucr"){
+        $(".ucr_header").addClass("hidecolumn");
+        $(".ucr_row").addClass("hidecolumn");
+    }
 }
 
 function createSingleResultContent(item){
@@ -330,8 +351,8 @@ function showInsertContentPopup(){
     $(".single_result_container").hide(); //ogni volta che viene aperto il popup, nascondi risultato precedente
 }
 
-function resetContentPopup(){
-    $("#inc_number").val(""); //string
+function resetContentPopup(){string
+    $("#inc_number").val(""); //
     $("#off_code").val(""); //int
     $("#off_code_group").val(""); //string
     $("#off_code_desc").val(""); //string
@@ -358,7 +379,7 @@ function removeContentPopup(){
     $("#content_popup").hide();
 }
 
-function sendRequestForInsert(){
+function sendRequestForInsert(){  //Query 8
 
     var occuredOnDate =  $("#datetime_ins").val();
 

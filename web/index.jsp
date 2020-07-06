@@ -59,7 +59,7 @@
                 <option value="Query 3"> Incidenti/reati avvenuti in una determinata street </option>
                 <option value="Query 4"> Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
                 <option value="Query 5"> Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
-                <option value="Query 6"> Incidenti/reati avvenuti in una determinato distretto e in una data fascia oraria </option>
+                <option value="Query 6"> Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria </option>
                 <option value="Query 7"> Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
                 <option value="Query 8"> Inserimento di un incidente/reato </option>
                 <option value="Query 9"> Incidenti/reati in base al valore di UCR e al distretto </option>
@@ -96,14 +96,14 @@
               <div class="cell"> Offense code </div>
               <div class="cell"> Offense code group</div>
               <div class="cell"> Offense description </div>
-              <div class="cell"> District </div>
+              <div class="cell district_header"> District </div>
               <div class="cell"> Reporting area </div>
               <div class="cell"> Shooting </div>
               <div class="cell"> Date </div>
-              <div class="cell"> UCR part </div>
-              <div class="cell"> Street </div>
-              <div class="cell"> Latitude </div>
-              <div class="cell"> Longitude </div>
+              <div class="cell ucr_header"> UCR part </div>
+              <div class="cell street_header"> Street </div>
+              <div class="cell lat_header"> Latitude </div>
+              <div class="cell long_header"> Longitude </div>
             </div>
           </div>
 
