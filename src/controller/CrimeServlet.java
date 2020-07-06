@@ -213,6 +213,7 @@ public class CrimeServlet extends HttpServlet {
                 String incidentNumber = params.getTextfield();
                 System.out.println(incidentNumber); //testa se incident number e' stato ricevuto
                 //manca codice della query 10 (modelData)
+                model_data.query_10(incidentNumber);
                 if(flag){
                     response.getWriter().write(json.toJson("{\"crime0\": \"done\"}"));
                 }else{
