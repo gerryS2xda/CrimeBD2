@@ -23,7 +23,7 @@ public class Crime {
         this.street = "\"street\"";
         this.lat = 0;
         this.Long = 0;
-        this.location = "\"(0, 0)\"";
+        this.location = "\"\"\"(0, 0)\"\"\"";
 
     }
 
@@ -191,7 +191,7 @@ public class Crime {
     }
 
     public String toJSONString(){
-        String fixlocation = "\"" + location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
+        String fixlocation =  location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
         String fixshooting = "";
         String fixUCR = "";
         if(shooting.equals("\"\"")){

@@ -52,7 +52,7 @@ public class CrimeServlet extends HttpServlet {
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
             if(!params.getTextfield().equals("")){
                 String incidentNumber = params.getTextfield();
-                
+
                 Crime c = model_data.query_1(incidentNumber);
                 if(!c.getIncidentNumber().equalsIgnoreCase("")){
                     response.getWriter().write(json.toJson("{\"crime0\":" + c.toJSONString() + "}}"));
@@ -185,7 +185,7 @@ public class CrimeServlet extends HttpServlet {
             c.setDayOfWeek(lc.getDayOfWeek().toString());
             c.setMonth(lc.getMonthValue());
             c.setYear(lc.getYear());
-            c.setLocation("(42.32512200, -71.10777900)");
+            c.setLocation("\"\"\"("+ c.getLat() + ", "+ c.getLong() +")\"\"\"");
             System.out.println(c.toString() + "\nOccuredDate: " + occuredDate);
 
             //aggiungere location
