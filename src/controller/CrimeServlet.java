@@ -241,22 +241,24 @@ public class CrimeServlet extends HttpServlet {
             }
 
         }else if(action.equals("Query 12")){
-            //Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto (usare istogramma)
+            //Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
             if(!params.getTextfield().equals("")) {
                 String distretto = params.getTextfield();
 
-                //Eseguo la query per ottenere una lista di oggetti "Tuple "categoria di incidente/reato" in base all'ora
+                //Eseguo la query per ottenere una lista di oggetti "Tuple" che contiene il reato che si verifica maggiormente ad ogni ora
                 //e converti in stringa JSON
-                ArrayList<Tuple> tuples = model_data.query_12(distretto); //crea una lista di tuple in base all'ora
+                ArrayList<Tuple> tuples = model_data.query_12(distretto);
 
-                String jsonResult = "[";
+                String jsonResult = "{";
+                int i = 0;
                 for(Tuple t : tuples){
-                    jsonResult += "{\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
+                    jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
                             "\"hour\": " + t.getHour() +"},";
+                    i++;
                 }
 
-                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "]"; //rimuovi ultima ',' e poi aggiungi ']'
+                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
                 System.out.println(jsonResult);
                 response.getWriter().write(json.toJson(jsonResult));
             }

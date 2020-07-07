@@ -132,10 +132,18 @@
         <a href="#" id="back_query14_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
-    <div id="histogram_content_page">
-      <p class="histogram_page_title"> Per ogni ora visualizza il crimine che viene eseguito maggiormente</p>
-      <!-- histogram content -->
-      <div id="my_dataviz"></div>
+    <div id="query12_content_page">
+      <p class="query12_page_title"></p>
+        <div class="container-table100_q12">
+          <div class="wrap-table100_q12">
+            <div class="table_q12">
+              <div id="table_header3" class="row header noHover">
+                <div class="cell cell_new_hour"> Ore </div>
+                <div class="cell cell_new_offense"> Tipologia di incidente/reato </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <div class="btn_container">
         <a href="#" id="back_query12_btn" class="myButton">Torna indietro</a>
       </div>

@@ -576,18 +576,53 @@ margin-right: 20px;
     border: 0;
 }
 
-/* HISTOGRAM STYLE */
-#histogram_content_page{
+/* QUERY 12 */
+#query12_content_page{
     display: none;
 }
 
-.histogram_page_title{
+.query12_page_title{
     padding: 12px;
     font-size: 28px;
     background-color: #2dabf9;
     text-align: center;
     margin: 5%;
     border-radius: 6px;
+}
+
+.container-table100_q12 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* padding: 33px 30px; */
+    margin-top: 3%;
+}
+
+.wrap-table100_q12 {
+    width: 600px;
+    /*width: 960px; */
+    height: 400px;
+    border-radius: 6px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.table_q12 {
+    width: 100%;
+    display: table;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.cell_new_hour{
+    width: 150px;
+}
+
+.cell_new_offense{
+    width: 450px;
 }
 
 /* PIE CHART STYLE */
