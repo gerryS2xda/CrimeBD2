@@ -7,15 +7,20 @@ import com.google.gson.stream.JsonWriter;
 import crime.Crime;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
 
 @WebServlet("/crime-contr")
 public class CrimeServlet extends HttpServlet {
+
+    //STATIC ISTANCE
+    private static final int MAX_PIECE_PIE_CHART_Q13 = 10;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Gson json = new Gson();
@@ -262,26 +267,12 @@ public class CrimeServlet extends HttpServlet {
             if(!params.getTextfield().equals("")) {
                 String distretto = params.getTextfield();
 
-                System.out.println("Query 13 - distretto: " + distretto); //test
-                //altro codice
-                response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
+                ArrayList<Crime> crimini = model_data.query_13(distretto);
 
+                String jsonRes = buildJSONResultForQuery13(crimini);
+                System.out.println("JSON: "+ jsonRes);
+                response.getWriter().write(json.toJson(jsonRes));
             }
-
-            /* Possibile codice da usare per questa query
-            //Conta quanti incidenti/reati vengono eseguiti in quel distretto
-                Map<String, Integer> map = new HashMap<>();
-                for(Tuple t : tuples){ //per ogni tupla
-                    if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
-                        map.put(t.getOffense_code_group(), 1);
-                    }else{  //se gia' presente, incrementa il conteggio
-                        int count = map.get(t.getOffense_code_group());
-                        count++;
-                        map.replace(t.getOffense_code_group(), count);
-                    }
-                }
-             */
-
         }else if(action.equals("Query 14")){
             //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
             String location = request.getParameter("location");
@@ -300,10 +291,62 @@ public class CrimeServlet extends HttpServlet {
     }
 
     //Other methods
-    public void writeTupleJsonObject(JsonWriter writer, Tuple t) throws IOException {
-        writer.beginObject();
-        writer.name("offense_code_group").value(t.getOffense_code_group());
-        writer.name("hour").value(t.getHour());
-        writer.endObject();
+    private int computePercentage(double value, double total){
+        double quoziente = value / total;
+        BigDecimal bd = new BigDecimal(Double.toString(quoziente));
+        BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
+        double percentage = bd2.doubleValue() * 100;
+        return (int) percentage;
+    }
+
+    private String buildJSONResultForQuery13(ArrayList<Crime> crimini){
+        //Conta quanti incidenti/reati vengono eseguiti in quel distretto
+        Map<String, Integer> map = new HashMap<>();  //(categoriaCrimine, frequenza)
+
+        for(Crime c : crimini){
+            if(!map.keySet().contains(c.getOffenseCodeGroup())){ //se hashtable non contiene offensecodegroup, allora aggiungi
+                map.put(c.getOffenseCodeGroup(), 1);
+            }else{  //se gia' presente, incrementa il conteggio
+                int count = map.get(c.getOffenseCodeGroup());
+                count++;
+                map.replace(c.getOffenseCodeGroup(), count);
+            }
+        }
+
+        //Ordina le categorie in modo descrescente (per avere le categorie piu' frequenti tra i primi risultati)
+        Map<String, Integer> sorted = map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        //Calcola le frequenze totali
+        int tot = 0;
+        for(String cat : sorted.keySet()) {
+            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; count: " + sorted.get(cat));
+            tot += sorted.get(cat);
+        }
+        System.out.println("Totale: " + tot);
+
+        //Calcolo percentuali frequenza per pie chart (quindi il risultato)
+        Map<String, Integer> results = new HashMap<>();
+        int i = 0;
+        for(String cat: sorted.keySet()){
+            if(cat.equalsIgnoreCase("\"Other\"")) continue;
+            if(i > MAX_PIECE_PIE_CHART_Q13-1){
+                break;
+            }
+            results.put(cat, sorted.get(cat));
+            i++;
+        }
+
+        //Setta le percentuali e costruisci il risultato in stringa JSON
+        String str = "{";
+        int j = 0;
+        for(String cat : results.keySet()) {
+            results.replace(cat, computePercentage((double) results.get(cat), (double) tot));
+            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; percetage: " + results.get(cat));
+            str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + results.get(cat) + "},";
+            j++;
+        }
+        str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+        return str;
     }
 }

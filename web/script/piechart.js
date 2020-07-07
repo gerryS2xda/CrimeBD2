@@ -1,5 +1,14 @@
 
-function loadpiechart() {
+function loadpiechart(respdata) { //respdata (dati provenienti da servlet)
+
+    var o = JSON.parse(respdata); //conversione in oggetto JS da strina JSON ricevuta da servlet
+
+    //Compute "Other"
+    var x = 0;
+    for(var i = 0; i<10; i++){
+        x+= o["crime"+i].percentage;
+    }
+    var otherperc = 100 - x;
 
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
@@ -17,13 +26,17 @@ function loadpiechart() {
             toolTipContent: "{name}: <strong>{y}%</strong>",
             indexLabel: "{name} - {y}%",
             dataPoints: [
-                {y: 26, name: "School Aid", exploded: true},
-                {y: 20, name: "Medical Aid"},
-                {y: 5, name: "Debt/Capital"},
-                {y: 3, name: "Elected Officials"},
-                {y: 7, name: "University"},
-                {y: 17, name: "Executive"},
-                {y: 22, name: "Other Local Assistance"}
+                {y: o["crime0"].percentage, name: o["crime0"].category, exploded: true},
+                {y: o["crime1"].percentage, name: o["crime1"].category},
+                {y: o["crime2"].percentage, name: o["crime2"].category},
+                {y: o["crime3"].percentage, name: o["crime3"].category},
+                {y: o["crime4"].percentage, name: o["crime4"].category},
+                {y: o["crime5"].percentage, name: o["crime5"].category},
+                {y: o["crime6"].percentage, name: o["crime6"].category},
+                {y: o["crime7"].percentage, name: o["crime7"].category},
+                {y: o["crime8"].percentage, name: o["crime8"].category},
+                {y: o["crime9"].percentage, name: o["crime9"].category},
+                {y: otherperc, name: "Other"}
             ]
         }]
     });

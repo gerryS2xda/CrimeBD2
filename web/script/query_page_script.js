@@ -512,7 +512,7 @@ function sendRequestQuery13(){
 
     $.post("crime-contr", {"action": "Query 13", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success") {
-            loadpiechart(); //carica o costruisci il pie chart
+            loadpiechart(resp); //carica o costruisci il pie chart
             $("#select_query_page").hide();
             $("#piechart_content_page").show();
         }
