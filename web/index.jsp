@@ -178,10 +178,6 @@
   <script async defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqHYFWIhxhaA6Fd_HvnwqfCunXjrul8_k&callback=initMap">
   </script>
-  <!-- histogram script
-  <script src="script/d3histlib.js"></script>
-  <script src="script/histogram_script.js"></script>
-  -->
   <!-- PIE CHART script -->
   <script src="script/canvasjsmin.js"></script>
   <script src="script/piechart.js"></script>
