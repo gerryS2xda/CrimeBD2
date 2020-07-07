@@ -101,8 +101,7 @@ function otherSettingsForQuery(querynum){
     }
 
     if(querynum === "Query 14"){
-        $("#select_query_page").hide();
-        $("#map_content_page").show();
+        initQuery14();
     }
 }
 
@@ -514,7 +513,7 @@ $("#back_query12_btn").click(function(){
     $("#select_query").trigger("change");
 });
 
-//script for hist query 13
+//script for query 13
 function sendRequestQuery13(){
 
     var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
@@ -548,6 +547,13 @@ $("#back_query13_btn").click(function(){
     $("#select_query_page").show();
     $("#select_query").trigger("change");
 });
+
+/* query 14 */
+function initQuery14(){
+    $("#select_query_page").hide();
+    $("#map_content_page").show();
+
+}
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */
