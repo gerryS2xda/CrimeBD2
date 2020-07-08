@@ -41,6 +41,7 @@ $("#execute_query_btn").click(function(){
         createAndSetQuerySelectString();
         sendRequestQuery12();
     }else if(querynum === "Query 13"){
+        createAndSetQuerySelectString();
         sendRequestQuery13();
     }else{
         createAndSetQuerySelectString();
@@ -166,7 +167,7 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 13"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
-        $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"select_span\"> </span>\"");
+        $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"tf_span\"> </span>\"");
     }
     return str;
 }
@@ -536,6 +537,7 @@ function sendRequestQuery13(){
         if(xhr.readyState == 4 && statTxt == "success") {
             loadpiechart(resp); //carica o costruisci il pie chart
             $("#select_query_page").hide();
+            $(".pie_page_title").html($(".query_text_for_result").text());
             $("#piechart_content_page").show();
         }
     });
