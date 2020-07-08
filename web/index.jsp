@@ -13,7 +13,6 @@
   <link rel="stylesheet" type="text/css" href="css/table_bootstrap/main.css">
   <link type="text/css" rel="stylesheet" href="css/select-bootstrap3-min.css" />
   <link type="text/css" rel="stylesheet" href="./css/indexStyle.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
   <!--================================================================================================-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -68,7 +67,6 @@
                 <option value="Query 11"> Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 12"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
                 <option value="Query 13"> Mostra la percentuale di reati avvenuti in un dato distretto </option>
-                <option value="Query 14"> Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti </option>
               </select>
 
             <fieldset id="fieldsetquery">
@@ -123,16 +121,15 @@
         <a href="#" id="reset_btn" class="myButton">Reset</a>
       </div>
     </div>
+    <!-- REMOVE MAP FOR NOW (QUERY 14)
     <div id="map_content_page">
       <p class="map_page_title"> Seleziona un punto sulla mappa, per verificare gli incidenti che sono accaduti</p>
-      <!-- map content -->
-      <!--The div element for the map -->
       <div id="map" class="map"></div>
-      <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47196.6336442026!2d-71.06267002774499!3d42.325686117559286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20Massachusetts%2C%20Stati%20Uniti!5e0!3m2!1sit!2sit!4v1594021951326!5m2!1sit!2sit" class="mapstyle_iframe" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
       <div class="btn_container">
         <a href="#" id="back_query14_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
+    -->
     <div id="query12_content_page">
       <p class="query12_page_title"></p>
         <div class="container-table100_q12">
@@ -170,18 +167,20 @@
   <script src="script/table_bootstrap_js/main.js"></script>
   <script src="script/custom_select_script.js"></script>
   <script src="script/selectize-min.js"></script>
+  <!-- PIE CHART script -->
+  <script src="script/canvasjsmin.js"></script>
+  <script src="script/piechart.js"></script>
+
+  <!-- MAP SCRIPT - REMOVE FOR NOW -->
   <!--Load the API from the specified URL
       * The async attribute allows the browser to render the page while the API loads
       * The key parameter will contain your own API key (which is not needed for this tutorial)
       * The callback parameter executes the initMap() function
-    -->
+
   <script async defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqHYFWIhxhaA6Fd_HvnwqfCunXjrul8_k&callback=initMap">
   </script>
-  <!-- PIE CHART script -->
-  <script src="script/canvasjsmin.js"></script>
-  <script src="script/piechart.js"></script>
-  <!-- MAP SCRIPT - OPENLAYERS -->
   <script src="script/map_script.js"></script>
+  -->
   </body>
 </html>

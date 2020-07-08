@@ -550,12 +550,13 @@ $("#back_query13_btn").click(function(){
     $("#select_query").trigger("change");
 });
 
-/* query 14 */
+/* query 14 - REMOVE FOR NOW
 function initQuery14(){
     $("#select_query_page").hide();
     $("#map_content_page").show();
 
 }
+*/
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */
