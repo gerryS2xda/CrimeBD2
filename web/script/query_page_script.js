@@ -313,7 +313,7 @@ function hideColumnOfTable(obj){
 
 function createSingleResultContent(item){
     $(".single_result_container").show();
-    var str = "<label>Risultato </label> <input type=\"text\" class=\"inputfield\" name=\"result\" disabled value=\"" + item +"\">";
+    var str = "<label>Risultato </label> <input type=\"text\" class=\"resultinputfield\" name=\"result\" disabled value=\"" + item +"\">";
     $(".single_result_container").html(str);
 }
 

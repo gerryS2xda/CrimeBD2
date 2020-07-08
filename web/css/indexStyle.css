@@ -284,6 +284,21 @@ body{
     color: white;
 }
 
+.resultinputfield{ /* for single result */
+    width: 500px;
+    padding: 6px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.resultinputfield:disabled{
+    color: white;
+    text-align: center;
+}
+
 .numberfield {
     width: 80px;
     padding: 6px 16px;
@@ -393,6 +408,8 @@ margin-right: 20px;
 
 .single_result_container{
     display: none;
+    margin-top: 16px;
+    margin-left: 16px;
 }
 
 .content_fieldset{
