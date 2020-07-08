@@ -33,6 +33,12 @@ function sendRequestForInitCategorySelect(){
 //Action button
 $("#execute_query_btn").click(function(){
 
+    //Prima di proseguire, nascondi tutti gli elementi relativi alle query già formulate
+    $(".noresult_p").hide();
+    $(".single_result_container").hide();
+    $("#result_query1_container").hide();
+
+    //Esegui codice dedicato sulla base del numero di query
     var querynum = $(".query_legend").text();
 
     if(querynum === "Query 1"){
@@ -48,8 +54,6 @@ $("#execute_query_btn").click(function(){
     }else{
         createAndSetQuerySelectString();
         sendRequestAndObtainResponseQuery();
-        $(".noresult_p").hide();
-        $(".single_result_container").hide();
     }
 });
 
@@ -347,6 +351,7 @@ function sendRequestAndResponseForQuery1(){
             //Crea una tabella risultato con una sola riga (risultato query 1)
             var flag = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
             if(flag !== "noresult"){
+                $(".noresult_p").hide(); //nascondi se presente
                 //crea html per la table
                 var tableheader = "<div id=\"table_header2\" class=\"row header noHover\">" +
                     "<div class=\"cell\"> Offense code </div>" +

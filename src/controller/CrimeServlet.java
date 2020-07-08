@@ -60,7 +60,7 @@ public class CrimeServlet extends HttpServlet {
                 String incidentNumber = params.getTextfield();
 
                 Crime c = model_data.query_1(incidentNumber);
-                if(!c.getIncidentNumber().equalsIgnoreCase("")){
+                if(!c.getIncidentNumber().equalsIgnoreCase("\"null\"")){
                     response.getWriter().write(json.toJson("{\"crime0\":" + c.toJSONString() + "}}"));
                 }else{
                     response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));

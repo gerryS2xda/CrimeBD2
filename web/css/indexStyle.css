@@ -534,6 +534,7 @@ margin-right: 20px;
 /* Style Query 1 */
 #result_query1_container{
     display: none;
+    margin-bottom: 24px;
 }
 
 .container-table100_q1 {

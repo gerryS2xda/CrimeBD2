@@ -7,7 +7,7 @@ public class Crime {
 
     //Constructors
     public Crime(){
-        this.incidentNumber = "\"test\"";
+        this.incidentNumber = "\"null\"";
         this.offenseCode = 1234;
         this.offenseCodeGroup = "\"offenseCodeGroup\"";
         this.offenseDescription = "\"offenseDescription\"";
