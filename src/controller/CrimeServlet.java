@@ -35,7 +35,7 @@ public class CrimeServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
 
-        if(action.equals("init_select_category_incident")){
+        if(action.equalsIgnoreCase("init_select_category_incident")){
             ArrayList<String> categories = model_data.query_offense_code_group();
             if(categories.size() > 0){
                 String str = "{";
@@ -52,10 +52,10 @@ public class CrimeServlet extends HttpServlet {
 
         }
 
-        if(action.equals("Query 1")){
+        if(action.equalsIgnoreCase("Query 1")){
             //Mostra le informazioni relative ad un determinato incidente/reato
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
-            if(!params.getTextfield().equals("")){
+            if(!params.getTextfield().equalsIgnoreCase("")){
                 String incidentNumber = params.getTextfield();
 
                 Crime c = model_data.query_1(incidentNumber);
@@ -65,7 +65,7 @@ public class CrimeServlet extends HttpServlet {
                     response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
                 }
             }
-        }else if(action.equals("Query 2")){
+        }else if(action.equalsIgnoreCase("Query 2")){
             //Visualizza reati/incidenti del giorno precedente
 
             ArrayList<Crime> crimes = new ArrayList<Crime>();
@@ -83,11 +83,11 @@ public class CrimeServlet extends HttpServlet {
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
-        }else if(action.equals("Query 3")){
+        }else if(action.equalsIgnoreCase("Query 3")){
             //Reati con sparatoria nell'ultimo mese avvenuti nel distretto (input) nella fascia oraria (input min) - (input max)
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             ArrayList<Crime> crimes = new ArrayList<Crime>();
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 crimes = model_data.query_3(params.getTextfield(), params.getNumfieldmin(), params.getNumfieldmax());
             }
             if(crimes.size() > 0){
@@ -105,11 +105,11 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
-        }else if(action.equals("Query 4")){
+        }else if(action.equalsIgnoreCase("Query 4")){
             //Incidenti/reati avvenuti nella street
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             ArrayList<Crime> crimes = new ArrayList<Crime>();
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 crimes = model_data.query_4(params.getTextfield());
             }
             if(crimes.size() > 0){
@@ -127,31 +127,31 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
-        }else if(action.equals("Query 5")){
+        }else if(action.equalsIgnoreCase("Query 5")){
             //Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             String category = model_data.query_5(params.getTextfield());
-            if(category.equals("")){
+            if(category.equalsIgnoreCase("")){
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + category + "\"}"));
             }
 
-        }else if(action.equals("Query 6")){
+        }else if(action.equalsIgnoreCase("Query 6")){
             //Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             String day_of_week = model_data.query_6(params.getTextfield(), params.getSelect());
-            if(day_of_week.equals("")){
+            if(day_of_week.equalsIgnoreCase("")){
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + day_of_week + "\"}"));
             }
 
-        }else if(action.equals("Query 7")){
+        }else if(action.equalsIgnoreCase("Query 7")){
             //Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             ArrayList<Crime> crimes = new ArrayList<Crime>();
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 crimes = model_data.query_7(params.getTextfield(), params.getNumfieldmin(), params.getNumfieldmax());
             }
             if(crimes.size() > 0){
@@ -169,7 +169,7 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
-        }else if(action.equals("Query 8")){
+        }else if(action.equalsIgnoreCase("Query 8")){
             //Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             int hour = model_data.query_8(params.getSelect());
@@ -179,7 +179,7 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
 
-        }else if(action.equals("Query 9")){
+        }else if(action.equalsIgnoreCase("Query 9")){
             //Inserimento di un incidente/reato
             boolean done = true; //nessun controllo di inserimento, quindi true
             Crime c = json.fromJson(request.getParameter("input"), Crime.class);
@@ -200,11 +200,11 @@ public class CrimeServlet extends HttpServlet {
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
-        }else if(action.equals("Query 10")){
+        }else if(action.equalsIgnoreCase("Query 10")){
             //Incidenti/reati in base al valore di UCR e al distretto
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             ArrayList<Crime> crimes = new ArrayList<Crime>();
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 crimes = model_data.query_10(params.getTextfield(), params.getSelect());
             }
             if(crimes.size() > 0){
@@ -224,11 +224,11 @@ public class CrimeServlet extends HttpServlet {
             }
 
 
-        }else if(action.equals("Query 11")){
+        }else if(action.equalsIgnoreCase("Query 11")){
             //Cancellazione mediante inserimento dell'Incident number
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
             boolean flag = false; //usa per testare se cancellazione ha avuto successo oppure no
-            if(!params.getTextfield().equals("")){
+            if(!params.getTextfield().equalsIgnoreCase("")){
                 String incidentNumber = params.getTextfield();
                 System.out.println(incidentNumber); //testa se incident number e' stato ricevuto
 
@@ -240,10 +240,10 @@ public class CrimeServlet extends HttpServlet {
                 }
             }
 
-        }else if(action.equals("Query 12")){
+        }else if(action.equalsIgnoreCase("Query 12")){
             //Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 String distretto = params.getTextfield();
 
                 //Eseguo la query per ottenere una lista di oggetti "Tuple" che contiene il reato che si verifica maggiormente ad ogni ora
@@ -263,10 +263,10 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson(jsonResult));
             }
 
-        }else if(action.equals("Query 13")){
+        }else if(action.equalsIgnoreCase("Query 13")){
             //Mostra la percentuale di reati avvenuti in un distretto (usare grafico a torta)
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
-            if(!params.getTextfield().equals("")) {
+            if(!params.getTextfield().equalsIgnoreCase("")) {
                 String distretto = params.getTextfield();
 
                 ArrayList<Crime> crimini = model_data.query_13(distretto);
@@ -275,10 +275,10 @@ public class CrimeServlet extends HttpServlet {
                 System.out.println("JSON: "+ jsonRes);
                 response.getWriter().write(json.toJson(jsonRes));
             }
-        }else if(action.equals("Query 14")){
+        }else if(action.equalsIgnoreCase("Query 14")){
             //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
             String location = request.getParameter("location");
-            if(location != null || !(location.equals(""))){
+            if(location != null || !(location.equalsIgnoreCase(""))){
                 System.out.println(location);  //si ottiene questo risultato selezionando un punto sulla mappa: (42.069841971408174, -87.4601584792328)
                 //query14 (location in input) - rest. una lista di crimini
                 response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
