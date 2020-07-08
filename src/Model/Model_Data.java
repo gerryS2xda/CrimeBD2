@@ -18,9 +18,25 @@ public class Model_Data {
         driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j","root"));
     }
 
-    public Crime query_1(String incidentnumber){
-        //Completare
-        return new Crime();
+    public Crime query_1(String incident_number){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                Crime crimine = new Crime();
+                Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district)," +
+                        "(c:crime)-[:occurred_street]->(s:street)," +
+                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "where c.incident_number=$incident_number " +
+                        "return c,o,d,s,u", parameters("incident_number", incident_number));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    crimine = Model_Data.buildCrime(r);
+                    System.out.println(crimine);
+
+                }
+                return crimine;
+            });
+        }
     }
 
     public ArrayList<Crime> query_2(){
@@ -264,6 +280,7 @@ public class Model_Data {
     }
 
 
+
     public ArrayList<String> query_offense_code_group(){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
@@ -279,6 +296,21 @@ public class Model_Data {
         }
     }
 
+    public String get_offense_code_group(int offense_code){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                String offense_code_group = ""; // vuota nel caso in cui non ci sia un offesne code corrispondente
+                Result result = tx.run("match (o:offense) " +
+                        "where o.offense_code = $offense_code " +
+                        "return o.offense_code_group", parameters("offense_code", offense_code));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    offense_code_group = r.get(0).asString();
+                }
+                return offense_code_group;
+            });
+        }
+    }
 
 
     public  void insertCrime(Crime crime) {
