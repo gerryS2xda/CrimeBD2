@@ -231,7 +231,7 @@ public class CrimeServlet extends HttpServlet {
         }else if(action.equalsIgnoreCase("Query 11")){
             //Cancellazione mediante inserimento dell'Incident number
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni Incident number
-            boolean flag = false; //usa per testare se cancellazione ha avuto successo oppure no
+            boolean flag = true; //usa per testare se cancellazione ha avuto successo oppure no (true per default)
             if(!params.getTextfield().equalsIgnoreCase("")){
                 String incidentNumber = params.getTextfield();
                 System.out.println(incidentNumber); //testa se incident number e' stato ricevuto

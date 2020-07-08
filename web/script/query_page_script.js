@@ -37,7 +37,9 @@ $("#execute_query_btn").click(function(){
 
     if(querynum === "Query 1"){
         sendRequestAndResponseForQuery1();
-    }else if(querynum === "Query 12"){
+    }else if(querynum == "Query 11"){
+        sendRequestQuery11();
+    } else if(querynum === "Query 12"){
         createAndSetQuerySelectString();
         sendRequestQuery12();
     }else if(querynum === "Query 13"){
@@ -450,13 +452,42 @@ function sendRequestForInsert(){  //Query 9
     });
 }
 
-//script for map content page
-$("#back_query14_btn").click(function(){
-    $("#select_query").val("Query 1");
-   $("#map_content_page").hide();
-   $("#select_query_page").show();
-    $("#select_query").trigger("change");
-});
+// script for query 11 (cancellazione)
+function sendRequestQuery11(){
+
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
+
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i); //elemento html che si sta esaminando
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
+        }
+    }
+
+    $.post("crime-contr", {"action": "Query 11", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success"){
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+            var flag = o["crime0"];
+            if(flag === "done"){
+                $(".single_result_container").show();
+                var str = "<p class=\"insert_suc_p\"> Cancellazione eseguita con successo!</p>";
+                $(".single_result_container").html(str);
+            }else{
+                $(".noresult_p").show();
+            }
+        }
+
+    });
+}
+
+
 
 //script for hist query 12
 function sendRequestQuery12(){
@@ -551,6 +582,14 @@ $("#back_query13_btn").click(function(){
 });
 
 /* query 14 - REMOVE FOR NOW
+//script for map content page
+$("#back_query14_btn").click(function(){
+    $("#select_query").val("Query 1");
+   $("#map_content_page").hide();
+   $("#select_query_page").show();
+    $("#select_query").trigger("change");
+});
+
 function initQuery14(){
     $("#select_query_page").hide();
     $("#map_content_page").show();
