@@ -13,15 +13,20 @@ function loadpiechart(respdata) { //respdata (dati provenienti da servlet)
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
         animationEnabled: true,
+        width: 600,
+        height: 500,
         title: {
             text: " "
         },
         legend: {
             cursor: "pointer",
-            itemclick: explodePie
+            itemclick: explodePie,
+            fontSize: 12
         },
         data: [{
             type: "pie",
+            indexLabelFontSize: 12,
+            radius: 160,
             showInLegend: true,
             toolTipContent: "{name}: <strong>{y}%</strong>",
             indexLabel: "{name} - {y}%",
@@ -32,11 +37,12 @@ function loadpiechart(respdata) { //respdata (dati provenienti da servlet)
                 {y: o["crime3"].percentage, name: o["crime3"].category},
                 {y: o["crime4"].percentage, name: o["crime4"].category},
                 {y: o["crime5"].percentage, name: o["crime5"].category},
+                {y: otherperc, name: "Other"},
                 {y: o["crime6"].percentage, name: o["crime6"].category},
                 {y: o["crime7"].percentage, name: o["crime7"].category},
                 {y: o["crime8"].percentage, name: o["crime8"].category},
-                {y: o["crime9"].percentage, name: o["crime9"].category},
-                {y: otherperc, name: "Other"}
+                {y: o["crime9"].percentage, name: o["crime9"].category}
+
             ]
         }]
     });

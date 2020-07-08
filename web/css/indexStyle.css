@@ -627,9 +627,9 @@ margin-right: 20px;
 
 /* PIE CHART STYLE */
 #chartContainer{
-    height: 400px;
-    width: 500px; /* prec. 100% */
-    margin-left: 35%;
+    height: 500px;
+    width: 600px; /* prec. 100% */
+    margin-left: 34%;
 }
 
 #piechart_content_page{
@@ -646,8 +646,8 @@ margin-right: 20px;
 }
 
 .canvasjs-chart-canvas{
-    width: 500px;
-    height: 400px;
+    width: 600px;
+    height: 500px;
     position: relative;
     user-select: none;
 }
