@@ -72,7 +72,7 @@ public class Model_Data {
                         "(c:crime)-[:occurred_street]->(s:street)," +
                         "(c:crime)-[:UCR]->(u:UCR_part) " +
                         "where c.shooting='1' AND " +
-                        "duration.between(date(c.occurred_on_date),date())<=duration(\"P1M\") AND " +
+                        "duration.inMonths(date(c.occurred_on_date),date())<=duration(\"P0M\") AND " +
                         "d.district_name= $district_name AND " +
                         "c.hour>=$oraInizio AND c.hour<=$oraFine " +
                         "return c,o,d,s,u", parameters("district_name",district_name,"oraInizio",oraInizio
