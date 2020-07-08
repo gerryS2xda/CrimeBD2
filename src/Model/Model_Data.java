@@ -279,7 +279,23 @@ public class Model_Data {
         }
     }
 
-
+    public ArrayList<Tuple_Count> Query_14(String district_name, int hour){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                ArrayList<Tuple_Count> tuple_counts = new ArrayList<Tuple_Count>();
+                Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
+                        "(c:crime)-[:occurred_district]->(d:district) " +
+                        "where d.district_name =$district_name AND c.hour =$hour " +
+                        "return o.offense_code_group, count(*) as times", parameters("district_name", district_name,"hour", hour));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    Tuple_Count tuple= new Tuple_Count(r.get(0).asString(),r.get(1).asInt());
+                    tuple_counts.add(tuple);
+                }
+                return tuple_counts;
+            });
+        }
+    }
 
     public ArrayList<String> query_offense_code_group(){
         try ( Session session = driver.session() ) {
