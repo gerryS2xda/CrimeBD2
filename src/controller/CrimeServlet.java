@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.http.*;
@@ -174,7 +175,10 @@ public class CrimeServlet extends HttpServlet {
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class);
             int hour = model_data.query_8(params.getSelect());
             if(hour >= 0){
-                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": " + hour + "}"));
+                String hourres = "";
+                if(hour < 10) hourres += "0" + hour + ":00";
+                else hourres+= "" + hour + ":00";
+                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + hourres + "\"}"));
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
