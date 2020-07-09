@@ -51,6 +51,9 @@ $("#execute_query_btn").click(function(){
     }else if(querynum === "Query 13"){
         createAndSetQuerySelectString();
         sendRequestQuery13();
+    }else if(querynum === "Query 14"){
+        createAndSetQuerySelectString();
+        sendRequestQuery14();
     }else{
         createAndSetQuerySelectString();
         sendRequestAndObtainResponseQuery();
@@ -58,8 +61,11 @@ $("#execute_query_btn").click(function(){
 });
 
 $("#reset_btn").click(function(){
+    $("#select_query").val("Query 1");
+    $("#select_query").trigger("change");
     $("#select_query_page").show();
     $("#result_content_page").hide();
+
     resetResultPage();
 });
 
@@ -107,9 +113,6 @@ function otherSettingsForQuery(querynum){
         $("#insert_query9_btn").hide();
     }
 
-    if(querynum === "Query 14"){
-        initQuery14();
-    }
 }
 
 function createContentForFieldSet(querynum, selectedText){
@@ -174,6 +177,11 @@ function createContentForFieldSet(querynum, selectedText){
     if(querynum === "Query 13"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
         $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"tf_span\"> </span>\"");
+    }
+    if(querynum === "Query 14"){
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\">";
+        $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
     return str;
 }
@@ -527,11 +535,7 @@ function sendRequestQuery12(){
                 for(var i = 0; i < size; i++){
                     var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
                     str+= "<div class=\"row\"><div class=\"cell cell_new_hour_tbody\">" + k.hour + "</div>" +
-                        "<div class=\"cell cell_new_offense_tbody\">" +
-                        "<div class=\"tooltip_w3c popup_q14\" onclick='initquery14()'><span>" + k.offense_code_group + "</span>" +
-                            "<span class=\"tooltiptext_w3c\">Clicca qui per ulteriori dettagli</span>" +
-                            "<span class=\"popuptext_q14\" id=\"myPopup_q14\"></span>" +
-                            "</div>" +
+                        "<div class=\"cell cell_new_offense_tbody\">" + k.offense_code_group +
                         "</div></div>";
 
                 }
@@ -591,45 +595,45 @@ $("#back_query13_btn").click(function(){
     $("#select_query").trigger("change");
 });
 
-/* Query 14 - si collega con la query 12 */
-function initquery14(){
+/* QUERY 14 */
+function sendRequestQuery14(){
 
-    var distretto = $("#district_input_q12").text();
-    var cat = $(".tooltip_w3c, .popup_q14").children().eq(0).text();
-    alert("Distretto: " + distretto + "Category:" +cat + "NUm figlio: " + $(".tooltip_w3c, .popup_q14").children().length);
+    var d = $(".content_fieldset"); //dammi il padre di <fieldset> selezionato
 
-    //ottieni la categoria selezionata
-    $.post("crime-contr", {"action": "Query 14", "distretto" : distretto, "category": cat}, function(resp, statTxt, xhr){
+    var a = new Object();
+    a.select = "";
+    a.textfield = "";
+    a.numfieldmin = 0;
+    a.numfieldmax = 0;
+
+    //var s = "{"; //stringa che contiene gli input dell'utente
+    for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
+        var e = d.children().eq(i); //elemento html che si sta esaminando
+        if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
+            a.textfield = e.val(); //dammi il valore della <select>
+        }
+        if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
+            if (e.attr("name") === "fascia_oraria_min"){
+                a.numfieldmin = e.val(); //dammi il valore della <select>
+            }
+        }
+    }
+
+    $.post("crime-contr", {"action": "Query 14", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success") {
-            var htmlpopup = createPopupQuery14(resp);
-            $("#myPopup_q14").html(htmlpopup);
-            $("#myPopup_q14").show();
+            loadbarchart(resp); //carica o costruisci il pie chart
+            $("#select_query_page").hide();
+            $(".query14_page_title").html($(".query_text_for_result").text());
+            $("#query14_content_page").show();
         }
     });
-
-};
-
-function createPopupQuery14(resp){
-    var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
-    var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
-
-    var htmlcode = "<h3>Ulteriori dettagli</h3>" +
-        "Ora <select class=\"select_normal_style\" name=\"ore\">";
-
-        for(var i = 0; i <size; i++){
-            var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
-            htmlcode+= "<option value=\""+ k.hour + "\">" + k.hour + ":00</option>"
-        }
-        htmlcode+= "</select><br><br>" +
-            "<div class=\"btn_container\">" +
-            "   <a href=\"#\" id=\"proseguitbtn_q14\" class=\"myButton\">Prosegui</a>" +
-            "</div>";
-    return htmlcode;
-
 }
 
-$("#proseguitbtn_q14").click(function(){
-    alert("OK");
+$("#back_query14_btn").click(function(){
+    $("#select_query").val("Query 1");
+    $("#query14_content_page").hide();
+    $("#select_query_page").show();
+    $("#select_query").trigger("change");
 });
 
 

@@ -645,7 +645,6 @@ margin-right: 20px;
 
 .cell_new_hour_theader{
     width: 160px;
-    padding: 12px;
 }
 
 .cell_new_offense_theader{
@@ -684,12 +683,35 @@ margin-right: 20px;
 }
 
 .canvasjs-chart-canvas{
-    width: 600px;
-    height: 500px;
+
     position: relative;
     user-select: none;
 }
 
+/* STYLE QUERY 14 */
+#query14_content_page{
+    display: none;
+}
+
+.query14_page_title{
+    padding: 12px;
+    font-size: 28px;
+    background-color: #2dabf9;
+    text-align: center;
+    margin: 3%;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-radius: 6px;
+}
+
+#barchartContainer{
+    height: 400px;
+    width: 900px; /* prec. 100% */
+    margin-left: 27%;
+}
+
+
+/*ALTRO STYLE PER LA QUERY 14 (DIVERSA IMPLEMENTAZIONE - NON USATO) */
 /* Tooltip suggest popup STYLE */
 .tooltip_w3c {
     position: relative;
@@ -727,7 +749,9 @@ margin-right: 20px;
     visibility: visible;
 }
 
-/* POPUP QUERY 14 STYLE */
+
+
+/* POPUP QUERY 14 STYLE - PER ORA NON USATO */
 /* Popup container - can be anything you want */
 .popup_q14 {
     position: relative;

@@ -2,6 +2,7 @@ package controller;
 
 import Model.Model_Data;
 import Model.Tuple;
+import Model.Tuple_Count;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 import crime.Crime;
@@ -21,6 +22,7 @@ public class CrimeServlet extends HttpServlet {
 
     //STATIC ISTANCE
     private static final int MAX_PIECE_PIE_CHART_Q13 = 10;
+    private static final int MAX_COLUMNS_BAR_CHART_Q13 = 7;
     private static final int RESULT_LIMIT_DEFAULT = 500; //limita il numero di risultati (per risolvere problema di caricamento lento)
     private static final int RESULT_LIMIT_DEFAULT_PIE = 2000; //limita il numero di risultati (per risolvere problema di caricamento lento)
 
@@ -261,7 +263,6 @@ public class CrimeServlet extends HttpServlet {
 
                 String result = createJSONResultForQuery12(tuples);
 
-                System.out.println(result);
                 response.getWriter().write(json.toJson(result));
             }
 
@@ -274,20 +275,30 @@ public class CrimeServlet extends HttpServlet {
                 ArrayList<Crime> crimini = model_data.query_13(distretto);
 
                 String jsonRes = buildJSONResultForQuery13(crimini);
-                System.out.println("JSON: "+ jsonRes);
+
                 response.getWriter().write(json.toJson(jsonRes));
             }
         }else if(action.equalsIgnoreCase("Query 14")){
-            String distretto = request.getParameter("distretto");
-            String category = request.getParameter("category");
+            //Mostra i crimini avvenuti in un dato distretto in una data ora
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
+            if(!params.getTextfield().equalsIgnoreCase("") && params.getNumfieldmin() != -1) {
+                String distretto = params.getTextfield();
+                int hour = params.getNumfieldmin();
 
-            if(!distretto.equalsIgnoreCase("") && !category.equalsIgnoreCase("")){
-                ArrayList<Tuple> tuples = model_data.query_12(distretto);
+                ArrayList<Tuple_Count> tuple_counts = model_data.Query_14(distretto, hour);
 
-                //per una data categoria, prendi le ore (in intero) in cui si verifica maggiormente (serve per il popup)
-                String result = createJSONStringForObtainHour(tuples, category);
-
-                response.getWriter().write(json.toJson(result));
+                /*
+                String jsonResult = "{";
+                int i = 0;
+                for(Tuple_Count t : tuple_counts){
+                    jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
+                            "\"count\": " + t.getCount() + "},";
+                    i++;
+                }
+                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
+*/
+                String jsonResult = buildJSONResultForQuery14(tuple_counts);
+                response.getWriter().write(json.toJson(jsonResult));
             }
         }
         /* RIMOZIONE QUERY 14 - MAPPA
@@ -317,6 +328,31 @@ public class CrimeServlet extends HttpServlet {
         BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
         double percentage = bd2.doubleValue() * 100;
         return (int) percentage;
+    }
+
+    private String createJSONResultForQuery12(ArrayList<Tuple> tuples){
+
+        //Costruzione hashMap al fine di "accorpare" le ore con i risultati
+        Map<String, String> map = new HashMap<>();
+        for(Tuple t: tuples){
+            if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
+                map.put(t.getOffense_code_group(), t.getHour() + ":00");
+            }else{ //aggiungi le ore
+                String s = map.get(t.getOffense_code_group()) + " - " + t.getHour() + ":00";
+                map.replace(t.getOffense_code_group(), s);
+            }
+        }
+
+        String jsonResult = "{";
+        int i = 0;
+        for(String cat : map.keySet()){
+            jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + cat +"\", " +
+                    "\"hour\": \"" + map.get(cat) + "\"},";
+            i++;
+        }
+        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
+
+        return jsonResult;
     }
 
     private String buildJSONResultForQuery13(ArrayList<Crime> crimini){
@@ -373,45 +409,39 @@ public class CrimeServlet extends HttpServlet {
         return str;
     }
 
-    private String createJSONResultForQuery12(ArrayList<Tuple> tuples){
+    private String buildJSONResultForQuery14(ArrayList<Tuple_Count> tuples){
+        //Conta quanti incidenti/reati vengono eseguiti in quel distretto
+        Map<String, Integer> map = new HashMap<>();  //(categoriaCrimine, frequenza)
 
-        //Costruzione hashMap al fine di "accorpare" le ore con i risultati
-        Map<String, String> map = new HashMap<>();
-        for(Tuple t: tuples){
-            if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
-                map.put(t.getOffense_code_group(), t.getHour() + ":00");
-            }else{ //aggiungi le ore
-                String s = map.get(t.getOffense_code_group()) + " - " + t.getHour() + ":00";
-                map.replace(t.getOffense_code_group(), s);
-            }
+        for(Tuple_Count t : tuples){
+            map.put(t.getOffense_code_group(), t.getCount());
         }
 
-        String jsonResult = "{";
+        //Ordina le categorie in modo descrescente (per avere le categorie piu' frequenti tra i primi risultati)
+        Map<String, Integer> sorted = map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        //Limita contenuto della hashmap
+        Map<String, Integer> results = new HashMap<>();
         int i = 0;
-        for(String cat : map.keySet()){
-            jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + cat +"\", " +
-                    "\"hour\": \"" + map.get(cat) + "\"},";
+        for(String cat: sorted.keySet()){
+            if(cat.equalsIgnoreCase("\"Other\"")) continue;
+            if(i > MAX_COLUMNS_BAR_CHART_Q13-1){
+                break;
+            }
+            results.put(cat, sorted.get(cat));
             i++;
         }
-        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
 
-        return jsonResult;
-    }
-
-    //Crea una stringa JSON contenente le ore associate ad una data categoria
-    private String createJSONStringForObtainHour(ArrayList<Tuple> tuples, String category){
-
-        String jsonResult = "{";
-        int i = 0;
-        for(Tuple t: tuples){
-            if(category.equalsIgnoreCase(t.getOffense_code_group())) {
-                jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() + "\", " +
-                        "\"hour\": " + t.getHour() + "},";
-                i++;
-            }
+        //Setta le percentuali e costruisci il risultato in stringa JSON
+        String str = "{";
+        int j = 0;
+        for(String cat : results.keySet()) {
+            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; frequency: " + results.get(cat));
+            str+="\"crime"+ j +"\": {\"category\": \"" + cat + "\", \"frequency\": " + results.get(cat) + "},";
+            j++;
         }
-        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
-
-        return jsonResult;
+        str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+        return str;
     }
 }

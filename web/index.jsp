@@ -67,6 +67,7 @@
                 <option value="Query 11"> Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 12"> Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
                 <option value="Query 13"> Mostra la percentuale di reati avvenuti in un dato distretto </option>
+                <option value="Query 14"> Mostra i crimini avvenuti in un dato distretto in una data ora </option>
               </select>
 
             <fieldset id="fieldsetquery">
@@ -118,7 +119,7 @@
       </div>
       <!-- grafico -->
       <div class="btn_container">
-        <a href="#" id="reset_btn" class="myButton">Reset</a>
+        <a href="#" id="reset_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
     <!-- REMOVE MAP FOR NOW (QUERY 14)
@@ -155,6 +156,14 @@
         <a href="#" id="back_query13_btn" class="myButton">Torna indietro</a>
       </div>
     </div>
+    <div id="query14_content_page">
+      <p class="query14_page_title"> Mostra la percentuale di reati avvenuti in un dato distretto </p>
+      <!-- piechart content -->
+      <div id="barchartContainer"></div>
+      <div class="btn_container">
+        <a href="#" id="back_query14_btn" class="myButton">Torna indietro</a>
+      </div>
+    </div>
   </section>
   <section id="right_sidebar"> </section>
   <footer> </footer>
@@ -168,9 +177,13 @@
   <script src="script/table_bootstrap_js/main.js"></script>
   <script src="script/custom_select_script.js"></script>
   <script src="script/selectize-min.js"></script>
+
   <!-- PIE CHART script -->
   <script src="script/canvasjsmin.js"></script>
   <script src="script/piechart.js"></script>
+
+  <!-- BAR CHART script -->
+  <script src="script/barchart_script.js"></script>
 
   <!-- MAP SCRIPT - REMOVE FOR NOW -->
   <!--Load the API from the specified URL
