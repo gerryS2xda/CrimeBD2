@@ -21,6 +21,8 @@ public class CrimeServlet extends HttpServlet {
 
     //STATIC ISTANCE
     private static final int MAX_PIECE_PIE_CHART_Q13 = 10;
+    private static final int RESULT_LIMIT_DEFAULT = 500; //limita il numero di risultati (per risolvere problema di caricamento lento)
+    private static final int RESULT_LIMIT_DEFAULT_PIE = 2000; //limita il numero di risultati (per risolvere problema di caricamento lento)
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -117,6 +119,7 @@ public class CrimeServlet extends HttpServlet {
                 String str = "{";
                 int i = 0;
                 for(Crime c : crimes) {
+                    if(i > RESULT_LIMIT_DEFAULT) break;
                     c.setStreet("\"street\""); //per indicare la colonna da rimuovere
                     str += "\"crime"+i +"\":" + c.toJSONString();
                     str+= "},";
@@ -159,6 +162,7 @@ public class CrimeServlet extends HttpServlet {
                 String str = "{";
                 int i = 0;
                 for(Crime c : crimes) {
+                    if(i > RESULT_LIMIT_DEFAULT) break;
                     c.setDistrict("\"distretto\""); //per indicare la colonna da rimuovere
                     str += "\"crime"+i +"\":" + c.toJSONString();
                     str+= "},";
@@ -215,6 +219,7 @@ public class CrimeServlet extends HttpServlet {
                 String str = "{";
                 int i = 0;
                 for(Crime c : crimes) {
+                    if(i > RESULT_LIMIT_DEFAULT) break;
                     c.setDistrict("\"distretto\""); //per indicare la colonna da rimuovere
                     c.setUCR_Part("\"ucr\""); //per indicare la colonna da rimuovere
                     str += "\"crime"+i +"\":" + c.toJSONString();
@@ -257,11 +262,11 @@ public class CrimeServlet extends HttpServlet {
                 String jsonResult = "{";
                 int i = 0;
                 for(Tuple t : tuples){
+                    if(i > RESULT_LIMIT_DEFAULT_PIE) break;
                     jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
                             "\"hour\": " + t.getHour() +"},";
                     i++;
                 }
-
                 jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
                 System.out.println(jsonResult);
                 response.getWriter().write(json.toJson(jsonResult));
@@ -279,7 +284,9 @@ public class CrimeServlet extends HttpServlet {
                 System.out.println("JSON: "+ jsonRes);
                 response.getWriter().write(json.toJson(jsonRes));
             }
-        }else if(action.equalsIgnoreCase("Query 14")){
+        }
+        /* RIMOZIONE QUERY 14 - MAPPA
+        if(action.equalsIgnoreCase("Query 14")){
             //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
             String location = request.getParameter("location");
             if(location != null || !(location.equalsIgnoreCase(""))){
@@ -290,6 +297,8 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson("{\"flag\": \"exception\"}"));
             }
         }
+
+         */
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
