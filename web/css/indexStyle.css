@@ -104,6 +104,8 @@ body{
     background-color: #2dabf9;
     text-align: center;
     margin: 3%;
+    margin-left: 6%;
+    margin-right: 6%;
     border-radius: 6px;
 }
 
@@ -599,12 +601,18 @@ margin-right: 20px;
     display: none;
 }
 
+#district_input_q12{
+    display: none;
+}
+
 .query12_page_title{
     padding: 12px;
     font-size: 28px;
     background-color: #2dabf9;
     text-align: center;
-    margin: 5%;
+    margin: 3%;
+    margin-left: 8%;
+    margin-right: 8%;
     border-radius: 6px;
 }
 
@@ -635,11 +643,21 @@ margin-right: 20px;
     overflow-x: auto;
 }
 
-.cell_new_hour{
-    width: 150px;
+.cell_new_hour_theader{
+    width: 160px;
+    padding: 12px;
 }
 
-.cell_new_offense{
+.cell_new_offense_theader{
+    width: 450px;
+}
+
+.cell_new_hour_tbody{
+    width: 160px;
+    padding: 12px;
+}
+
+.cell_new_offense_tbody{
     width: 450px;
 }
 
@@ -659,7 +677,9 @@ margin-right: 20px;
     font-size: 28px;
     background-color: #2dabf9;
     text-align: center;
-    margin: 5%;
+    margin: 3%;
+    margin-left: 8%;
+    margin-right: 8%;
     border-radius: 6px;
 }
 
@@ -670,3 +690,97 @@ margin-right: 20px;
     user-select: none;
 }
 
+/* Tooltip suggest popup STYLE */
+.tooltip_w3c {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip_w3c .tooltiptext_w3c {
+    visibility: hidden;
+    width: 150px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;  /*per bottom arrow: 150%*/
+    left: 50%;  /*per bottom arrow: 50% */
+    margin-left: -60px;
+}
+
+.tooltip_w3c .tooltiptext_w3c::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.tooltip_w3c:hover .tooltiptext_w3c {
+    visibility: visible;
+}
+
+/* POPUP QUERY 14 STYLE */
+/* Popup container - can be anything you want */
+.popup_q14 {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup_q14 .popuptext_q14 {
+    display: none;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup_q14 .popuptext_q14::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup_q14 .show_q14 {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}

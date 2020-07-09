@@ -259,17 +259,10 @@ public class CrimeServlet extends HttpServlet {
                 //e converti in stringa JSON
                 ArrayList<Tuple> tuples = model_data.query_12(distretto);
 
-                String jsonResult = "{";
-                int i = 0;
-                for(Tuple t : tuples){
-                    if(i > RESULT_LIMIT_DEFAULT_PIE) break;
-                    jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
-                            "\"hour\": " + t.getHour() +"},";
-                    i++;
-                }
-                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
-                System.out.println(jsonResult);
-                response.getWriter().write(json.toJson(jsonResult));
+                String result = createJSONResultForQuery12(tuples);
+
+                System.out.println(result);
+                response.getWriter().write(json.toJson(result));
             }
 
         }else if(action.equalsIgnoreCase("Query 13")){
@@ -283,6 +276,18 @@ public class CrimeServlet extends HttpServlet {
                 String jsonRes = buildJSONResultForQuery13(crimini);
                 System.out.println("JSON: "+ jsonRes);
                 response.getWriter().write(json.toJson(jsonRes));
+            }
+        }else if(action.equalsIgnoreCase("Query 14")){
+            String distretto = request.getParameter("distretto");
+            String category = request.getParameter("category");
+
+            if(!distretto.equalsIgnoreCase("") && !category.equalsIgnoreCase("")){
+                ArrayList<Tuple> tuples = model_data.query_12(distretto);
+
+                //per una data categoria, prendi le ore (in intero) in cui si verifica maggiormente (serve per il popup)
+                String result = createJSONStringForObtainHour(tuples, category);
+
+                response.getWriter().write(json.toJson(result));
             }
         }
         /* RIMOZIONE QUERY 14 - MAPPA
@@ -318,7 +323,9 @@ public class CrimeServlet extends HttpServlet {
         //Conta quanti incidenti/reati vengono eseguiti in quel distretto
         Map<String, Integer> map = new HashMap<>();  //(categoriaCrimine, frequenza)
 
+        int k = 0;
         for(Crime c : crimini){
+            if(k > RESULT_LIMIT_DEFAULT_PIE) break;
             if(!map.keySet().contains(c.getOffenseCodeGroup())){ //se hashtable non contiene offensecodegroup, allora aggiungi
                 map.put(c.getOffenseCodeGroup(), 1);
             }else{  //se gia' presente, incrementa il conteggio
@@ -326,6 +333,7 @@ public class CrimeServlet extends HttpServlet {
                 count++;
                 map.replace(c.getOffenseCodeGroup(), count);
             }
+            k++;
         }
 
         //Ordina le categorie in modo descrescente (per avere le categorie piu' frequenti tra i primi risultati)
@@ -363,5 +371,47 @@ public class CrimeServlet extends HttpServlet {
         }
         str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
         return str;
+    }
+
+    private String createJSONResultForQuery12(ArrayList<Tuple> tuples){
+
+        //Costruzione hashMap al fine di "accorpare" le ore con i risultati
+        Map<String, String> map = new HashMap<>();
+        for(Tuple t: tuples){
+            if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
+                map.put(t.getOffense_code_group(), t.getHour() + ":00");
+            }else{ //aggiungi le ore
+                String s = map.get(t.getOffense_code_group()) + " - " + t.getHour() + ":00";
+                map.replace(t.getOffense_code_group(), s);
+            }
+        }
+
+        String jsonResult = "{";
+        int i = 0;
+        for(String cat : map.keySet()){
+            jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + cat +"\", " +
+                    "\"hour\": \"" + map.get(cat) + "\"},";
+            i++;
+        }
+        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
+
+        return jsonResult;
+    }
+
+    //Crea una stringa JSON contenente le ore associate ad una data categoria
+    private String createJSONStringForObtainHour(ArrayList<Tuple> tuples, String category){
+
+        String jsonResult = "{";
+        int i = 0;
+        for(Tuple t: tuples){
+            if(category.equalsIgnoreCase(t.getOffense_code_group())) {
+                jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() + "\", " +
+                        "\"hour\": " + t.getHour() + "},";
+                i++;
+            }
+        }
+        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
+
+        return jsonResult;
     }
 }

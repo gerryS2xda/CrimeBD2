@@ -509,7 +509,8 @@ function sendRequestQuery12(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val(); //dammi il valore della <inpuy>
+            $("#district_input_q12").text(e.val()); //salva il distretto inserito da utente, serve per la query 14
         }
     }
 
@@ -525,11 +526,15 @@ function sendRequestQuery12(){
 
                 for(var i = 0; i < size; i++){
                     var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
-                    str+= "<div class=\"row\"><div class=\"cell cell_new_hour\">" + k.hour + "</div>" +
-                        "<div class=\"cell cell_new_offense\">" + k.offense_code_group + "</div></div>";
+                    str+= "<div class=\"row\"><div class=\"cell cell_new_hour_tbody\">" + k.hour + "</div>" +
+                        "<div class=\"cell cell_new_offense_tbody\">" +
+                        "<div class=\"tooltip_w3c popup_q14\" onclick='initquery14()'><span>" + k.offense_code_group + "</span>" +
+                            "<span class=\"tooltiptext_w3c\">Clicca qui per ulteriori dettagli</span>" +
+                            "<span class=\"popuptext_q14\" id=\"myPopup_q14\"></span>" +
+                            "</div>" +
+                        "</div></div>";
 
                 }
-
                 $("#table_header3").after(str);
                 $(".query12_page_title").html($(".query_text_for_result").text());
                 $("#select_query_page").hide();
@@ -586,7 +591,49 @@ $("#back_query13_btn").click(function(){
     $("#select_query").trigger("change");
 });
 
-/* query 14 - REMOVE FOR NOW
+/* Query 14 - si collega con la query 12 */
+function initquery14(){
+
+    var distretto = $("#district_input_q12").text();
+    var cat = $(".tooltip_w3c, .popup_q14").children().eq(0).text();
+    alert("Distretto: " + distretto + "Category:" +cat + "NUm figlio: " + $(".tooltip_w3c, .popup_q14").children().length);
+
+    //ottieni la categoria selezionata
+    $.post("crime-contr", {"action": "Query 14", "distretto" : distretto, "category": cat}, function(resp, statTxt, xhr){
+        if(xhr.readyState == 4 && statTxt == "success") {
+            var htmlpopup = createPopupQuery14(resp);
+            $("#myPopup_q14").html(htmlpopup);
+            $("#myPopup_q14").show();
+        }
+    });
+
+};
+
+function createPopupQuery14(resp){
+    var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+    var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
+
+    var htmlcode = "<h3>Ulteriori dettagli</h3>" +
+        "Ora <select class=\"select_normal_style\" name=\"ore\">";
+
+        for(var i = 0; i <size; i++){
+            var k = o["crime" + i];	//prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            htmlcode+= "<option value=\""+ k.hour + "\">" + k.hour + ":00</option>"
+        }
+        htmlcode+= "</select><br><br>" +
+            "<div class=\"btn_container\">" +
+            "   <a href=\"#\" id=\"proseguitbtn_q14\" class=\"myButton\">Prosegui</a>" +
+            "</div>";
+    return htmlcode;
+
+}
+
+$("#proseguitbtn_q14").click(function(){
+    alert("OK");
+});
+
+
+/* QUERY WITH MAP (REMOVED)
 //script for map content page
 $("#back_query14_btn").click(function(){
     $("#select_query").val("Query 1");

@@ -136,12 +136,13 @@
           <div class="wrap-table100_q12">
             <div class="table_q12">
               <div id="table_header3" class="row header noHover">
-                <div class="cell cell_new_hour"> Ore </div>
-                <div class="cell cell_new_offense"> Tipologia di incidente/reato </div>
+                <div class="cell cell_new_hour_theader"> Ore </div>
+                <div class="cell cell_new_offense_theader"> Tipologia di incidente/reato </div>
               </div>
             </div>
           </div>
         </div>
+      <span id="district_input_q12"></span> <!-- hidden, contiene distretto inserito da utente -->
       <div class="btn_container">
         <a href="#" id="back_query12_btn" class="myButton">Torna indietro</a>
       </div>
