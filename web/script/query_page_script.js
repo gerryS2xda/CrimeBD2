@@ -127,8 +127,8 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 3"){
         str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
+            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\">";
         $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e in una data fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>\"");
     }
     if(querynum === "Query 4"){
@@ -147,8 +147,8 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 7"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\"> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"1\" max=\"24\" value=\"15\">";
+            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\"> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\">";
         $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e nella fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"></span>\"");
     }
     if(querynum === "Query 8"){
@@ -180,7 +180,7 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 14"){
         str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"1\" max=\"24\" value=\"13\">";
+        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\">";
         $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
     return str;
