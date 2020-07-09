@@ -12,8 +12,8 @@ public class InputParameter {
     public InputParameter(){
         this.select = "";
         this.textfield = "";
-        this.numfieldmin = 0;
-        this.numfieldmax = 0;
+        this.numfieldmin = -1; //0 e' usato per indicare la mezzanotte
+        this.numfieldmax = -1; //0 e' usato per indicare la mezzanotte
     }
 
     //getter and setter
