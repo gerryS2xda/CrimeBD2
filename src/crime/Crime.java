@@ -193,11 +193,11 @@ public class Crime {
     public String toJSONString(){
         //Fixing of some attribute
         String fixlocation =  location.substring(2, location.length()-3) + "\""; //rimozione di \"(42.29755533, -71.05970910)\"
-        String fixshooting = "";
-        String fixUCR = "";
-        String fixReportingArea = "";
+        String fixshooting = shooting;
+        String fixUCR = UCR_Part;
+        String fixReportingArea = reportingArea;
 
-        if(shooting.equalsIgnoreCase("\"\"")){
+        if(shooting.equalsIgnoreCase("\"\"") || shooting.equalsIgnoreCase("\"Y\"")){
             fixshooting = "\"Not Specificated\"";
         }else if(shooting.equalsIgnoreCase("\"0\"")){
             fixshooting = "\"No\"";
@@ -206,13 +206,9 @@ public class Crime {
         }
         if(UCR_Part.equalsIgnoreCase("\"\"") || UCR_Part.equalsIgnoreCase("\" \"")){
             fixUCR = "\"Other\""; //indica che il valore non è presente nel dataset
-        }else{
-            fixUCR = UCR_Part;
         }
         if(reportingArea.equalsIgnoreCase("\" \"")){
             fixReportingArea = "\"Not Specificated\""; //per indicare che il valore non è presente
-        }else{
-            fixReportingArea = reportingArea;
         }
         String changeDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm").format(occurredOnDate);
 
