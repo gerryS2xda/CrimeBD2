@@ -36,3 +36,268 @@ function validateFasciaOraria(item){
     }
     return val;
 }
+
+
+function styleForErrorTextInput(item){
+    item.css("border","1px solid red");
+}
+
+//Validation Insert Form
+function validateIncidentNumber(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[A-Z]{1}[0-9]{9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. I192012345");
+    }
+    return val;
+}
+
+function validateOffenseCodeAndSetOffenseCodeGroup(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[0-9]{3,5}$/; //Ci deve essere almeno 3 numeri e al massimo 5
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. 123 o 1234");
+    }
+
+    setOffenseCodeGroup(x);
+
+    return val;
+}
+
+function setOffenseCodeGroup(offcode){
+    $("#off_code_group").prop('disabled', true);
+    $.post("crime-contr", {"action": "getOffenseCategory", "input" : offcode}, function(resp, statTxt, xhr) {
+        if (xhr.readyState == 4 && statTxt == "success") {
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+            var cat = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            if(cat !== "noresult"){
+                alert("Cat: " + cat);
+                $("#off_code_group").val(cat);
+            }else{
+                $("#off_code_group").val("");
+                $("#off_code_group").prop('disabled', false);
+            }
+        }
+    });
+}
+
+function validateDistrict(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[A-Z]{1}[0-9]{1,2}$/; //Ci deve essere al più una lettera e al massimo 2 interi
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. B2, C11");
+    }
+    return val;
+}
+
+function validateReportingArea(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[0-9]{2,3}$/; //Ci deve essere al più due interi su 3
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " interi)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. 123");
+    }
+    return val;
+}
+
+function validateOffenseCodeGroup(item, maxlenght, err) {
+    var x = item.val();
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. B2, C11");err.empty();
+        val = true;
+    }
+    return val;
+}
+
+function validateOffenseDescription(item, maxlenght, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    var val = false;
+    var x = item.val();
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else {
+        err.empty();
+        val = true;
+    }
+    return val;
+}
+
+function validateOccurredDate(item, err) {
+    var val = false;
+    var x = item.val();
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else {
+        err.empty();
+        val = true;
+    }
+    return val;
+}
+
+function validateStreet(item, maxlenght, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    var val = false;
+    var x = item.val();
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else {
+        err.empty();
+        val = true;
+    }
+    return val;
+}
+
+function validateLatitude(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[\-]{0,1}[0-9]{2,2}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più '-', 2 interi, un ".", 8 interi
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. 123");
+    }
+    return val;
+}
+
+function validateLatitude(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[\-]{0,1}[0-9]{2}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più due interi su 3
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. (-)12.34567890 (range -90, +90)");
+    }
+    return val;
+}
+
+function validateLongitude(item, maxlenght, err) {
+    var x = item.val();
+    var re = /^[\-]{0,1}[0-9]{3}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più due interi su 3
+    var val = false;
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
+        styleForErrorTextInput(item);
+        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
+    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
+        err.empty();
+        item.css("border","1px solid green");
+        val = true;
+    }else{
+        styleForErrorTextInput(item);
+        err.html("Valore inserito non valido!! Es. (-)12.34567890 (range -180, 180");
+    }
+    return val;
+}
+
+//Added formvalidation function
+function formInserimentoValidation(){
+    var flag = false;
+    if(validateIncidentNumber($("#inc_number"), 10, $('.crime_ins_txt_err').eq(0))){
+        if(validateOffenseCodeGroup($("#off_code_group"), 50, $('.crime_ins_txt_err').eq(2))){
+            if(validateOffenseDescription($("#off_code_desc"), 50, $('.crime_ins_txt_err').eq(3))){
+                if(validateDistrict($("#district_ins"), 3, $('.crime_ins_txt_err').eq(4))){
+                    if(validateReportingArea($("#report_area_ins"), 20, $('.prod_txt_err').eq(5))){
+                        if(validateOccurredDate($("#datetime_ins"), $('.crime_ins_txt_err').eq(6))){	//verifica se occorre inserire il numero di uova
+                            if(validateStreet($("#street_ins"), 20, $('.crime_ins_txt_err').eq(7))){
+                                if(validateLatitude($("#latitude_ins"), 13, $('.crime_ins_txt_err').eq(8))){
+                                    if(validateLongitude($("#longitude_ins"), 14, $('.crime_ins_txt_err').eq(9))){
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(flag){
+        return true;
+    }else{
+        alert("Ci stanno uno o piu' campi che presentano degli errori!! Non si puo' proseguire");
+        return false;
+    }
+}

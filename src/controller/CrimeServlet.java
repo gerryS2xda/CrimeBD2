@@ -52,7 +52,6 @@ public class CrimeServlet extends HttpServlet {
             }else{
                 response.getWriter().write(json.toJson("{\"category0\": \"noresult\"}"));
             }
-
         }
 
         if(action.equalsIgnoreCase("Query 1")){
@@ -298,6 +297,16 @@ public class CrimeServlet extends HttpServlet {
                 String jsonResult = buildJSONResultForQuery14(tuple_counts);
                 response.getWriter().write(json.toJson(jsonResult));
             }
+        }else if(action.equalsIgnoreCase("getOffenseCategory")){
+            int offcode = Integer.parseInt(request.getParameter("input"));
+            String category = model_data.get_offense_code_group(offcode);
+
+            if(!category.equalsIgnoreCase("")){
+                response.getWriter().write(json.toJson("{\"crime0\": \""+ category +"\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
+
         }
         /* RIMOZIONE QUERY 14 - MAPPA
         if(action.equalsIgnoreCase("Query 14")){
