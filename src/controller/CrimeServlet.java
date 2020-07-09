@@ -4,14 +4,12 @@ import Model.Model_Data;
 import Model.Tuple;
 import Model.Tuple_Count;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonWriter;
 import crime.Crime;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.http.*;
@@ -22,7 +20,7 @@ public class CrimeServlet extends HttpServlet {
 
     //STATIC ISTANCE
     private static final int MAX_PIECE_PIE_CHART_Q13 = 10;
-    private static final int MAX_COLUMNS_BAR_CHART_Q13 = 7;
+    private static final int MAX_COLUMNS_BAR_CHART_Q14 = 7;
     private static final int RESULT_LIMIT_DEFAULT = 500; //limita il numero di risultati (per risolvere problema di caricamento lento)
     private static final int RESULT_LIMIT_DEFAULT_PIE = 2000; //limita il numero di risultati (per risolvere problema di caricamento lento)
 
@@ -426,7 +424,7 @@ public class CrimeServlet extends HttpServlet {
         int i = 0;
         for(String cat: sorted.keySet()){
             if(cat.equalsIgnoreCase("\"Other\"")) continue;
-            if(i > MAX_COLUMNS_BAR_CHART_Q13-1){
+            if(i > MAX_COLUMNS_BAR_CHART_Q14-1){
                 break;
             }
             results.put(cat, sorted.get(cat));
