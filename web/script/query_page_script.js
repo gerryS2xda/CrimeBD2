@@ -184,6 +184,13 @@ function createContentForFieldSet(querynum, selectedText){
         "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'>";
         $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
+    if(querynum === "Query 15"){
+        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+            "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
+            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
+            "</select></div>";
+        $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"select_span\"> </span>\"");
+    }
     return str;
 }
 

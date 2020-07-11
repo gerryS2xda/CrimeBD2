@@ -297,6 +297,21 @@ public class CrimeServlet extends HttpServlet {
                 String jsonResult = buildJSONResultForQuery14(tuple_counts);
                 response.getWriter().write(json.toJson(jsonResult));
             }
+        }else if(action.equalsIgnoreCase("Query 15")){
+            InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
+            if(!params.getTextfield().equalsIgnoreCase("")) {
+                String distretto = params.getTextfield();
+                String category = params.getSelect();
+                double d = model_data.Query_15(distretto, category);
+                BigDecimal bd = new BigDecimal(d);
+                BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
+                double percentage = bd2.doubleValue() * 100;
+
+                String result = percentage + "%";
+                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + result + "\"}"));
+            }else {
+                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+            }
         }else if(action.equalsIgnoreCase("getOffenseCategory")){
             int offcode = Integer.parseInt(request.getParameter("input"));
             String category = model_data.get_offense_code_group(offcode);
