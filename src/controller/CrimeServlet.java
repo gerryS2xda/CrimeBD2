@@ -292,6 +292,8 @@ public class CrimeServlet extends HttpServlet {
                 String distretto = params.getTextfield();
                 String category = params.getSelect();
                 double d = model_data.Query_15(distretto, category);
+                System.out.println("Query 15: " + d);
+
                 BigDecimal bd = new BigDecimal(d);
                 BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
                 double percentage = bd2.doubleValue() * 100;
