@@ -301,3 +301,36 @@ function formInserimentoValidation(){
         return false;
     }
 }
+
+function validateSelectCategory(item, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    var val = false;
+    var x = item.val();
+    if(x == "") { //errore campo vuoto
+        styleForErrorTextInput(item);
+        err.html("Campo obbligatorio");
+    }else {
+        err.empty();
+        val = true;
+    }
+    return val;
+}
+
+function validationSingleQuery(querynum){
+    var val = false;
+    switch (querynum) {
+        case "Query 1": if(validateIncidentNumber($("#incident_q1"), 10, $("#inc_q1_err"))) val=true; break;
+        case "Query 3": if(validateDistrict($("#district_q3"), 3, $("#distr_q3_err"))) val=true; break; //sistemare fascia oraria
+        case "Query 4": if(validateStreet($("#street_q4"), 20, $("#street_q4_err"))) val=true; break;
+        case "Query 5": if(validateDistrict($("#district_q5"), 3, $("#distr_q5_err"))) val=true; break;
+        case "Query 6": if((validateSelectCategory($("#cat_q6"),  $("#cat_q6_err")) && validateDistrict($("#distr_q6"), 3, $("#distr_q6_err")))) val=true; break;
+        case "Query 7": if(validateDistrict($("#district_q7"), 3, $("#distr_q7_err"))) val=true; break;  //sistemare fascia oraria
+        case "Query 8": if(validateSelectCategory($("#cat_q8"), $("#cat_q8_err"))) val=true; break;  //sistemare fascia oraria
+        case "Query 10": if((validateDistrict($("#district_q10"), 3, $("#distr_q10_err")))) val=true; break;
+        case "Query 11": if(validateIncidentNumber($("#incident_q11"), 10, $("#inc_q11_err"))) val=true; break;
+        case "Query 12": if(validateDistrict($("#district_q12"), 3, $("#distr_q12_err"))) val=true; break;
+        case "Query 13": if(validateDistrict($("#district_q13"), 3, $("#distr_q13_err"))) val=true; break;
+        case "Query 14": if(validateDistrict($("#district_q14"), 3, $("#distr_q14_err"))) val=true; break;
+        case "Query 15": if((validateDistrict($("#district_q15"), 3, $("#distr_q15_err"))) && (validateSelectCategory($("#cat_q15"),  $("#cat_q15_err"))) ) val=true; break;
+    }
+    return val;
+}

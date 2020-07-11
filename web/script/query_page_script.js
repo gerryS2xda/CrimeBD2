@@ -42,6 +42,10 @@ $("#execute_query_btn").click(function(){
     //Esegui codice dedicato sulla base del numero di query
     var querynum = $(".query_legend").text();
 
+    if(!validationSingleQuery(querynum)){
+        return;
+    }
+
     if(querynum === "Query 1"){
         sendRequestAndResponseForQuery1();
     }else if(querynum == "Query 11"){
@@ -59,6 +63,7 @@ $("#execute_query_btn").click(function(){
         createAndSetQuerySelectString();
         sendRequestAndObtainResponseQuery();
     }
+
 });
 
 $("#reset_btn").click(function(){
@@ -120,7 +125,7 @@ function otherSettingsForQuery(querynum){
 function createContentForFieldSet(querynum, selectedText){
     var str = "";
     if(querynum === "Query 1"){
-        str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
+        str+= "<label>Incident number</label><input type=\"text\" id=\"incident_q1\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\" onblur=\"validateIncidentNumber($(this), 10, $('#inc_q1_err'))\"> <span id=\"inc_q1_err\" class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Mostra le informazioni relative ad un incidente/reato \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 2"){
@@ -128,69 +133,69 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html(selectedText);
     }
     if(querynum === "Query 3"){
-        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-            "<label>Fascia oraria</label><input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'>";
+        str+= "<label>Distretto</label><input type=\"text\" id=\"district_q3\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q3_err'))\"> <span id=\"distr_q3_err\" class=\"crime_query_txt_err\"> </span><br>" +
+            "<label>Fascia oraria</label><input type=\"number\" id=\"fascia_oraria_q3\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e in una data fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>\"");
     }
     if(querynum === "Query 4"){
-        str+="<label>Street</label><input type=\"text\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\">"
+        str+="<label>Street</label><input type=\"text\" id=\"street_q4\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\" onblur=\"validateStreet($(this), 20, $('#street_q4_err')) > <span id=\"street_q4_err\" class=\"crime_query_txt_err\"></span>"
         $(".query_text_for_result").html("Incidenti/reati avvenuti nella street \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 5"){
-        str+= "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
+        str+= "<label>Distretto</label><input type=\"text\" id=\"district_q5\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q5_err'))\"> <span id=\"distr_q5_err\" class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Visualizza la categoria di incidenti/reati che avvengono maggiormente nel distretto \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 6"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div><br>" +
-            "<label>Distretto</label><input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\">";
+            "<select id=\"cat_q6\" class=\"cust_sel\" placeholder=\"Pick a state...\" onblur=\"validateSelectCategory($(this), $('#cat_q6_err'))\"><option value=\"\">Select a state...</option>" + optioncategory + "</select></div> <span id=\"cat_q6_err\" class=\"crime_query_txt_err\"> </span> <br>" +
+            "<label>Distretto</label><input type=\"text\" id=\"distr_q6\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <span id=\"distr_q6_err\" class=\"crime_query_txt_err\"> </span>";
         $(".query_text_for_result").html("Mostra in quale giorno della settimana avvengono più reati/incidenti di tipo \"<span class=\"select_span\"> </span>\" nel distretto \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 7"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q7\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q7_err'))\"> <span id=\"distr_q7_err\" class=\"crime_query_txt_err\"> </span> <br>" +
             "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'>";
+            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span  class=\"crime_query_txt_err\"> </span>";
         $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e nella fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"></span>\"");
     }
     if(querynum === "Query 8"){
         str+= "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
-            "</select></div>";
-        $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo \"<span class=\"select_span\"> </span>\"");
+            "<select id=\"cat_q8\" class=\"cust_sel\" placeholder=\"Pick a state...\" onblur=\"validateSelectCategory($(this), $('#cat_q8_err'))\"><option value=\"\">Select a state...</option>" + optioncategory +
+            "</select></div> <span class=\"crime_query_txt_err\"></span>";
+        $(".query_text_for_result").html("Visualizza l'ora in cui si verifica maggiormente un incidente/reato di tipo \"<span id=\"cat_q8_err\" class=\"select_span\"> </span>\"");
     }
     //query 9 -> Insert (non necessita di questo)
     if(querynum === "Query 10"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q10\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q10_err'))\"> <span id=\"distr_q10_err\" class=\"crime_query_txt_err\"></span> <br>" +
             "<label> UCR </label><div class=\"custom-select-w3c\">" +
-            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
+            "<select id=\"ucr_q10\" class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" +
             "<option value=\"Part One\">Part One</option><option value=\"Part Two\">Part Two</option>" +
-            "<option value=\"Part Three\">Part Three</option><option value=\"Other\">Other</option></select></div>";
+            "<option value=\"Part Three\">Part Three</option><option value=\"Other\">Other</option></select></div> <span id=\"ucr_q10_err\" class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Incidenti/reati in base al valore di UCR \"<span class=\"select_span\"> </span>\" e al distretto \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 11"){
-        str+= "<label>Incident number</label><input type=\"text\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\">";
+        str+= "<label>Incident number</label><input type=\"text\" id=\"incident_q11\" class=\"inputfield\" name=\"incidentnumber\" placeholder=\"(es. I92097173)\" onblur=\"validateIncidentNumber($(this), 10, $('#incnum_q11_err'))\"> <span id=\"incnum_q11_err\" class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Cancellazione mediante inserimento dell'Incident number \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 12"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q12\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q12_err'))\"> <span id=\"distr_q12_err\" class=\"crime_query_txt_err\"></span> <br>";
         $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"tf_span\"> </span>\"");
     }
     if(querynum === "Query 13"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>";
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q13\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q13_err'))\"> <span id=\"distr_q13_err\" class=\"crime_query_txt_err\"></span> <br>";
         $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"tf_span\"> </span>\"");
     }
     if(querynum === "Query 14"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
-        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'>";
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q14\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q14_err'))\"> <span id=\"distr_q14_err\" class=\"crime_query_txt_err\"></span> <br>" +
+        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> <span class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
     if(querynum === "Query 15"){
-        str+= "<label>Distretto </label> <input type=\"text\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\"> <br>" +
+        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q15\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q15_err'))\"> <span id=\"distr_q15_err\" class=\"crime_query_txt_err\"></span> <br>" +
             "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
-            "<select class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
-            "</select></div>";
-        $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"select_span\"> </span>\"");
+            "<select id=\"cat_q15\" class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
+            "</select></div> <span class=\"crime_query_txt_err\"></span>";
+        $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span id=\"cat_q15_err\" class=\"select_span\"> </span>\"");
     }
     return str;
 }
@@ -422,8 +427,12 @@ function resetContentPopup(){
 }
 
 $("#insert_crime_btn").click(function(){
-    removeContentPopup();
-    sendRequestForInsert();
+
+    if(formInserimentoValidation()){
+        removeContentPopup();
+        sendRequestForInsert();
+        document.insert_form.reset();
+    }
 });
 
 $("#annulla_crime_btn").click(function(){

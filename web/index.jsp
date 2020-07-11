@@ -28,24 +28,26 @@
       <div id="content_popup">
         <div id="content_popup_area">
           <h1>Inserimento incidente/reato</h1>
-          <label class="label_popup">Incident number </label><input type="text" class="inputfield_pop" id="inc_number" placeholder="(es. I192012345)" onblur="validateIncidentNumber($(this), 10, $('.crime_ins_txt_err').eq(0))"> <span class="crime_ins_txt_err"></span><br>
-          <label class="label_popup">Offense code </label><input type="number" class="numberfield_pop" id="off_code" placeholder="(es. 1234)" min="1" onblur="validateOffenseCodeAndSetOffenseCodeGroup($(this), 5, $('.crime_ins_txt_err').eq(1))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup">Offense code group </label><input type="text" class="inputfield_pop" id="off_code_group" value="" placeholder="(es. Auto Theft)" disabled onblur="validateOffenseCodeGroup($(this), 50, $('.crime_ins_txt_err').eq(2))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup">Offense description </label><input type="text" class="inputfield_pop" id="off_code_desc" placeholder="(es. Auto Theft - Scooter)" maxlength="50" onblur="validateOffenseDescription($(this), 50, $('.crime_ins_txt_err').eq(3))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup">District </label><input type="text" class="inputfield_pop" id="district_ins" placeholder="(es. C11)" onblur="validateDistrict($(this), 3, $('.crime_ins_txt_err').eq(4))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup">Reporting area </label><input type="text" class="inputfield_pop" id="report_area_ins" placeholder="(es. 123)" onblur="validateReportingArea($(this), 3, $('.crime_ins_txt_err').eq(5))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup"> Shooting </label><select class="select_normal_style" id="shooting_ins"><option value="1">Sì</option><option value="0">No</option><option value="None">Non si sa</option></select>
-          <label class="label_popup"> UCR part </label><select class="select_normal_style" id="ucr_path_in"><option value="Part One">Part One</option>
-          <option value="Part Two">Part Two</option><option value="Part Three">Part Three</option>
-          <option value="Other">Part Three</option></select> <br>
-          <label class="label_popup"> Date and time </label> <input type="datetime-local" class="datetime_input" id="datetime_ins"> <span class="crime_ins_txt_err"></span><br> <!-- check campo obbligatorio -->
-          <label class="label_popup"> Street </label><input type="text" class="inputfield_pop" id="street_ins" placeholder="(es. BOWDOIN ST)" maxlength="20" onblur="validateStreet($(this), 20, $('.crime_ins_txt_err').eq(7))"> <span class="crime_ins_txt_err"></span> <br>
-          <label class="label_popup"> Latitude </label><input type="text" class="inputfield_pop" id="latitude_ins" placeholder="(es. 12.34567890)" onblur="validateLatitude($(this), 13, $('.crime_ins_txt_err').eq(8))"> <span class="crime_ins_txt_err"></span><br>
-          <label class="label_popup"> Longitude </label><input type="text" class="inputfield_pop" id="longitude_ins" placeholder="(es. 12.34567890)" onblur="validateLongitude($(this), 14, $('.crime_ins_txt_err').eq(9))"> <span class="crime_ins_txt_err"></span>br>
-          <div class="content_pop_button_area">
-            <button id="insert_crime_btn" type="button" class="myButton">Inserisci</button>
-            <button id="annulla_crime_btn" type="button" class="myButton">Annulla</button>
-          </div>
+          <form id="insert_form" name="insert_form">
+            <label class="label_popup">Incident number </label><input type="text" class="inputfield_pop" id="inc_number" placeholder="(es. I192012345)" onblur="validateIncidentNumber($(this), 10, $('.crime_ins_txt_err').eq(0))"> <span class="crime_ins_txt_err"></span><br>
+            <label class="label_popup">Offense code </label><input type="number" class="numberfield_pop" id="off_code" placeholder="(es. 1234)" min="1" onblur="validateOffenseCodeAndSetOffenseCodeGroup($(this), 5, $('.crime_ins_txt_err').eq(1))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup">Offense code group </label><input type="text" class="inputfield_pop" id="off_code_group" value="" placeholder="(es. Auto Theft)" disabled onblur="validateOffenseCodeGroup($(this), 50, $('.crime_ins_txt_err').eq(2))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup">Offense description </label><input type="text" class="inputfield_pop" id="off_code_desc" placeholder="(es. Auto Theft - Scooter)" maxlength="50" onblur="validateOffenseDescription($(this), 50, $('.crime_ins_txt_err').eq(3))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup">District </label><input type="text" class="inputfield_pop" id="district_ins" placeholder="(es. C11)" onblur="validateDistrict($(this), 3, $('.crime_ins_txt_err').eq(4))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup">Reporting area </label><input type="text" class="inputfield_pop" id="report_area_ins" placeholder="(es. 123)" onblur="validateReportingArea($(this), 3, $('.crime_ins_txt_err').eq(5))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup"> Shooting </label><select class="select_normal_style" id="shooting_ins"><option value="1">Sì</option><option value="0">No</option><option value="None">Non si sa</option></select>
+            <label class="label_popup"> UCR part </label><select class="select_normal_style" id="ucr_path_in"><option value="Part One">Part One</option>
+            <option value="Part Two">Part Two</option><option value="Part Three">Part Three</option>
+            <option value="Other">Part Three</option></select> <br>
+            <label class="label_popup"> Date and time </label> <input type="datetime-local" class="datetime_input" id="datetime_ins"> <span class="crime_ins_txt_err"></span><br> <!-- check campo obbligatorio -->
+            <label class="label_popup"> Street </label><input type="text" class="inputfield_pop" id="street_ins" placeholder="(es. BOWDOIN ST)" maxlength="20" onblur="validateStreet($(this), 20, $('.crime_ins_txt_err').eq(7))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup"> Latitude </label><input type="text" class="inputfield_pop" id="latitude_ins" placeholder="(es. 12.34567890)" onblur="validateLatitude($(this), 13, $('.crime_ins_txt_err').eq(8))"> <span class="crime_ins_txt_err"></span><br>
+            <label class="label_popup"> Longitude </label><input type="text" class="inputfield_pop" id="longitude_ins" placeholder="(es. 12.34567890)" onblur="validateLongitude($(this), 14, $('.crime_ins_txt_err').eq(9))"> <span class="crime_ins_txt_err"></span>br>
+            <div class="content_pop_button_area">
+              <button id="insert_crime_btn" type="button" class="myButton">Inserisci</button>
+              <button id="annulla_crime_btn" type="button" class="myButton">Annulla</button>
+            </div>
+          </form>
         </div>
       </div>
       <div id="form_layout">
@@ -65,7 +67,7 @@
                 <option value="Query 9"> 9.  Inserimento di un incidente/reato </option>
                 <option value="Query 10"> 10.  Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 11"> 11.  Cancellazione mediante inserimento dell'Incident number </option>
-                <option value="Query 12"> 12.  Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
+                <option value="Query 12"> 12.  Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto </option>
                 <option value="Query 13"> 13.  Mostra la percentuale di reati avvenuti in un dato distretto </option>
                 <option value="Query 14"> 14.  Mostra i crimini avvenuti in un dato distretto in una data ora </option>
                 <option value="Query 15"> 15.  Query 15 </option>

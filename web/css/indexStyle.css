@@ -92,6 +92,12 @@ body{
     margin-left: 20px;
 }
 
+.crime_query_txt_err{
+    color: red;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
 /* page 1 - result content style */
 #result_content_page{
 	display: none; /*reso visibile quando preme btn */
