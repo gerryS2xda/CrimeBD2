@@ -218,7 +218,6 @@ public class Crime {
                 ", \"shooting\": " + fixshooting + ", \"occurredOnDate\": \"" + changeDateFormat + "\", \"year\": " + year +
                 ", \"month\": " + month + ", \"dayOfWeek\": " + dayOfWeek + ", \"hour\": " + hour + ", \"UCR_Part\": " + fixUCR +
                 ", \"street\": " + street + ", \"lat\": \"" + lat + "\", \"Long\": \"" + Long + "\", \"location\": " + fixlocation + "";
-        //System.out.println(str);
         //NB: la stringa JSON richiede che per i value string "incidentNumber": "I92097173", quindi occorre aggiungere \" (e' stato rimosso per fix)
         return str;
     }

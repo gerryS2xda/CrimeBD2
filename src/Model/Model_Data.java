@@ -31,7 +31,6 @@ public class Model_Data {
                 while (result.hasNext()) {
                     Record r = result.next();
                     crimine = Model_Data.buildCrime(r);
-                    System.out.println(crimine);
 
                 }
                 return crimine;
@@ -80,7 +79,6 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
                     crimini.add(crime);
                 }
                 return crimini;
@@ -101,7 +99,6 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
                     crimini.add(crime);
                 }
                 return crimini;
@@ -163,7 +160,6 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
                     crimini.add(crime);
                 }
                 return crimini;
@@ -209,7 +205,6 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
                     crimini.add(crime);
                 }
                 return crimini;
@@ -271,7 +266,6 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime);
                     crimini.add(crime);
                 }
                 return crimini;
@@ -324,7 +318,6 @@ public class Model_Data {
                 Result result  = tx.run("match (o:offense) return o.offense_code_group");
                 while(result.hasNext()){
                     Record r = result.next();
-                    System.out.println(r.get(0).asString());
                     offense_code_group.add(r.get(0).asString());
                 }
                 return offense_code_group;
