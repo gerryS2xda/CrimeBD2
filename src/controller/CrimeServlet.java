@@ -359,7 +359,7 @@ public class CrimeServlet extends HttpServlet {
         //Conta quanti incidenti/reati vengono eseguiti in quel distretto
         Map<String, Integer> map = new HashMap<>();  //(categoriaCrimine, frequenza)
 
-        int k = 0;
+        int tot = 0;
         for(Crime c : crimini){
             if(!map.keySet().contains(c.getOffenseCodeGroup())){ //se hashtable non contiene offensecodegroup, allora aggiungi
                 map.put(c.getOffenseCodeGroup(), 1);
@@ -367,21 +367,21 @@ public class CrimeServlet extends HttpServlet {
                 int count = map.get(c.getOffenseCodeGroup());
                 count++;
                 map.replace(c.getOffenseCodeGroup(), count);
+
             }
-            k++;
+            tot++;
+        }
+
+        for(String cat : map.keySet()) {
+
+            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; percetage: " + map.get(cat));
+
         }
 
         //Ordina le categorie in modo descrescente (per avere le categorie piu' frequenti tra i primi risultati)
         Map<String, Integer> sorted = map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
 
-        //Calcola le frequenze totali
-        int tot = 0;
-        for(String cat : sorted.keySet()) {
-            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; count: " + sorted.get(cat));
-            tot += sorted.get(cat);
-        }
-        System.out.println("Totale: " + tot);
 
         //Calcolo percentuali frequenza per pie chart (quindi il risultato)
         Map<String, Integer> results = new HashMap<>();
@@ -395,12 +395,12 @@ public class CrimeServlet extends HttpServlet {
             i++;
         }
 
-        //Setta le percentuali e costruisci il risultato in stringa JSON
+        //Setta le percentuali e costruisci il risultato in stringa JSON - Query 13 MAP
         String str = "{";
         int j = 0;
         for(String cat : results.keySet()) {
             results.replace(cat, computePercentage((double) results.get(cat), (double) tot));
-            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; percetage: " + results.get(cat));
+            System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + results.get(cat));
             str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + results.get(cat) + "},";
             j++;
         }
