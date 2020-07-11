@@ -88,6 +88,7 @@ function resetResultPage(){
 $("#select_query").change(function(){
     var query = $(this).val(); //dammi il contenuto di value della select
     var selectedText = $("#select_query option:selected").html();
+    selectedText = selectedText.substring(4, selectedText.length);
 
     $(".query_legend").text(query);
     $(".query_sel_text").text(selectedText);

@@ -54,21 +54,21 @@
           <form action="" method="POST">
 
               <select id="select_query" name="select_query">
-                <option value="Query 1"> 1. Mostra le informazioni relative ad un determinato incidente/reato </option>
-                <option value="Query 2"> 2. Visualizza reati/incidenti del giorno precedente </option>
-                <option value="Query 3"> 3. Reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
-                <option value="Query 4"> 4. Incidenti/reati avvenuti in una determinata street </option>
-                <option value="Query 5"> 5. Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
-                <option value="Query 6"> 6. Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
-                <option value="Query 7"> 7. Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria </option>
-                <option value="Query 8"> 8. Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
-                <option value="Query 9"> 9. Inserimento di un incidente/reato </option>
-                <option value="Query 10"> 10. Incidenti/reati in base al valore di UCR e al distretto </option>
-                <option value="Query 11"> 11. Cancellazione mediante inserimento dell'Incident number </option>
-                <option value="Query 12"> 12. Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
-                <option value="Query 13"> 13. Mostra la percentuale di reati avvenuti in un dato distretto </option>
-                <option value="Query 14"> 14. Mostra i crimini avvenuti in un dato distretto in una data ora </option>
-                <option value="Query 15"> 15. Query 15 </option>
+                <option value="Query 1"> 1.  Mostra le informazioni relative ad un determinato incidente/reato </option>
+                <option value="Query 2"> 2.  Visualizza reati/incidenti del giorno precedente </option>
+                <option value="Query 3"> 3.  Reati con sparatoria nell'ultimo mese avvenuti in un dato distretto e in una data fascia oraria </option>
+                <option value="Query 4"> 4.  Incidenti/reati avvenuti in una determinata street </option>
+                <option value="Query 5"> 5.  Visualizza la categoria di incidenti/reati che avvengono maggiormente in un determinato distretto </option>
+                <option value="Query 6"> 6.  Mostra in quale giorno della settimana avvengono più reati/incidenti di un deteminato tipo in un dato distretto </option>
+                <option value="Query 7"> 7.  Incidenti/reati avvenuti in un determinato distretto e in una data fascia oraria </option>
+                <option value="Query 8"> 8.  Visualizza l'ora in cui si verifica maggiormente un determinato tipo di incidente/reato </option>
+                <option value="Query 9"> 9.  Inserimento di un incidente/reato </option>
+                <option value="Query 10"> 10.  Incidenti/reati in base al valore di UCR e al distretto </option>
+                <option value="Query 11"> 11.  Cancellazione mediante inserimento dell'Incident number </option>
+                <option value="Query 12"> 12.  Per ogni ora visualizza il crimine che viene eseguito maggiormente in quel distretto </option>
+                <option value="Query 13"> 13.  Mostra la percentuale di reati avvenuti in un dato distretto </option>
+                <option value="Query 14"> 14.  Mostra i crimini avvenuti in un dato distretto in una data ora </option>
+                <option value="Query 15"> 15.  Query 15 </option>
               </select>
 
             <fieldset id="fieldsetquery">
