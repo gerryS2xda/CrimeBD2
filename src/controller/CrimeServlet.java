@@ -292,16 +292,18 @@ public class CrimeServlet extends HttpServlet {
                 String distretto = params.getTextfield();
                 String category = params.getSelect();
                 double d = model_data.Query_15(distretto, category);
-                System.out.println("Query 15: " + d);
+                if(d == -1) {
+                    System.out.println("Query 15: " + d);
 
-                BigDecimal bd = new BigDecimal(d);
-                BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
-                double percentage = bd2.doubleValue() * 100;
+                    BigDecimal bd = new BigDecimal(d);
+                    BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
+                    double percentage = bd2.doubleValue() * 100;
 
-                String result = percentage + "%";
-                response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + result + "\"}"));
-            }else {
-                response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                    String result = percentage + "%";
+                    response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + result + "\"}"));
+                }else {
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
             }
         }else if(action.equalsIgnoreCase("getOffenseCategory")){
             int offcode = Integer.parseInt(request.getParameter("input"));
