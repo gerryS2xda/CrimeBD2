@@ -297,6 +297,26 @@ public class Model_Data {
         }
     }
 
+    public double Query_15(String district_name, String offense_code_group){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                double percentuale = -1; // se resta -1 singifica che non sono presenti distretto e/o offense_code_group
+                Result result = tx.run("match (c)-[:occurred_district]->(d:district) " +
+                        "where  d.district_name= $district_name " +
+                        "with count(c) as total " +
+                        "match (c:crime)-[:type]->(o:offense)," +
+                        "(c)-[:occurred_district]->(d:district) " +
+                        "where d.district_name=$district_name and o.offense_code_group=$offense_code_group " +
+                        "return (count(c)*1.0)/total", parameters("district_name", district_name,"offense_code_group", offense_code_group));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    percentuale = r.get(0).asDouble();
+                }
+                return percentuale;
+            });
+        }
+    }
+
     public ArrayList<String> query_offense_code_group(){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
