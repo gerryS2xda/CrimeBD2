@@ -113,7 +113,7 @@ public class Model_Data {
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense),\n" +
                         "(c:crime)-[:occurred_district]->(d:district)\n" +
                         "where d.district_name = $district_name " +
-                        "return o.offense_description as offense_description , count(*) as times\n" +
+                        "return o.offense_code_group as offense_code_group , count(*) as times\n" +
                         "order by times DESC\n" +
                         "LIMIT 1", parameters("district_name",district_name));
                 while(result.hasNext()){
