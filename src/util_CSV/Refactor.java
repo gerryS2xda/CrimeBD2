@@ -7,15 +7,15 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 
-public class Gerardo {
+public class Refactor {
 
     static Logger logger=Logger.getLogger("global");
 
     public static void main(String[] args) {
         logger.info("INIZIO IL FIXING DEI DATI");
         String pathORIG = "dataset/dataset_completo_no_wrong_description.txt";
-        String pathDEST="dataset/dataset_gerardo.txt";
-        Gerardo.fixCSV(pathORIG, pathDEST);
+        String pathDEST="dataset/dataset_refactor.txt";
+        Refactor.fixCSV(pathORIG, pathDEST);
         logger.info("FIXING DEI DATI COMPLETATO");
     }
 

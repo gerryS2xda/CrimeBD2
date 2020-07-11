@@ -14,7 +14,7 @@ public class Fix_Missing_District_CSV {
 
     public static void main(String[] args) {
         logger.info("INIZIO IL FIXING DEI DATI");
-        String pathORIG = "dataset/dataset_gerardo.txt";
+        String pathORIG = "dataset/dataset_refactor.txt";
         String pathDEST="dataset/dataset_completo_no_missing_district.txt";
         Fix_Missing_District_CSV.fixCSV(pathORIG, pathDEST);
         logger.info("FIXING DEI DATI COMPLETATO");
