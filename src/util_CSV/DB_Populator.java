@@ -22,6 +22,7 @@ public class DB_Populator implements AutoCloseable {
     public void insertCrime(Crime crime){
         try ( Session session = driver.session() ) {
 
+            //Preparazione dei parametri da somministrare alle query
             HashMap<String,Object> valuesCrime= new HashMap<String,Object>();
             valuesCrime.put("incident_number", crime.getIncidentNumber());
             valuesCrime.put("occurred_on_date", crime.getOccurredOnDate());
@@ -93,22 +94,22 @@ public class DB_Populator implements AutoCloseable {
             //inserisca il nodo UCR_part
             session.writeTransaction(tx -> tx.run("MERGE (u:UCR_part {ucr_part: $ucr_part});", valuesUCR));
 
-            //inserisco arco crime district
+            //inserisco arco crime->district
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
                     "(d:district {district_name: $district_name})" +
                     "MERGE (c)-[:occurred_district]->(d);", valuesOccured_district));
 
-            //inserisco arco crime offense
+            //inserisco arco crime->offense
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
                     "(o:offense {offense_code: $offense_code})" +
                     "MERGE (c)-[:type]->(o);", valuesType));
 
-            //inserisco arco crime street
+            //inserisco arco crime->street
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
                     "(s:street {street_name: $street_name})" +
                     "MERGE (c)-[:occurred_street]->(s);", valuesOccured_street));
 
-            //inserisco arco crime ucr_part
+            //inserisco arco crime-> ucr_part
             session.writeTransaction(tx -> tx.run("MATCH (c:crime {incident_number: $incident_number})," +
                     "(u:UCR_part {ucr_part: $ucr_part})" +
                     "MERGE (c)-[:UCR]->(u);", valuesUCR_P));
