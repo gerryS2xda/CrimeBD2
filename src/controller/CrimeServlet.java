@@ -22,7 +22,6 @@ public class CrimeServlet extends HttpServlet {
     private static final int MAX_PIECE_PIE_CHART_Q13 = 10;
     private static final int MAX_COLUMNS_BAR_CHART_Q14 = 7;
     private static final int RESULT_LIMIT_DEFAULT = 500; //limita il numero di risultati (per risolvere problema di caricamento lento)
-    private static final int RESULT_LIMIT_DEFAULT_PIE = 2000; //limita il numero di risultati (per risolvere problema di caricamento lento)
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -359,7 +358,6 @@ public class CrimeServlet extends HttpServlet {
 
         int k = 0;
         for(Crime c : crimini){
-            if(k > RESULT_LIMIT_DEFAULT_PIE) break;
             if(!map.keySet().contains(c.getOffenseCodeGroup())){ //se hashtable non contiene offensecodegroup, allora aggiungi
                 map.put(c.getOffenseCodeGroup(), 1);
             }else{  //se gia' presente, incrementa il conteggio
