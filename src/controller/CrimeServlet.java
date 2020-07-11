@@ -284,16 +284,6 @@ public class CrimeServlet extends HttpServlet {
 
                 ArrayList<Tuple_Count> tuple_counts = model_data.Query_14(distretto, hour);
 
-                /*
-                String jsonResult = "{";
-                int i = 0;
-                for(Tuple_Count t : tuple_counts){
-                    jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + t.getOffense_code_group() +"\", " +
-                            "\"count\": " + t.getCount() + "},";
-                    i++;
-                }
-                jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
-*/
                 String jsonResult = buildJSONResultForQuery14(tuple_counts);
                 response.getWriter().write(json.toJson(jsonResult));
             }
@@ -323,20 +313,6 @@ public class CrimeServlet extends HttpServlet {
             }
 
         }
-        /* RIMOZIONE QUERY 14 - MAPPA
-        if(action.equalsIgnoreCase("Query 14")){
-            //Selezionato un punto sulla mappa, verificare gli incidenti che sono accaduti
-            String location = request.getParameter("location");
-            if(location != null || !(location.equalsIgnoreCase(""))){
-                System.out.println(location);  //si ottiene questo risultato selezionando un punto sulla mappa: (42.069841971408174, -87.4601584792328)
-                //query14 (location in input) - rest. una lista di crimini
-                response.getWriter().write(json.toJson("{\"flag\": \"ok\"}"));
-            }else{
-                response.getWriter().write(json.toJson("{\"flag\": \"exception\"}"));
-            }
-        }
-
-         */
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

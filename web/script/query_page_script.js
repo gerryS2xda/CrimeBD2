@@ -641,23 +641,6 @@ $("#back_query14_btn").click(function(){
     $("#select_query").trigger("change");
 });
 
-
-/* QUERY WITH MAP (REMOVED)
-//script for map content page
-$("#back_query14_btn").click(function(){
-    $("#select_query").val("Query 1");
-   $("#map_content_page").hide();
-   $("#select_query_page").show();
-    $("#select_query").trigger("change");
-});
-
-function initQuery14(){
-    $("#select_query_page").hide();
-    $("#map_content_page").show();
-
-}
-*/
-
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */
 function sizeObject(obj) {
