@@ -56,7 +56,6 @@ function validateIncidentNumber(item, maxlenght, err) {
     }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
         err.empty();
         item.css("border","1px solid green");
-        x.toUpperCase();
         val = true;
     }else{
         styleForErrorTextInput(item);
@@ -119,7 +118,6 @@ function validateDistrict(item, maxlenght, err) {
     }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
         err.empty();
         item.css("border","1px solid green");
-        x.toUpperCase();
         val = true;
     }else{
         styleForErrorTextInput(item);
@@ -322,12 +320,12 @@ function validationSingleQuery(querynum){
     switch (querynum) {
         case "Query 1": if(validateIncidentNumber($("#incident_q1"), 10, $("#inc_q1_err"))) val=true; break;
         case "Query 3": if((validateDistrict($("#district_q3"), 3, $("#distr_q3_err"))) &&
-            ($("#fascia_min_q3").hasClass("numberfield_err") || $("#fascia_max_q3").hasClass("numberfield_err"))) val=true; break; //sistemare fascia oraria
+            (!$("#fascia_min_q3").hasClass("numberfield_err") || !$("#fascia_max_q3").hasClass("numberfield_err"))) val=true; break; //sistemare fascia oraria
         case "Query 4": if(validateStreet($("#street_q4"), 20, $("#street_q4_err"))) val=true; break;
         case "Query 5": if(validateDistrict($("#district_q5"), 3, $("#distr_q5_err"))) val=true; break;
         case "Query 6": if((validateSelectCategory($("#cat_q6"),  $("#cat_q6_err")) && validateDistrict($("#distr_q6"), 3, $("#distr_q6_err")))) val=true; break;
         case "Query 7": if(validateDistrict($("#district_q7"), 3, $("#distr_q7_err")) &&
-            ($("#fascia_min_q7").hasClass("numberfield_err") || $("#fascia_max_q7").hasClass("numberfield_err"))) val=true; break;  //sistemare fascia oraria
+            (!$("#fascia_min_q7").hasClass("numberfield_err") || !$("#fascia_max_q7").hasClass("numberfield_err"))) val=true; break;  //sistemare fascia oraria
         case "Query 8": if(validateSelectCategory($("#cat_q8"), $("#cat_q8_err"))) val=true; break;  //sistemare fascia oraria
         case "Query 10": if((validateDistrict($("#district_q10"), 3, $("#distr_q10_err")))) val=true; break;
         case "Query 11": if(validateIncidentNumber($("#incident_q11"), 10, $("#inc_q11_err"))) val=true; break;
