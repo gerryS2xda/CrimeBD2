@@ -253,22 +253,22 @@ public class Model_Data {
         }
     }
 
-    public ArrayList<Crime> query_13(String district_name){
+    public HashMap<String,Double> query_13(String street_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
-                ArrayList<Crime> crimini = new ArrayList<Crime>();
+                HashMap<String,Double> percentuali =  new HashMap<String,Double>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
                         "(c)-[:occurred_district]->(d:district)," +
                         "(c)-[:occurred_street]->(s:street)," +
                         "(c)-[:UCR]->(u:UCR_part) " +
-                        "where d.district_name=$district_name " +
-                        "return c,o,d,s,u", parameters("district_name",district_name));
+                        "where s.street_name=$street_name " +
+                        "return c,o,d,s,u", parameters("street_name",street_name));
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    crimini.add(crime);
+                    percentuali.put(crime.getOffenseCodeGroup(), Query_15(street_name,crime.getOffenseCodeGroup()));
                 }
-                return crimini;
+                return percentuali;
             });
         }
     }
@@ -291,7 +291,7 @@ public class Model_Data {
         }
     }
 
-    public double Query_15(String district_name, String offense_code_group){
+    public double Query_15(String street_name, String offense_code_group){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 double percentuale = -1; // se resta -1 singifica che non sono presenti distretto e/o offense_code_group
@@ -300,8 +300,8 @@ public class Model_Data {
                         "with count(c) as total " +
                         "match (c:crime)-[:type]->(o:offense)," +
                         "(c)-[:occurred_district]->(d:district) " +
-                        "where d.district_name=$district_name and o.offense_code_group=$offense_code_group " +
-                        "return (count(c)*1.0)/total", parameters("district_name", district_name,"offense_code_group", offense_code_group));
+                        "where s.street_name=$street_name and o.offense_code_group=$offense_code_group " +
+                        "return (count(c)*1.0)/total", parameters("street_name", street_name,"offense_code_group", offense_code_group));
                 while (result.hasNext()) {
                     Record r = result.next();
                     percentuale = r.get(0).asDouble();
