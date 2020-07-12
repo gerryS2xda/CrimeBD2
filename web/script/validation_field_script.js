@@ -101,6 +101,7 @@ function setOffenseCodeGroup(offcode){
                 $("#off_code_group").val("");
                 $("#off_code_group").prop('disabled', false);
             }
+            $("#off_code_group").css("border", "1px solid #ccc");
         }
     });
 }
@@ -203,7 +204,7 @@ function validateOccurredDate(item, err) {
                     return flagdata;
                 }else{
                     styleForErrorTextInput(item);
-                    err.html("Evitare di inserire una data successiva a quella odierna!!");
+                    err.html("Non inserire una data successiva a quella odierna!!");
                 }
             }
         });
@@ -297,7 +298,7 @@ function formInserimentoValidation(){
     if(flag){
         return true;
     }else{
-        alert("Ci stanno uno o piu' campi che presentano degli errori!! Non si puo' proseguire");
+        alert("Ci sono uno o piu' campi che presentano degli errori!! Non si puo' proseguire");
         return false;
     }
 }
