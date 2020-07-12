@@ -70,6 +70,8 @@ function validateOffenseCodeAndSetOffenseCodeGroup(item, maxlenght, err) {
     var x = item.val();
     var re = /^[0-9]{3,5}$/; //Ci deve essere almeno 3 numeri e al massimo 5
     var val = false;
+
+    alert("validateOffenseCodeAndSetOffenseCodeGroup:" + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
@@ -154,6 +156,7 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var val = false;
+    alert("validateOffenseCodeGroup:" + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
