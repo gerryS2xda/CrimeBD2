@@ -385,7 +385,7 @@ public class CrimeServlet extends HttpServlet {
         String str = "{";
         int j = 0;
         for(String cat : results.keySet()) {
-            double d = computePercentage(results.get(cat));
+            int d = (int) computePercentage(results.get(cat));
             System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + d);
             str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + d + "},";
             j++;
