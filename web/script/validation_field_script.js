@@ -78,12 +78,11 @@ function validateOffenseCodeAndSetOffenseCodeGroup(item, maxlenght, err) {
         err.empty();
         item.css("border","1px solid green");
         val = true;
+        setOffenseCodeGroup(x);
     }else{
         styleForErrorTextInput(item);
         err.html("Valore inserito non valido!! Es. 123 o 1234");
     }
-
-    setOffenseCodeGroup(x);
 
     return val;
 }
