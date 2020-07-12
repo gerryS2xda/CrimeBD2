@@ -266,6 +266,7 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
+                    System.out.println(crime.getOffenseCodeGroup()+" "+ Query_15(street_name,crime.getOffenseCodeGroup()));
                     percentuali.put(crime.getOffenseCodeGroup(), Query_15(street_name,crime.getOffenseCodeGroup()));
                 }
                 return percentuali;
