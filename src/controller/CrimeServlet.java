@@ -313,7 +313,19 @@ public class CrimeServlet extends HttpServlet {
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
-
+        }else if(action.equalsIgnoreCase("validateInputDate")){
+            String occuredDate = request.getParameter("input");
+            LocalDateTime lc = LocalDateTime.parse(occuredDate);
+            LocalDateTime ld = LocalDateTime.now();
+            boolean done = false;
+            if(lc.isBefore(ld)){ //se data impostata e' prima quella di oggi
+                done = true;
+            }
+            if(done){
+                response.getWriter().write(json.toJson("{\"crime0\": \"yes\"}"));
+            }else{
+                response.getWriter().write(json.toJson("{\"crime0\": \"no\"}"));
+            }
         }
     }
 

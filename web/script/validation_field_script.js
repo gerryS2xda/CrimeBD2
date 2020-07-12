@@ -44,6 +44,7 @@ function styleForErrorTextInput(item){
 
 //Validation Insert Form
 function validateIncidentNumber(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[A-Za-z]{1}[0-9]{9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
     var val = false;
@@ -65,6 +66,7 @@ function validateIncidentNumber(item, maxlenght, err) {
 }
 
 function validateOffenseCodeAndSetOffenseCodeGroup(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[0-9]{3,5}$/; //Ci deve essere almeno 3 numeri e al massimo 5
     var val = false;
@@ -104,6 +106,7 @@ function setOffenseCodeGroup(offcode){
 }
 
 function validateDistrict(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[A-Za-z]{1}[0-9]{1,2}$/; //Ci deve essere al più una lettera e al massimo 2 interi
     var val = false;
@@ -125,6 +128,7 @@ function validateDistrict(item, maxlenght, err) {
 }
 
 function validateReportingArea(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[0-9]{2,3}$/; //Ci deve essere al più due interi su 3
     var val = false;
@@ -146,6 +150,7 @@ function validateReportingArea(item, maxlenght, err) {
 }
 
 function validateOffenseCodeGroup(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var val = false;
     if(x === "") { //errore campo vuoto
@@ -163,6 +168,7 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
 }
 
 function validateOffenseDescription(item, maxlenght, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var val = false;
     var x = item.val();
     if(x === "") { //errore campo vuoto
@@ -178,20 +184,35 @@ function validateOffenseDescription(item, maxlenght, err) { //controlla solament
     return val;
 }
 
+var flagdata = false; //variabile globale per memorizzare valore ottenuto da post
 function validateOccurredDate(item, err) {
-    var val = false;
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
     }else {
-        err.empty();
-        val = true;
+        $.post("crime-contr", {"action": "validateInputDate", "input" : x}, function(resp, statTxt, xhr){
+            if(xhr.readyState == 4 && statTxt == "success") {
+                var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+
+                var flag = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+                if(flag === "yes") {
+                    err.empty();
+                    flagdata = true;
+                    return flagdata;
+                }else{
+                    styleForErrorTextInput(item);
+                    err.html("Evitare di inserire una data successiva a quella odierna!!");
+                }
+            }
+        });
     }
-    return val;
+    return flagdata;
 }
 
 function validateStreet(item, maxlenght, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var val = false;
     var x = item.val();
     if(x === "") { //errore campo vuoto
@@ -208,27 +229,7 @@ function validateStreet(item, maxlenght, err) { //controlla solamente la lunghez
 }
 
 function validateLatitude(item, maxlenght, err) {
-    var x = item.val();
-    var re = /^[\-]{0,1}[0-9]{2,2}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più '-', 2 interi, un ".", 8 interi
-    var val = false;
-    if(x === "") { //errore campo vuoto
-        styleForErrorTextInput(item);
-        err.html("Campo obbligatorio");
-    }else if(x.length > maxlenght){ //codice errore per stringa troppo lunga
-        styleForErrorTextInput(item);
-        err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
-    }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
-        err.empty();
-        item.css("border","1px solid green");
-        val = true;
-    }else{
-        styleForErrorTextInput(item);
-        err.html("Valore inserito non valido!! Es. 123");
-    }
-    return val;
-}
-
-function validateLatitude(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[\-]{0,1}[0-9]{1,3}[\.]{1}[0-9]{2,8}$/; //Ci deve essere al più due interi su 3
     var val = false;
@@ -250,6 +251,7 @@ function validateLatitude(item, maxlenght, err) {
 }
 
 function validateLongitude(item, maxlenght, err) {
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var re = /^[\-]{0,1}[0-9]{1,3}[\.]{1}[0-9]{2,8}$/; //Ci deve essere al più due interi su 3
     var val = false;
@@ -301,6 +303,7 @@ function formInserimentoValidation(){
 }
 
 function validateSelectCategory(item, err) { //controlla solamente la lunghezza dei caratteri inseriti
+    item.css("border", "1px solid #ccc"); //reset in caso di errore
     var val = false;
     var x = item.val();
     if(x === "") { //errore campo vuoto
