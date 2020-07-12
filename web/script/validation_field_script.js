@@ -70,6 +70,8 @@ function validateOffenseCodeAndSetOffenseCodeGroup(item, maxlenght, err) {
     var x = item.val();
     var re = /^[0-9]{3,5}$/; //Ci deve essere almeno 3 numeri e al massimo 5
     var val = false;
+
+    alert("validateOffenseCodeAndSetOffenseCodeGroup:" + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
@@ -154,6 +156,7 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var val = false;
+    alert("validateOffenseCodeGroup:" + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
@@ -333,7 +336,7 @@ function validationSingleQuery(querynum){
         case "Query 10": if((validateDistrict($("#district_q10"), 3, $("#distr_q10_err")))) val=true; break;
         case "Query 11": if(validateIncidentNumber($("#incident_q11"), 10, $("#inc_q11_err"))) val=true; break;
         case "Query 12": if(validateDistrict($("#district_q12"), 3, $("#distr_q12_err"))) val=true; break;
-        case "Query 13": if(validateStreet($("#street_q15"), 50, $("#street_q13_err"))) val=true; break;
+        case "Query 13": if(validateStreet($("#street_q13"), 50, $("#street_q13_err"))) val=true; break;
         case "Query 14": if(validateDistrict($("#district_q14"), 3, $("#distr_q14_err"))) val=true; break;
         case "Query 15": if((validateStreet($("#street_q15"), 50, $("#street_q15_err"))) && (validateSelectCategory($("#cat_q15"),  $("#cat_q15_err"))) ) val=true; break;
     }

@@ -268,9 +268,9 @@ public class CrimeServlet extends HttpServlet {
             if(!params.getTextfield().equalsIgnoreCase("")) {
                 String street = params.getTextfield();
 
-                ArrayList<Crime> crimini = model_data.query_13(street);
+                HashMap<String, Double> percentuali = model_data.query_13(street);
 
-                String jsonRes = buildJSONResultForQuery13(crimini);
+                String jsonRes = buildJSONResultForQuery13(percentuali);
 
                 response.getWriter().write(json.toJson(jsonRes));
             }
@@ -296,11 +296,7 @@ public class CrimeServlet extends HttpServlet {
                 if(d == -1) d = 0;
                 System.out.println("Query 15: " + d);
 
-                BigDecimal bd = new BigDecimal(d);
-                BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
-                double percentage = bd2.doubleValue() * 100;
-
-                String result = percentage + "%";
+                String result = computePercentage(d) + "%";
                 response.getWriter().write(json.toJson("{\"crime0\": \"oneresult\", \"crime1\": \"" + result + "\"}"));
             }else {
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
@@ -335,12 +331,10 @@ public class CrimeServlet extends HttpServlet {
     }
 
     //Other methods
-    private int computePercentage(double value, double total){
-        double quoziente = value / total;
-        BigDecimal bd = new BigDecimal(Double.toString(quoziente));
+    private double computePercentage(double value){
+        BigDecimal bd = new BigDecimal(Double.toString(value));
         BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
-        double percentage = bd2.doubleValue() * 100;
-        return (int) percentage;
+        return bd2.doubleValue() * 100;
     }
 
     private String createJSONResultForQuery12(ArrayList<Tuple> tuples){
@@ -368,36 +362,15 @@ public class CrimeServlet extends HttpServlet {
         return jsonResult;
     }
 
-    private String buildJSONResultForQuery13(ArrayList<Crime> crimini){
-        //Conta quanti incidenti/reati vengono eseguiti in quel distretto
-        Map<String, Integer> map = new HashMap<>();  //(categoriaCrimine, frequenza)
-
-        int tot = 0;
-        for(Crime c : crimini){
-            if(!map.keySet().contains(c.getOffenseCodeGroup())){ //se hashtable non contiene offensecodegroup, allora aggiungi
-                map.put(c.getOffenseCodeGroup(), 1);
-            }else{  //se gia' presente, incrementa il conteggio
-                int count = map.get(c.getOffenseCodeGroup());
-                count++;
-                map.replace(c.getOffenseCodeGroup(), count);
-
-            }
-            tot++;
-        }
-
-        for(String cat : map.keySet()) {
-
-            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; percetage: " + map.get(cat));
-
-        }
+    private String buildJSONResultForQuery13(HashMap<String, Double> percentuali){
 
         //Ordina le categorie in modo descrescente (per avere le categorie piu' frequenti tra i primi risultati)
-        Map<String, Integer> sorted = map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+        Map<String, Double> sorted = percentuali.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
 
 
         //Calcolo percentuali frequenza per pie chart (quindi il risultato)
-        Map<String, Integer> results = new HashMap<>();
+        Map<String, Double> results = new HashMap<>();
         int i = 0;
         for(String cat: sorted.keySet()){
             if(cat.equalsIgnoreCase("\"Other\"")) continue;
@@ -412,9 +385,9 @@ public class CrimeServlet extends HttpServlet {
         String str = "{";
         int j = 0;
         for(String cat : results.keySet()) {
-            results.replace(cat, computePercentage((double) results.get(cat), (double) tot));
-            System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + results.get(cat));
-            str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + results.get(cat) + "},";
+            int d = (int) computePercentage(results.get(cat));
+            System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + d);
+            str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + d + "},";
             j++;
         }
         str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
