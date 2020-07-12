@@ -263,12 +263,12 @@ public class CrimeServlet extends HttpServlet {
             }
 
         }else if(action.equalsIgnoreCase("Query 13")){
-            //Mostra la percentuale di reati avvenuti in un distretto (usare grafico a torta)
+            //Mostra la percentuale di reati avvenuti in una determinata strada (usare grafico a torta)
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
             if(!params.getTextfield().equalsIgnoreCase("")) {
-                String distretto = params.getTextfield();
+                String street = params.getTextfield();
 
-                ArrayList<Crime> crimini = model_data.query_13(distretto);
+                ArrayList<Crime> crimini = model_data.query_13(street);
 
                 String jsonRes = buildJSONResultForQuery13(crimini);
 
@@ -287,6 +287,7 @@ public class CrimeServlet extends HttpServlet {
                 response.getWriter().write(json.toJson(jsonResult));
             }
         }else if(action.equalsIgnoreCase("Query 15")){
+            //Mostra la percentuale di un dato crimine che si compie in un data strada
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
             if(!params.getTextfield().equalsIgnoreCase("")) {
                 String distretto = params.getTextfield();

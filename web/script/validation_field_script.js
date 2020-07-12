@@ -162,7 +162,8 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
         err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
     }else{
         styleForErrorTextInput(item);
-        err.html("Valore inserito non valido!! Es. B2, C11");err.empty();
+        err.html("Valore inserito non valido!! Es. B2, C11");
+        err.empty();
         val = true;
     }
     return val;
@@ -268,7 +269,7 @@ function validateLongitude(item, maxlenght, err) {
         val = true;
     }else{
         styleForErrorTextInput(item);
-        err.html("Valore inserito non valido!! Es. (-)12.34567890 (range -180, 180");
+        err.html("Valore inserito non valido!! (-)12.34567890 (range -180, 180");
     }
     return val;
 }
@@ -281,7 +282,7 @@ function formInserimentoValidation(){
             if(validateOffenseDescription($("#off_code_desc"), 50, $('.crime_ins_txt_err').eq(3))){
                 if(validateDistrict($("#district_ins"), 3, $('.crime_ins_txt_err').eq(4))){
                     if(validateReportingArea($("#report_area_ins"), 3, $('.crime_ins_txt_err').eq(5))){
-                        if(validateOccurredDate($("#datetime_ins"), $('.crime_ins_txt_err').eq(6))){	//verifica se occorre inserire il numero di uova
+                        if(validateOccurredDate($("#datetime_ins"), $('.crime_ins_txt_err').eq(6))){
                             if(validateStreet($("#street_ins"), 50, $('.crime_ins_txt_err').eq(7))){
                                 if(validateLatitude($("#latitude_ins"), 13, $('.crime_ins_txt_err').eq(8))){
                                     if(validateLongitude($("#longitude_ins"), 14, $('.crime_ins_txt_err').eq(9))){
@@ -332,9 +333,9 @@ function validationSingleQuery(querynum){
         case "Query 10": if((validateDistrict($("#district_q10"), 3, $("#distr_q10_err")))) val=true; break;
         case "Query 11": if(validateIncidentNumber($("#incident_q11"), 10, $("#inc_q11_err"))) val=true; break;
         case "Query 12": if(validateDistrict($("#district_q12"), 3, $("#distr_q12_err"))) val=true; break;
-        case "Query 13": if(validateDistrict($("#district_q13"), 3, $("#distr_q13_err"))) val=true; break;
+        case "Query 13": if(validateStreet($("#street_q15"), 50, $("#street_q13_err"))) val=true; break;
         case "Query 14": if(validateDistrict($("#district_q14"), 3, $("#distr_q14_err"))) val=true; break;
-        case "Query 15": if((validateDistrict($("#district_q15"), 3, $("#distr_q15_err"))) && (validateSelectCategory($("#cat_q15"),  $("#cat_q15_err"))) ) val=true; break;
+        case "Query 15": if((validateStreet($("#street_q15"), 50, $("#street_q15_err"))) && (validateSelectCategory($("#cat_q15"),  $("#cat_q15_err"))) ) val=true; break;
     }
     return val;
 }

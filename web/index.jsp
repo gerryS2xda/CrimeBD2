@@ -68,9 +68,9 @@
                 <option value="Query 10"> 10.  Incidenti/reati in base al valore di UCR e al distretto </option>
                 <option value="Query 11"> 11.  Cancellazione mediante inserimento dell'Incident number </option>
                 <option value="Query 12"> 12.  Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto </option>
-                <option value="Query 13"> 13.  Mostra la percentuale di reati avvenuti in un dato distretto </option>
+                <option value="Query 13"> 13.  Mostra la percentuale di reati avvenuti in una data strada </option>
                 <option value="Query 14"> 14.  Mostra i crimini avvenuti in un dato distretto in una data ora </option>
-                <option value="Query 15"> 15.  Mostra la percentuale di un dato crimine che si compie in un dato distretto </option>
+                <option value="Query 15"> 15.  Mostra la percentuale di un dato crimine che si compie in un data strada </option>
               </select>
 
             <fieldset id="fieldsetquery">

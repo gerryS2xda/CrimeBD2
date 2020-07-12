@@ -182,8 +182,8 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html("Per ogni ora visualizza il crimine che viene eseguito maggiormente nel distretto \"<span class=\"tf_span\"> </span>\"");
     }
     if(querynum === "Query 13"){
-        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q13\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q13_err'))\"> <span id=\"distr_q13_err\" class=\"crime_query_txt_err\"></span> <br>";
-        $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nel distretto \"<span class=\"tf_span\"> </span>\"");
+        str+= "<label>Street</label><input type=\"text\" id=\"street_q13\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\" onblur=\"validateStreet($(this), 50, $('#street_q13_err'))\"> <span id=\"street_q13_err\" class=\"crime_query_txt_err\"></span><br>";
+        $(".query_text_for_result").html("Mostra la percentuale di reati avvenuti nella strada \"<span class=\"tf_span\"> </span>\"");
     }
     if(querynum === "Query 14"){
         str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q14\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q14_err'))\"> <span id=\"distr_q14_err\" class=\"crime_query_txt_err\"></span> <br>" +
@@ -191,11 +191,11 @@ function createContentForFieldSet(querynum, selectedText){
         $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
     if(querynum === "Query 15"){
-        str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q15\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q15_err'))\"> <span id=\"distr_q15_err\" class=\"crime_query_txt_err\"></span> <br>" +
+        str+= "<label>Street</label><input type=\"text\" id=\"street_q15\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\" onblur=\"validateStreet($(this), 50, $('#street_q15_err'))\"> <span id=\"street_q15_err\" class=\"crime_query_txt_err\"></span> <br>" +
             "<label>Tipo di incidente/reato </label><div class=\"custom-select-w3c\">" +
             "<select id=\"cat_q15\" class=\"cust_sel\" placeholder=\"Pick a state...\"><option value=\"\">Select a state...</option>" + optioncategory +
             "</select></div> <span class=\"crime_query_txt_err\"></span>";
-        $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span id=\"cat_q15_err\" class=\"select_span\"> </span>\"");
+        $(".query_text_for_result").html("Mostra i crimini avvenuti nella strada \"<span class=\"tf_span\"> </span>\" alle ore \"<span id=\"cat_q15_err\" class=\"select_span\"> </span>\"");
     }
     return str;
 }
