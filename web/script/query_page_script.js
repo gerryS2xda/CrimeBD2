@@ -266,7 +266,7 @@ function sendRequestAndObtainResponseQuery(){
             a.select =  e.children().val(); //dammi il valore della <select>
         }
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
         }
         if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
             if (e.attr("name") === "fascia_oraria_min"){
@@ -359,7 +359,7 @@ function sendRequestAndResponseForQuery1(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i);
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
         }
     }
 
@@ -495,7 +495,7 @@ function sendRequestQuery11(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
         }
     }
 
@@ -532,7 +532,7 @@ function sendRequestQuery12(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <inpuy>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <inpuy>
             $("#district_input_q12").text(e.val()); //salva il distretto inserito da utente, serve per la query 14
         }
     }
@@ -589,7 +589,7 @@ function sendRequestQuery13(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
         }
     }
 
@@ -625,7 +625,7 @@ function sendRequestQuery14(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val(); //dammi il valore della <select>
+            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
         }
         if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
             if (e.attr("name") === "fascia_oraria_min"){
