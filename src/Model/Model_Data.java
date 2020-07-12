@@ -295,11 +295,11 @@ public class Model_Data {
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 double percentuale = -1; // se resta -1 singifica che non sono presenti distretto e/o offense_code_group
-                Result result = tx.run("match (c)-[:occurred_district]->(d:district) " +
-                        "where  d.district_name= $district_name " +
+                Result result = tx.run("match (c)-[:occurred_street]->(s:street) " +
+                        "where  s.street_name= $street_name " +
                         "with count(c) as total " +
                         "match (c:crime)-[:type]->(o:offense)," +
-                        "(c)-[:occurred_district]->(d:district) " +
+                        "(c)-[:occurred_street]->(s:street) " +
                         "where s.street_name=$street_name and o.offense_code_group=$offense_code_group " +
                         "return (count(c)*1.0)/total", parameters("street_name", street_name,"offense_code_group", offense_code_group));
                 while (result.hasNext()) {
