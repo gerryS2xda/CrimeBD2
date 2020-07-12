@@ -45,7 +45,7 @@ function styleForErrorTextInput(item){
 //Validation Insert Form
 function validateIncidentNumber(item, maxlenght, err) {
     var x = item.val();
-    var re = /^[A-Z]{1}[0-9]{9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
+    var re = /^[A-Za-z]{1}[0-9]{9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
@@ -56,6 +56,7 @@ function validateIncidentNumber(item, maxlenght, err) {
     }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
         err.empty();
         item.css("border","1px solid green");
+        x.toUpperCase();
         val = true;
     }else{
         styleForErrorTextInput(item);
@@ -107,7 +108,7 @@ function setOffenseCodeGroup(offcode){
 
 function validateDistrict(item, maxlenght, err) {
     var x = item.val();
-    var re = /^[A-Z]{1}[0-9]{1,2}$/; //Ci deve essere al più una lettera e al massimo 2 interi
+    var re = /^[A-Za-z]{1}[0-9]{1,2}$/; //Ci deve essere al più una lettera e al massimo 2 interi
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
@@ -118,6 +119,7 @@ function validateDistrict(item, maxlenght, err) {
     }else if(x.match(re)){ //la stringa è conforme all'espressione regolare
         err.empty();
         item.css("border","1px solid green");
+        x.toUpperCase();
         val = true;
     }else{
         styleForErrorTextInput(item);
