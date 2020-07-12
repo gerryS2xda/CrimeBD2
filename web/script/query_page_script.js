@@ -134,12 +134,12 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 3"){
         str+= "<label>Distretto</label><input type=\"text\" id=\"district_q3\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q3_err'))\"> <span id=\"distr_q3_err\" class=\"crime_query_txt_err\"> </span><br>" +
-            "<label>Fascia oraria</label><input type=\"number\" id=\"fascia_oraria_q3\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span class=\"crime_query_txt_err\"></span>";
+            "<label>Fascia oraria</label><input type=\"number\" id=\"fascia_min_q3\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
+            "<input type=\"number\" id=\"fascia_maxq3\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Reati con sparatoria nell'ultimo mese avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e in una data fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"> </span>\"");
     }
     if(querynum === "Query 4"){
-        str+="<label>Street</label><input type=\"text\" id=\"street_q4\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\" onblur=\"validateStreet($(this), 20, $('#street_q4_err')) > <span id=\"street_q4_err\" class=\"crime_query_txt_err\"></span>"
+        str+="<label>Street</label><input type=\"text\" id=\"street_q4\" class=\"inputfield\" name=\"street\" placeholder=\"(es. GIBSON ST)\" onblur=\"validateStreet($(this), 20, $('#street_q4_err'))\"> <span id=\"street_q4_err\" class=\"crime_query_txt_err\"></span>"
         $(".query_text_for_result").html("Incidenti/reati avvenuti nella street \"<span class=\"tf_span\"></span>\"");
     }
     if(querynum === "Query 5"){
@@ -154,8 +154,8 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 7"){
         str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q7\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q7_err'))\"> <span id=\"distr_q7_err\" class=\"crime_query_txt_err\"> </span> <br>" +
-            "<label>Fascia oraria </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
-            "<input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span  class=\"crime_query_txt_err\"> </span>";
+            "<label>Fascia oraria </label> <input type=\"number\" id=\"fascia_min_q7\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> - " +
+            "<input type=\"number\" id=\"fascia_max_q7\" class=\"numberfield\" name=\"fascia_oraria_max\" min=\"0\" max=\"23\" value=\"15\" onblur='validateFasciaOraria($(this))'> <span  class=\"crime_query_txt_err\"> </span>";
         $(".query_text_for_result").html("Incidenti/reati avvenuti nel distretto \"<span class=\"tf_span\"></span>\" e nella fascia oraria \"<span class=\"fascia_or_nm_min\"> </span> - <span class=\"fascia_or_nm_max\"></span>\"");
     }
     if(querynum === "Query 8"){
