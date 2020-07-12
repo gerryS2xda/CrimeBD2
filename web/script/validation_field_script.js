@@ -279,9 +279,9 @@ function formInserimentoValidation(){
         if(validateOffenseCodeGroup($("#off_code_group"), 50, $('.crime_ins_txt_err').eq(2))){
             if(validateOffenseDescription($("#off_code_desc"), 50, $('.crime_ins_txt_err').eq(3))){
                 if(validateDistrict($("#district_ins"), 3, $('.crime_ins_txt_err').eq(4))){
-                    if(validateReportingArea($("#report_area_ins"), 20, $('.prod_txt_err').eq(5))){
+                    if(validateReportingArea($("#report_area_ins"), 3, $('.crime_ins_txt_err').eq(5))){
                         if(validateOccurredDate($("#datetime_ins"), $('.crime_ins_txt_err').eq(6))){	//verifica se occorre inserire il numero di uova
-                            if(validateStreet($("#street_ins"), 20, $('.crime_ins_txt_err').eq(7))){
+                            if(validateStreet($("#street_ins"), 50, $('.crime_ins_txt_err').eq(7))){
                                 if(validateLatitude($("#latitude_ins"), 13, $('.crime_ins_txt_err').eq(8))){
                                     if(validateLongitude($("#longitude_ins"), 14, $('.crime_ins_txt_err').eq(9))){
                                         flag = true;
@@ -321,7 +321,7 @@ function validationSingleQuery(querynum){
         case "Query 1": if(validateIncidentNumber($("#incident_q1"), 10, $("#inc_q1_err"))) val=true; break;
         case "Query 3": if((validateDistrict($("#district_q3"), 3, $("#distr_q3_err"))) &&
             (!$("#fascia_min_q3").hasClass("numberfield_err") || !$("#fascia_max_q3").hasClass("numberfield_err"))) val=true; break; //sistemare fascia oraria
-        case "Query 4": if(validateStreet($("#street_q4"), 20, $("#street_q4_err"))) val=true; break;
+        case "Query 4": if(validateStreet($("#street_q4"), 50, $("#street_q4_err"))) val=true; break;
         case "Query 5": if(validateDistrict($("#district_q5"), 3, $("#distr_q5_err"))) val=true; break;
         case "Query 6": if((validateSelectCategory($("#cat_q6"),  $("#cat_q6_err")) && validateDistrict($("#distr_q6"), 3, $("#distr_q6_err")))) val=true; break;
         case "Query 7": if(validateDistrict($("#district_q7"), 3, $("#distr_q7_err")) &&
