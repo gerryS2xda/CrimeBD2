@@ -70,7 +70,7 @@
                 <option value="Query 12"> 12.  Per ogni ora visualizza il crimine che viene eseguito maggiormente in un dato distretto </option>
                 <option value="Query 13"> 13.  Mostra la percentuale di reati avvenuti in un dato distretto </option>
                 <option value="Query 14"> 14.  Mostra i crimini avvenuti in un dato distretto in una data ora </option>
-                <option value="Query 15"> 15.  Query 15 </option>
+                <option value="Query 15"> 15.  Mostra la percentuale di un dato crimine che si compie in un dato distretto </option>
               </select>
 
             <fieldset id="fieldsetquery">
