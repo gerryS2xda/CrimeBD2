@@ -40,7 +40,7 @@
             <option value="Part Two">Part Two</option><option value="Part Three">Part Three</option>
             <option value="Other">Part Three</option></select> <br>
             <label class="label_popup"> Date and time </label> <input type="datetime-local" class="datetime_input" id="datetime_ins"> <span class="crime_ins_txt_err"></span><br> <!-- check campo obbligatorio -->
-            <label class="label_popup"> Street </label><input type="text" class="inputfield_pop" id="street_ins" placeholder="(es. BOWDOIN ST)" maxlength="20" onblur="validateStreet($(this), 50, $('.crime_ins_txt_err').eq(7))"> <span class="crime_ins_txt_err"></span> <br>
+            <label class="label_popup"> Street </label><input type="text" class="inputfield_pop" id="street_ins" placeholder="(es. BOWDOIN ST)" maxlength="50" onblur="validateStreet($(this), 50, $('.crime_ins_txt_err').eq(7))"> <span class="crime_ins_txt_err"></span> <br>
             <label class="label_popup"> Latitude </label><input type="text" class="inputfield_pop" id="latitude_ins" placeholder="(es. 12.34567890)" onblur="validateLatitude($(this), 13, $('.crime_ins_txt_err').eq(8))"> <span class="crime_ins_txt_err"></span><br>
             <label class="label_popup"> Longitude </label><input type="text" class="inputfield_pop" id="longitude_ins" placeholder="(es. 12.34567890)" onblur="validateLongitude($(this), 14, $('.crime_ins_txt_err').eq(9))"> <span class="crime_ins_txt_err"></span>br>
             <div class="content_pop_button_area">

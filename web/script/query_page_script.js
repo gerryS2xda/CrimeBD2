@@ -187,7 +187,7 @@ function createContentForFieldSet(querynum, selectedText){
     }
     if(querynum === "Query 14"){
         str+= "<label>Distretto </label> <input type=\"text\" id=\"district_q14\" class=\"inputfield\" name=\"distretto\" placeholder=\"(es. E13)\" onblur=\"validateDistrict($(this), 3, $('#distr_q14_err'))\"> <span id=\"distr_q14_err\" class=\"crime_query_txt_err\"></span> <br>" +
-        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\" onblur='validateFasciaOraria($(this))'> <span class=\"crime_query_txt_err\"></span>";
+        "<label> Ora </label> <input type=\"number\" class=\"numberfield\" name=\"fascia_oraria_min\" min=\"0\" max=\"23\" value=\"13\"> <span class=\"crime_query_txt_err\"></span>";
         $(".query_text_for_result").html("Mostra i crimini avvenuti nel distretto \"<span class=\"tf_span\"> </span>\" alle ore \"<span class=\"fascia_or_nm_min\"> </span>\"");
     }
     if(querynum === "Query 15"){

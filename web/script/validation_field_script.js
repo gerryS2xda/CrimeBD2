@@ -94,7 +94,6 @@ function setOffenseCodeGroup(offcode){
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
             var cat = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
             if(cat !== "noresult"){
-                alert("Cat: " + cat);
                 $("#off_code_group").val(cat);
             }else{
                 $("#off_code_group").val("");
@@ -231,7 +230,7 @@ function validateLatitude(item, maxlenght, err) {
 
 function validateLatitude(item, maxlenght, err) {
     var x = item.val();
-    var re = /^[\-]{0,1}[0-9]{2}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più due interi su 3
+    var re = /^[\-]{0,1}[0-9]{1,3}[\.]{1}[0-9]{2,8}$/; //Ci deve essere al più due interi su 3
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
@@ -252,7 +251,7 @@ function validateLatitude(item, maxlenght, err) {
 
 function validateLongitude(item, maxlenght, err) {
     var x = item.val();
-    var re = /^[\-]{0,1}[0-9]{3}[\.]{1}[0-9]{8,8}$/; //Ci deve essere al più due interi su 3
+    var re = /^[\-]{0,1}[0-9]{1,3}[\.]{1}[0-9]{2,8}$/; //Ci deve essere al più due interi su 3
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
