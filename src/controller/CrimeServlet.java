@@ -338,7 +338,7 @@ public class CrimeServlet extends HttpServlet {
             if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
                 map.put(t.getOffense_code_group(), t.getHour() + ":00");
             }else{ //aggiungi le ore
-                String s = map.get(t.getOffense_code_group()) + " - " + t.getHour() + ":00";
+                String s = map.get(t.getOffense_code_group()) + ", " + t.getHour() + ":00";
                 map.replace(t.getOffense_code_group(), s);
             }
         }
