@@ -101,14 +101,20 @@ function setOffenseCodeGroup(offcode){
         if (xhr.readyState == 4 && statTxt == "success") {
             var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
             var cat = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            var cat_desc = o["crime1"];
             if(cat !== "noresult"){
                 $("#off_code_group").val(cat);
+                $("#off_code_desc").val(cat_desc);
             }else{
                 $("#off_code_group").val("");
                 $("#off_code_group").prop('disabled', false);
+                $("#off_code_desc").val("");
+                $("#off_code_desc").prop('disabled', false);
             }
             $('.crime_ins_txt_err').eq(2).html("");
+            $('.crime_ins_txt_err').eq(3).html("");
             $("#off_code_group").css("border", "1px solid #ccc");
+            $("#off_code_desc").css("border", "1px solid #ccc");
         }
     });
 }

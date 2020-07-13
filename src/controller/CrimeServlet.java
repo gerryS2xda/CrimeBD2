@@ -315,9 +315,10 @@ public class CrimeServlet extends HttpServlet {
         }else if(action.equalsIgnoreCase("getOffenseCategory")){
             int offcode = Integer.parseInt(request.getParameter("input"));
             String category = model_data.get_offense_code_group(offcode);
+            String desc = model_data.get_offense_description(offcode);
 
             if(!category.equalsIgnoreCase("")){
-                response.getWriter().write(json.toJson("{\"crime0\": \""+ category +"\"}"));
+                response.getWriter().write(json.toJson("{\"crime0\": \""+ category +"\", \"crime1\": \""+desc+"\"}"));
             }else{
                 response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
             }
