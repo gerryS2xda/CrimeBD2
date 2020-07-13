@@ -293,7 +293,8 @@ public class Model_Data {
     }
 
     public double Query_15(String street_name, String offense_code_group){
-        try ( Session session = driver.session() ) {
+        System.out.println("Steet: "+ street_name + " Offense: " + offense_code_group);
+            try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 double percentuale = -1; // se resta -1 singifica che non sono presenti distretto e/o offense_code_group
                 Result result = tx.run("match (c)-[:occurred_street]->(s:street) " +
@@ -306,6 +307,7 @@ public class Model_Data {
                 while (result.hasNext()) {
                     Record r = result.next();
                     percentuale = r.get(0).asDouble();
+                    System.out.println("Percentuale: "+ percentuale);
                 }
                 return percentuale;
             });
