@@ -39,6 +39,9 @@ $("#execute_query_btn").click(function(){
     $(".single_result_container").hide();
     $("#result_query1_container").hide();
 
+    //Mostra il caricamento
+    $("#loader_load_query").show();
+
     //Esegui codice dedicato sulla base del numero di query
     var querynum = $(".query_legend").text();
 
@@ -314,7 +317,7 @@ function sendRequestAndObtainResponseQuery(){
                 $(".container-table100").hide();
                 $(".noresult_p").show();
             }
-
+            $("#loader_load_query").hide();
         }
 
     });
@@ -394,7 +397,7 @@ function sendRequestAndResponseForQuery1(){
             }else{
                 $(".noresult_p").show();
             }
-
+            $("#loader_load_query").hide();
         }
 
     });
@@ -526,6 +529,7 @@ function sendRequestQuery11(){
             }else{
                 $(".noresult_p").show();
             }
+            $("#loader_load_query").hide();
         }
 
     });
@@ -578,7 +582,7 @@ function sendRequestQuery12(){
             }else{
                 $(".noresult_p").show();
             }
-
+            $("#loader_load_query").hide();
         }
     });
 }
@@ -623,6 +627,7 @@ function sendRequestQuery13(){
             }else{
                 $(".noresult_p").show();
             }
+            $("#loader_load_query").hide();
         }
     });
 }
@@ -672,6 +677,7 @@ function sendRequestQuery14(){
             }else{
                 $(".noresult_p").show();
             }
+            $("#loader_load_query").hide();
         }
     });
 }
