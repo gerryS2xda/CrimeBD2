@@ -340,8 +340,8 @@ public class CrimeServlet extends HttpServlet {
 
     //Other methods
     private double computePercentage(double value){
-        BigDecimal bd = new BigDecimal(Double.toString(value));
-        BigDecimal bd2 = bd.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal bd = new BigDecimal("" + value);
+        BigDecimal bd2 = bd.setScale(2, RoundingMode.FLOOR);
         return bd2.doubleValue() * 100;
     }
 
@@ -399,7 +399,6 @@ public class CrimeServlet extends HttpServlet {
         int j = 0;
         for(String cat : results.keySet()) {
             int d = (int) computePercentage(results.get(cat));
-            //System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + d);
             str+="\"crime"+ j +"\": {\"category\": \"" + cat + "\", \"percentage\": " + d + "},";
             j++;
         }
@@ -435,7 +434,6 @@ public class CrimeServlet extends HttpServlet {
         String str = "{";
         int j = 0;
         for(String cat : results.keySet()) {
-            System.out.println("Query 13: [OffenseCodeGroup: " + cat + "; frequency: " + results.get(cat));
             str+="\"crime"+ j +"\": {\"category\": \"" + cat + "\", \"frequency\": " + results.get(cat) + "},";
             j++;
         }
