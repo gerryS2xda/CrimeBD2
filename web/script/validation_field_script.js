@@ -5,16 +5,17 @@
 //Validate function
 function validateFasciaOraria(item){
 
-    var x = item.val(); //dammi il valore
+    item.removeClass("numberfield_err");
+    var x = parseInt(item.val()); //dammi il valore
     if(x == 0) x = 24; //il valore 0 indica le ore 24
     var y = item.attr("name"); //dammi il valore di attr. "name" per sapere che tipo di field
     var val = false;
     if(y === "fascia_oraria_min"){
-        var z = item.next();
-        if(x > z.val()){
+        var z = parseInt(item.next().val());
+        if(x > z){
             alert("Primo valore della fascia oraria deve essere minore del secondo!!");
             item.addClass("numberfield_err");
-        }else if(x == z.val()){
+        }else if(x == z){
             alert("I due valori devono essere diversi!!");
             item.addClass("numberfield_err");
             z.addClass("numberfield_err");
@@ -24,8 +25,8 @@ function validateFasciaOraria(item){
             val = true;
         }
     }else if(y === "fascia_oraria_max"){
-        var z = item.prev();
-        if(x < z.val()){
+        var z = parseInt(item.prev().val());
+        if(x < z){
             alert("Primo valore della fascia oraria deve essere minore del secondo");
             item.addClass("numberfield_err");
         }else{
