@@ -368,7 +368,11 @@ function sendRequestAndResponseForQuery1(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i);
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
         }
     }
 
@@ -520,7 +524,11 @@ function sendRequestQuery11(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
         }
     }
 
@@ -558,7 +566,11 @@ function sendRequestQuery12(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <inpuy>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
             $("#district_input_q12").text(e.val()); //salva il distretto inserito da utente, serve per la query 14
         }
     }
@@ -615,7 +627,11 @@ function sendRequestQuery13(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
         }
     }
 
@@ -660,7 +676,11 @@ function sendRequestQuery14(){
     for(var i=0; i < d.children().length; i++){  //per tutti i figli del <div> relativo alla query selezionata
         var e = d.children().eq(i); //elemento html che si sta esaminando
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
         }
         if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
             if (e.attr("name") === "fascia_oraria_min"){
