@@ -482,7 +482,7 @@ function sendRequestForInsert(){  //Query 9
     a.offenseCode = $("#off_code").val(); //int
     a.offenseCodeGroup = $("#off_code_group").val(); //string
     a.offenseDescription = $("#off_code_desc").val(); //string
-    a.district = $("#district_ins").val(); //string
+    a.district = $("#district_ins").val().toUpperCase(); //string
     a.reportingArea = $("#report_area_ins").val(); //string
     a.shooting = $("#shooting_ins").val(); //string  (1 = sì, 0 = no, "None" = non si sa)
     //occuredOnDate e' di tipo LocaltDateTime  (passo come input)
