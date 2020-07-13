@@ -290,9 +290,9 @@ public class CrimeServlet extends HttpServlet {
             //Mostra la percentuale di un dato crimine che si compie in un data strada
             InputParameter params = json.fromJson(request.getParameter("input"), InputParameter.class); //ottieni distretto
             if(!params.getTextfield().equalsIgnoreCase("")) {
-                String distretto = params.getTextfield();
+                String street = params.getTextfield();
                 String category = params.getSelect();
-                double d = model_data.Query_15(distretto, category);
+                double d = model_data.Query_15(street, category);
                 if(d == -1) d = 0;
                 System.out.println("Query 15: " + d);
 
