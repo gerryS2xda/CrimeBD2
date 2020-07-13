@@ -431,13 +431,29 @@ $("#insert_crime_btn").click(function(){
     if(formInserimentoValidation()){
         removeContentPopup();
         sendRequestForInsert();
-        document.insert_form.reset();
+        resetFormInsert();
     }
 });
 
 $("#annulla_crime_btn").click(function(){
     removeContentPopup();
+    resetFormInsert();
 });
+
+function resetFormInsert(){
+    document.insert_form.reset();
+    $("#inc_number").css("border", "1px solid #ccc");
+    $("#off_code").css("border", "1px solid #ccc");
+    $("#off_code_group").css("border", "1px solid #ccc");
+    $("#off_code_desc").css("border", "1px solid #ccc");
+    $("#district_ins").css("border", "1px solid #ccc");
+    $("#report_area_ins").css("border", "1px solid #ccc");
+    $("#datetime_ins").css("border", "1px solid #ccc");
+    $("#street_ins").css("border", "1px solid #ccc");
+    $("#latitude_ins").css("border", "1px solid #ccc");
+    $("#longitude_ins").css("border", "1px solid #ccc");
+    $('.crime_ins_txt_err').html("");
+}
 
 function removeContentPopup(){
     $("#content_popup").removeClass("popup_body");

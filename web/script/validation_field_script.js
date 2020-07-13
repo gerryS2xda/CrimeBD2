@@ -47,7 +47,7 @@ function styleForErrorTextInput(item){
 function validateIncidentNumber(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
-    var re = /^[A-Za-z]{1}[0-9]{6,9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
+    var re = /^[A-Za-z]{1}[0-9]{7,9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
@@ -157,7 +157,6 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var val = false;
-    alert("validateOffenseCodeGroup: " + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
@@ -165,8 +164,6 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
         styleForErrorTextInput(item);
         err.html("Valore troppo lungo!! (max " + maxlenght + " caratteri)");
     }else{
-        styleForErrorTextInput(item);
-        err.html("Valore inserito non valido!! Es. B2, C11");
         err.empty();
         val = true;
     }
