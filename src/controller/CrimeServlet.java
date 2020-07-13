@@ -59,7 +59,10 @@ public class CrimeServlet extends HttpServlet {
             if(!params.getTextfield().equalsIgnoreCase("")){
                 String incidentNumber = params.getTextfield();
 
+                System.out.println("Query1 Servlet prima: " + incidentNumber);
                 Crime c = model_data.query_1(incidentNumber);
+                System.out.println("Query1 Servlet dopo: " + c.getIncidentNumber());
+
                 if(!c.getIncidentNumber().equalsIgnoreCase("\"null\"")){
                     response.getWriter().write(json.toJson("{\"crime0\":" + c.toJSONString() + "}}"));
                 }else{

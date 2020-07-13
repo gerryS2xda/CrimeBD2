@@ -19,6 +19,7 @@ public class Model_Data {
     }
 
     public Crime query_1(String incident_number){
+        System.out.println("Query1: " + incident_number);
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 Crime crimine = new Crime();
@@ -31,7 +32,7 @@ public class Model_Data {
                 while (result.hasNext()) {
                     Record r = result.next();
                     crimine = Model_Data.buildCrime(r);
-
+                    System.out.println("Query1-res: " + crimine.getIncidentNumber());
                 }
                 return crimine;
             });
@@ -188,6 +189,7 @@ public class Model_Data {
 
     public void query_9(Crime crime){
         Model_Data md= new Model_Data();
+        System.out.println("query 9: "+ crime.getIncidentNumber());
         md.insertCrime(crime);
     }
 
