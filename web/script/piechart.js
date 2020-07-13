@@ -23,8 +23,8 @@ function loadpiechart(respdata) { //respdata (dati provenienti da servlet)
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
         animationEnabled: true,
-        width: 600,
-        height: 500,
+        width: 700,
+        height: 600,
         title: {
             text: " "
         },
@@ -35,8 +35,8 @@ function loadpiechart(respdata) { //respdata (dati provenienti da servlet)
         },
         data: [{
             type: "pie",
-            indexLabelFontSize: 12,
-            radius: 160,
+            indexLabelFontSize: 11,
+            radius: 140,
             showInLegend: true,
             toolTipContent: "{name}: <strong>{y}%</strong>",
             indexLabel: "{name} - {y}%",

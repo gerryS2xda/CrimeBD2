@@ -253,24 +253,24 @@ public class Model_Data {
         }
     }
 
-    public ArrayList<String> query_13(String street_name){
+    public HashMap<String,Double> query_13(String street_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
-                ArrayList<String> offense_code =  new ArrayList<String>();
+                HashMap<String,Double> percentuali=  new HashMap<String,Double>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
                         "(c)-[:occurred_district]->(d:district)," +
                         "(c)-[:occurred_street]->(s:street)," +
                         "(c)-[:UCR]->(u:UCR_part) " +
                         "where s.street_name=$street_name " +
-                        "return c,o,d,s,u", parameters("street_name",street_name));
+                        "return o.offense_code_group", parameters("street_name",street_name));
                 while(result.hasNext()){
                     Record r = result.next();
-                    Crime crime = Model_Data.buildCrime(r);
-                    offense_code.add(crime.getOffenseCodeGroup());
-                   // System.out.println(crime.getOffenseCodeGroup()+" "+ Query_15(street_name,crime.getOffenseCodeGroup()));
-                   // percentuali.put(crime.getOffenseCodeGroup(), Query_15(street_name,crime.getOffenseCodeGroup()));
+
+                    String offense_code_group = r.get(0).asString();
+                    //System.out.println(offense_code_group+" "+ Query_15(street_name,offense_code_group));
+                   percentuali.put(offense_code_group, Query_15(street_name,offense_code_group));
                 }
-                return offense_code;
+                return percentuali;
             });
         }
     }
@@ -294,10 +294,10 @@ public class Model_Data {
     }
 
     public double Query_15(String street_name, String offense_code_group){
-        System.out.println("Steet: "+ street_name + " Offense: " + offense_code_group);
             try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 double percentuale = -1; // se resta -1 singifica che non sono presenti distretto e/o offense_code_group
+
                 Result result = tx.run("match (c)-[:occurred_street]->(s:street) " +
                         "where  s.street_name= $street_name " +
                         "with count(c) as total " +
@@ -305,10 +305,11 @@ public class Model_Data {
                         "(c)-[:occurred_street]->(s:street) " +
                         "where s.street_name=$street_name and o.offense_code_group=$offense_code_group " +
                         "return (count(c)*1.0)/total", parameters("street_name", street_name,"offense_code_group", offense_code_group));
+
                 while (result.hasNext()) {
                     Record r = result.next();
                     percentuale = r.get(0).asDouble();
-                    System.out.println("Percentuale: "+ percentuale);
+                    //System.out.println("Percentuale: "+ percentuale);
                 }
                 return percentuale;
             });
@@ -474,6 +475,10 @@ public class Model_Data {
     public static void main(String[] args){
         Model_Data md= new Model_Data();
         md.query_offense_code_group();
+        md.close();
     }
 
+    public void close(){
+        driver.close();
+    }
 }

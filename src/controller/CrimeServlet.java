@@ -268,13 +268,7 @@ public class CrimeServlet extends HttpServlet {
             if(!params.getTextfield().equalsIgnoreCase("")) {
                 String street = params.getTextfield();
 
-                ArrayList<String> offense_code_groups = model_data.query_13(street);
-
-                HashMap<String,Double> percentuali = new HashMap<String,Double>();
-
-                for(String offense_code_group : offense_code_groups){
-                    percentuali.put(offense_code_group, model_data.Query_15(street,offense_code_group));
-                }
+                HashMap<String,Double> percentuali = model_data.query_13(street);
 
                 String jsonRes = buildJSONResultForQuery13(percentuali);
 
@@ -379,7 +373,7 @@ public class CrimeServlet extends HttpServlet {
         Map<String, Double> results = new HashMap<>();
         int i = 0;
         for(String cat: sorted.keySet()){
-            if(cat.equalsIgnoreCase("\"Other\"")) continue;
+            if(cat.equalsIgnoreCase("Other")) continue;
             if(i > MAX_PIECE_PIE_CHART_Q13-1){
                 break;
             }
@@ -392,8 +386,8 @@ public class CrimeServlet extends HttpServlet {
         int j = 0;
         for(String cat : results.keySet()) {
             int d = (int) computePercentage(results.get(cat));
-            System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + d);
-            str+="\"crime"+ j +"\": {\"category\": " + cat + ", \"percentage\": " + d + "},";
+            //System.out.println("Query 13_result: [OffenseCodeGroup: " + cat + "; percetage: " + d);
+            str+="\"crime"+ j +"\": {\"category\": \"" + cat + "\", \"percentage\": " + d + "},";
             j++;
         }
         str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
