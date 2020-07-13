@@ -268,7 +268,13 @@ public class CrimeServlet extends HttpServlet {
             if(!params.getTextfield().equalsIgnoreCase("")) {
                 String street = params.getTextfield();
 
-                HashMap<String, Double> percentuali = model_data.query_13(street);
+                ArrayList<String> offense_code_groups = model_data.query_13(street);
+
+                HashMap<String,Double> percentuali = new HashMap<String,Double>();
+
+                for(String offense_code_group : offense_code_groups){
+                    percentuali.put(offense_code_group, model_data.Query_15(street,offense_code_group));
+                }
 
                 String jsonRes = buildJSONResultForQuery13(percentuali);
 

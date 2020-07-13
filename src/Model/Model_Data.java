@@ -253,10 +253,10 @@ public class Model_Data {
         }
     }
 
-    public HashMap<String,Double> query_13(String street_name){
+    public ArrayList<String> query_13(String street_name){
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
-                HashMap<String,Double> percentuali =  new HashMap<String,Double>();
+                ArrayList<String> offense_code =  new ArrayList<String>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
                         "(c)-[:occurred_district]->(d:district)," +
                         "(c)-[:occurred_street]->(s:street)," +
@@ -266,10 +266,11 @@ public class Model_Data {
                 while(result.hasNext()){
                     Record r = result.next();
                     Crime crime = Model_Data.buildCrime(r);
-                    System.out.println(crime.getOffenseCodeGroup()+" "+ Query_15(street_name,crime.getOffenseCodeGroup()));
-                    percentuali.put(crime.getOffenseCodeGroup(), Query_15(street_name,crime.getOffenseCodeGroup()));
+                    offense_code.add(crime.getOffenseCodeGroup());
+                   // System.out.println(crime.getOffenseCodeGroup()+" "+ Query_15(street_name,crime.getOffenseCodeGroup()));
+                   // percentuali.put(crime.getOffenseCodeGroup(), Query_15(street_name,crime.getOffenseCodeGroup()));
                 }
-                return percentuali;
+                return offense_code;
             });
         }
     }
