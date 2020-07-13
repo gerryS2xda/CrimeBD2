@@ -271,7 +271,11 @@ function sendRequestAndObtainResponseQuery(){
             a.select =  e.children().val(); //dammi il valore della <select>
         }
         if(e.hasClass("inputfield")){ //se il figlio del <div> e' uno <input class"inputfield">...
-            a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            if(e.attr("name") === "distretto") {
+                a.textfield = e.val().toUpperCase(); //dammi il valore della <select>
+            }else{
+                a.textfield = e.val();
+            }
         }
         if(e.hasClass("numberfield")) { //se il figlio del <div> e' uno <input class"numberfield">...
             if (e.attr("name") === "fascia_oraria_min"){
