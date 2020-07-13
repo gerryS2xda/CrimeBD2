@@ -47,7 +47,7 @@ function styleForErrorTextInput(item){
 function validateIncidentNumber(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
-    var re = /^[A-Za-z]{1}[0-9]{7,9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
+    var re = /^[A-Za-z]{0,1}[0-9]{7,9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);

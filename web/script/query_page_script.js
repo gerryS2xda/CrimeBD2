@@ -76,6 +76,7 @@ $("#reset_btn").click(function(){
     $("#result_content_page").hide();
 
     resetResultPage();
+    $("#loader_load_query").hide();
 });
 
 function resetResultPage(){
@@ -111,6 +112,7 @@ $("#select_query").change(function(){
 
     //reset code
     $("#result_query1_container").hide();
+    $("#loader_load_query").hide();
 });
 
 function otherSettingsForQuery(querynum){
