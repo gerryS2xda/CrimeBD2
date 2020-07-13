@@ -348,6 +348,22 @@ public class Model_Data {
         }
     }
 
+    public String get_offense_description(int offense_code){
+        try ( Session session = driver.session() ) {
+            return session.readTransaction(tx -> {
+                String offense_description = ""; // vuota nel caso in cui non ci sia un offesne code corrispondente
+                Result result = tx.run("match (o:offense) " +
+                        "where o.offense_code = $offense_code " +
+                        "return o.offense_description", parameters("offense_code", offense_code));
+                while (result.hasNext()) {
+                    Record r = result.next();
+                    offense_description = r.get(0).asString();
+                }
+                return offense_description;
+            });
+        }
+    }
+
 
     public  void insertCrime(Crime crime) {
         try (Session session = driver.session()) {
