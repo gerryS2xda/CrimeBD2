@@ -34,13 +34,13 @@ function sendRequestForInitCategorySelect(){
 //Action button
 $("#execute_query_btn").click(function(){
 
+    //Mostra il caricamento
+    $("#loader_load_query").show();
+
     //Prima di proseguire, nascondi tutti gli elementi relativi alle query già formulate
     $(".noresult_p").hide();
     $(".single_result_container").hide();
     $("#result_query1_container").hide();
-
-    //Mostra il caricamento
-    $("#loader_load_query").show();
 
     //Esegui codice dedicato sulla base del numero di query
     var querynum = $(".query_legend").text();

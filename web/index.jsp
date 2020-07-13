@@ -92,8 +92,7 @@
         </div>
       </div>
       <div class="btn_container">
-        <a href="#" id="execute_query_btn" class="myButton">Esegui query</a>
-        <div id="loader_load_query" class="loader_w3c"></div>
+        <span><a href="#" id="execute_query_btn" class="myButton">Esegui query</a><span id="loader_load_query"> Caricamento in corso... </span></span>
         <a href="#" id="insert_query9_btn" class="myButton">Inserisci</a>
       </div>
     </div>
