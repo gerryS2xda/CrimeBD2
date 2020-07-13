@@ -34,9 +34,6 @@ function sendRequestForInitCategorySelect(){
 //Action button
 $("#execute_query_btn").click(function(){
 
-    //Mostra il caricamento
-    $("#loader_load_query").show();
-
     //Prima di proseguire, nascondi tutti gli elementi relativi alle query già formulate
     $(".noresult_p").hide();
     $(".single_result_container").hide();
@@ -49,6 +46,9 @@ $("#execute_query_btn").click(function(){
         return;
     }
 
+    //Mostra il caricamento
+    $("#loader_load_query").show();
+    
     if(querynum === "Query 1"){
         sendRequestAndResponseForQuery1();
     }else if(querynum == "Query 11"){
