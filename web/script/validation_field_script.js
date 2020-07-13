@@ -15,10 +15,12 @@ function validateFasciaOraria(item){
         if(x > z){
             alert("Primo valore della fascia oraria deve essere minore del secondo!!");
             item.addClass("numberfield_err");
+            $("#loader_load_query").hide();
         }else if(x == z){
             alert("I due valori devono essere diversi!!");
             item.addClass("numberfield_err");
             item.next().addClass("numberfield_err");
+            $("#loader_load_query").hide();
         }else{
             item.removeClass("numberfield_err");
             item.next().removeClass("numberfield_err");
@@ -29,6 +31,7 @@ function validateFasciaOraria(item){
         if(x < z){
             alert("Primo valore della fascia oraria deve essere minore del secondo");
             item.addClass("numberfield_err");
+            $("#loader_load_query").hide();
         }else{
             item.removeClass("numberfield_err");
             item.prev().removeClass("numberfield_err");
@@ -41,6 +44,7 @@ function validateFasciaOraria(item){
 
 function styleForErrorTextInput(item){
     item.css("border","1px solid red");
+    $("#loader_load_query").hide();
 }
 
 //Validation Insert Form
