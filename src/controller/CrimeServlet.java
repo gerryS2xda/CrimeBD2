@@ -256,10 +256,12 @@ public class CrimeServlet extends HttpServlet {
                 //Eseguo la query per ottenere una lista di oggetti "Tuple" che contiene il reato che si verifica maggiormente ad ogni ora
                 //e converti in stringa JSON
                 ArrayList<Tuple> tuples = model_data.query_12(distretto);
-
-                String result = createJSONResultForQuery12(tuples);
-
-                response.getWriter().write(json.toJson(result));
+                if(tuples.size() > 0){
+                    String result = createJSONResultForQuery12(tuples);
+                    response.getWriter().write(json.toJson(result));
+                }else{
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
             }
 
         }else if(action.equalsIgnoreCase("Query 13")){
@@ -269,10 +271,13 @@ public class CrimeServlet extends HttpServlet {
                 String street = params.getTextfield();
 
                 HashMap<String,Double> percentuali = model_data.query_13(street);
+                if(!percentuali.isEmpty()){
+                    String jsonRes = buildJSONResultForQuery13(percentuali);
 
-                String jsonRes = buildJSONResultForQuery13(percentuali);
-
-                response.getWriter().write(json.toJson(jsonRes));
+                    response.getWriter().write(json.toJson(jsonRes));
+                }else{
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
             }
         }else if(action.equalsIgnoreCase("Query 14")){
             //Mostra i crimini avvenuti in un dato distretto in una data ora
@@ -282,9 +287,12 @@ public class CrimeServlet extends HttpServlet {
                 int hour = params.getNumfieldmin();
 
                 ArrayList<Tuple_Count> tuple_counts = model_data.Query_14(distretto, hour);
-
-                String jsonResult = buildJSONResultForQuery14(tuple_counts);
-                response.getWriter().write(json.toJson(jsonResult));
+                if(tuple_counts.size() > 0){
+                    String jsonResult = buildJSONResultForQuery14(tuple_counts);
+                    response.getWriter().write(json.toJson(jsonResult));
+                }else{
+                    response.getWriter().write(json.toJson("{\"crime0\": \"noresult\"}"));
+                }
             }
         }else if(action.equalsIgnoreCase("Query 15")){
             //Mostra la percentuale di un dato crimine che si compie in un data strada
@@ -342,6 +350,7 @@ public class CrimeServlet extends HttpServlet {
         //Costruzione hashMap al fine di "accorpare" le ore con i risultati
         Map<String, String> map = new HashMap<>();
         for(Tuple t: tuples){
+            if(t == null) continue;
             if(!map.keySet().contains(t.getOffense_code_group())){ //se hashtable non contiene offensecodegroup, allora aggiungi
                 map.put(t.getOffense_code_group(), t.getHour() + ":00");
             }else{ //aggiungi le ore
@@ -350,15 +359,19 @@ public class CrimeServlet extends HttpServlet {
             }
         }
 
-        String jsonResult = "{";
-        int i = 0;
-        for(String cat : map.keySet()){
-            jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + cat +"\", " +
-                    "\"hour\": \"" + map.get(cat) + "\"},";
-            i++;
+        String jsonResult = "";
+        if(map.keySet().size() != 0){
+            jsonResult = "{";
+            int i = 0;
+            for(String cat : map.keySet()){
+                jsonResult += "\"crime" + i + "\": {\"offense_code_group\": \"" + cat +"\", " +
+                        "\"hour\": \"" + map.get(cat) + "\"},";
+                i++;
+            }
+            jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
+        }else{
+            jsonResult= "{\"crime0\": \"noresult\"}";
         }
-        jsonResult = jsonResult.substring(0, jsonResult.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi ']'
-
         return jsonResult;
     }
 

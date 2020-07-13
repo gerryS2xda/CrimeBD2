@@ -595,10 +595,18 @@ function sendRequestQuery13(){
 
     $.post("crime-contr", {"action": "Query 13", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success") {
-            loadpiechart(resp); //carica o costruisci il pie chart
-            $("#select_query_page").hide();
-            $(".pie_page_title").html($(".query_text_for_result").text());
-            $("#piechart_content_page").show();
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+
+            //Crea una tabella risultato con una sola riga (risultato query 12)
+            var flag = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            if(flag !== "noresult") {
+                loadpiechart(resp); //carica o costruisci il pie chart
+                $("#select_query_page").hide();
+                $(".pie_page_title").html($(".query_text_for_result").text());
+                $("#piechart_content_page").show();
+            }else{
+                $(".noresult_p").show();
+            }
         }
     });
 }
@@ -636,10 +644,18 @@ function sendRequestQuery14(){
 
     $.post("crime-contr", {"action": "Query 14", "input" : JSON.stringify(a)}, function(resp, statTxt, xhr){
         if(xhr.readyState == 4 && statTxt == "success") {
-            loadbarchart(resp); //carica o costruisci il pie chart
-            $("#select_query_page").hide();
-            $(".query14_page_title").html($(".query_text_for_result").text());
-            $("#query14_content_page").show();
+            var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+
+            //Crea una tabella risultato con una sola riga (risultato query 12)
+            var flag = o["crime0"]; //prendi l'oggetto JS associato alla proprieta' 'crime' dell'oggetto JS appena convertito
+            if(flag !== "noresult") {
+                loadbarchart(resp); //carica o costruisci il pie chart
+                $("#select_query_page").hide();
+                $(".query14_page_title").html($(".query_text_for_result").text());
+                $("#query14_content_page").show();
+            }else{
+                $(".noresult_p").show();
+            }
         }
     });
 }

@@ -18,10 +18,10 @@ function validateFasciaOraria(item){
         }else if(x == z){
             alert("I due valori devono essere diversi!!");
             item.addClass("numberfield_err");
-            z.addClass("numberfield_err");
+            item.next().addClass("numberfield_err");
         }else{
             item.removeClass("numberfield_err");
-            z.removeClass("numberfield_err");
+            item.next().removeClass("numberfield_err");
             val = true;
         }
     }else if(y === "fascia_oraria_max"){
@@ -31,7 +31,7 @@ function validateFasciaOraria(item){
             item.addClass("numberfield_err");
         }else{
             item.removeClass("numberfield_err");
-            z.removeClass("numberfield_err");
+            item.prev().removeClass("numberfield_err");
             val = true;
         }
     }
@@ -47,7 +47,7 @@ function styleForErrorTextInput(item){
 function validateIncidentNumber(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
-    var re = /^[A-Za-z]{1}[0-9]{9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
+    var re = /^[A-Za-z]{1}[0-9]{6,9}$/; //Ci deve essere al più una lettera e al massimo 9 interi
     var val = false;
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
@@ -103,6 +103,7 @@ function setOffenseCodeGroup(offcode){
                 $("#off_code_group").val("");
                 $("#off_code_group").prop('disabled', false);
             }
+            $('.crime_ins_txt_err').eq(2).html("");
             $("#off_code_group").css("border", "1px solid #ccc");
         }
     });
@@ -156,7 +157,7 @@ function validateOffenseCodeGroup(item, maxlenght, err) {
     item.css("border", "1px solid #ccc"); //reset in caso di errore
     var x = item.val();
     var val = false;
-    alert("validateOffenseCodeGroup:" + x);
+    alert("validateOffenseCodeGroup: " + x);
     if(x === "") { //errore campo vuoto
         styleForErrorTextInput(item);
         err.html("Campo obbligatorio");
@@ -325,6 +326,7 @@ function validationSingleQuery(querynum){
     var val = false;
     switch (querynum) {
         case "Query 1": if(validateIncidentNumber($("#incident_q1"), 10, $("#inc_q1_err"))) val=true; break;
+        case "Query 2": val=true; break; //NO input
         case "Query 3": if((validateDistrict($("#district_q3"), 3, $("#distr_q3_err"))) &&
             (!$("#fascia_min_q3").hasClass("numberfield_err") || !$("#fascia_max_q3").hasClass("numberfield_err"))) val=true; break; //sistemare fascia oraria
         case "Query 4": if(validateStreet($("#street_q4"), 50, $("#street_q4_err"))) val=true; break;
