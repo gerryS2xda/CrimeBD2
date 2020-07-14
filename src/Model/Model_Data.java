@@ -19,20 +19,18 @@ public class Model_Data {
     }
 
     public Crime query_1(String incident_number){
-        System.out.println("Query1: " + incident_number);
         try ( Session session = driver.session() ) {
             return session.readTransaction(tx -> {
                 Crime crimine = new Crime();
                 Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)," +
-                        "(c:crime)-[:occurred_street]->(s:street)," +
-                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
                         "where c.incident_number=$incident_number " +
                         "return c,o,d,s,u", parameters("incident_number", incident_number));
                 while (result.hasNext()) {
                     Record r = result.next();
                     crimine = Model_Data.buildCrime(r);
-                    System.out.println("Query1-res: " + crimine.getIncidentNumber());
                 }
                 return crimine;
             });
@@ -46,9 +44,9 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
                Result result  = tx.run("match (c:crime)-[:type]->(o:offense),\n" +
-                       "(c:crime)-[:occurred_district]->(d:district),\n" +
-                       "(c:crime)-[:occurred_street]->(s:street),\n" +
-                       "(c:crime)-[:UCR]->(u:UCR_part)\n" +
+                       "(c)-[:occurred_district]->(d:district),\n" +
+                       "(c)-[:occurred_street]->(s:street),\n" +
+                       "(c)-[:UCR]->(u:UCR_part)\n" +
                        "where duration.between(date(c.occurred_on_date),date())<=duration(\"P1D\")\n" +
                        "return c,o,d,s,u");
                while(result.hasNext()){
@@ -68,9 +66,9 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)," +
-                        "(c:crime)-[:occurred_street]->(s:street)," +
-                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
                         "where c.shooting='1' AND " +
                         "duration.inMonths(date(c.occurred_on_date),date())<=duration(\"P0M\") AND " +
                         "d.district_name= $district_name AND " +
@@ -132,7 +130,7 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 String day_of_week= "";
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)" +
+                        "(c)-[:occurred_district]->(d:district)" +
                         "where d.district_name = $district_name  AND o.offense_code_group = $offense_code_group " +
                         "return c.day_of_week as day_of_week , count(*) as times " +
                         "order by times DESC " +
@@ -152,9 +150,9 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)," +
-                        "(c:crime)-[:occurred_street]->(s:street)," +
-                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
                         "where d.district_name= $district_name AND c.hour>=$oraInizio AND c.hour<=$oraFine " +
                         "return c,o,d,s,u", parameters("district_name",district_name,"oraInizio",oraInizio
                         ,"oraFine",oraFine));
@@ -173,7 +171,7 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 int hour = -1; //se resta -1 significa che non c'e la strada
                 Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)" +
+                        "(c)-[:occurred_district]->(d:district)" +
                         "where o.offense_code_group= $offense_code_group " +
                         "return c.hour as hour, count(*) as times " +
                         "order by times DESC " +
@@ -189,7 +187,6 @@ public class Model_Data {
 
     public void query_9(Crime crime){
         Model_Data md= new Model_Data();
-        System.out.println("query 9: "+ crime.getIncidentNumber());
         md.insertCrime(crime);
     }
 
@@ -199,9 +196,9 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 ArrayList<Crime> crimini = new ArrayList<Crime>();
                 Result result  = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district)," +
-                        "(c:crime)-[:occurred_street]->(s:street)," +
-                        "(c:crime)-[:UCR]->(u:UCR_part) " +
+                        "(c)-[:occurred_district]->(d:district)," +
+                        "(c)-[:occurred_street]->(s:street)," +
+                        "(c)-[:UCR]->(u:UCR_part) " +
                         "where d.district_name=$district_name  AND u.ucr_part=$ucr_part " +
                         "return c,o,d,s,u", parameters("district_name",district_name,"ucr_part",ucr_part));
                 while(result.hasNext()){
@@ -241,7 +238,7 @@ public class Model_Data {
             return session.readTransaction(tx -> {
                 Tuple tuple= null;
                 Result result = tx.run("match (c:crime)-[:type]->(o:offense)," +
-                        "(c:crime)-[:occurred_district]->(d:district) " +
+                        "(c)-[:occurred_district]->(d:district) " +
                         "where d.district_name =$district_name AND c.hour =$hour " +
                         "return o.offense_code_group, count(*) as times " +
                         "order by times DESC " +
@@ -267,9 +264,7 @@ public class Model_Data {
                         "return o.offense_code_group", parameters("street_name",street_name));
                 while(result.hasNext()){
                     Record r = result.next();
-
                     String offense_code_group = r.get(0).asString();
-                    //System.out.println(offense_code_group+" "+ Query_15(street_name,offense_code_group));
                    percentuali.put(offense_code_group, Query_15(street_name,offense_code_group));
                 }
                 return percentuali;
@@ -311,7 +306,6 @@ public class Model_Data {
                 while (result.hasNext()) {
                     Record r = result.next();
                     percentuale = r.get(0).asDouble();
-                    //System.out.println("Percentuale: "+ percentuale);
                 }
                 return percentuale;
             });
